@@ -140,7 +140,7 @@ for arg in reversed(sys.argv[1:]):
 ```
 
 
-커널은 스크립트 상단에 [shebang](https://en.wikipedia.org/wiki/Shebang_ (Unix)) 줄을 포함했기 때문에 이 스크립트를 쉘 명령 대신 파이썬 인터프리터로 실행하는 것을 알고 있습니다. [env](https://www.man7.org/linux/man-pages/man1/env.1.html) 명령을 사용하여 명령이 시스템 어디에 있든 확인하는 것을 shebang 줄을 작성하여 연습하는 것이 좋습니다. 이것이 스크립트의 이식성을 증가시킵니다. 위치를 확인하기 위해`env`는 첫 번째 강의에서 소개한 `PATH` 환경 변수를 사용합니다. 이 예에서 shebang 줄은 `#!/usr/bin/env python`과 같습니다.
+커널은 스크립트 상단에 [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) 줄을 포함했기 때문에 이 스크립트를 쉘 명령 대신 파이썬 인터프리터로 실행하는 것을 알고 있습니다. [env](https://www.man7.org/linux/man-pages/man1/env.1.html) 명령을 사용하여 명령이 시스템 어디에 있든 확인하는 것을 shebang 줄을 작성하여 연습하는 것이 좋습니다. 이것이 스크립트의 이식성을 증가시킵니다. 위치를 확인하기 위해`env`는 첫 번째 강의에서 소개한 `PATH` 환경 변수를 사용합니다. 이 예에서 shebang 줄은 `#!/usr/bin/env python`과 같습니다.
 
 기억해야 할 셸 함수와 스크립트 간의 몇 가지 차이점은 다음과 같습니다.
 - 함수는 쉘과 동일한 언어로 작성되어야 하며 스크립트는 모든 언어로 작성될 수 있습니다. 이것이 스크립트에 shebang을 포함하는 것이 중요한 이유입니다.

@@ -1,6 +1,7 @@
 # Setup
-title: 'the missing semester of your cs education'
-url: https://missing-semester-kr.github.io/
+title: 'Missing Semester'
+url: https://missing-semester-kr.github.io
+thumbnail: "/static/assets/thumbnails/default.png"
 
 # Settings
 markdown: kramdown
@@ -13,17 +14,24 @@ future: true
 # safe: true # breaks local rendering if enabled
 timezone: America/New_York
 analytics:
-  tracking_id: UA-53167467-11
+  tracking_id: G-P7WVHD84D1
 
 collections:
   '2019':
     output: true
   '2020':
     output: true
+  '2026':
+    output: true
 
 # Excludes
 exclude:
-  - README.md
+  - AGENTS.md
+  - CNAME
+  - Dockerfile
   - Gemfile
   - Gemfile.lock
+  - README.md
+  - browser.sh
+  - docker-compose.yml
   - vendor

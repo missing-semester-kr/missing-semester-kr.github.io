@@ -216,7 +216,7 @@ security concepts, tips
    `cat` 또는 `hexdump`를 사용 해 내용을 보십시오. `openssl aes-256-cbc -d -in {input filename} -out {output filename}`를 사용하여 파일을 해독하고 `cmp`를 사용하여 해당 파일이 원본 파일과 동일한지 비교하세요.
    
 1. **비대칭키 암호**
-    1. [SSH keys](https://www.digitalocean.com/community/tutorials how-to-set-up-ssh-keys--2)를 접근해야 하는 컴퓨터에 설정합니다(Kerberos가 SSH keys와 이상하게 동작하기 때문에, Athena가 아닌 것으로 합니다).
+    1. [SSH keys](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2)를 접근해야 하는 컴퓨터에 설정합니다(Kerberos가 SSH keys와 이상하게 동작하기 때문에, Athena가 아닌 것으로 합니다).
        연결된 튜토리얼처럼 RSA키를 사용하는 것이 아닌 더 안전한 [ED25519키](https://wiki.archlinux.org/index.php/SSH_keys#Ed25519)를 사용합니다.
        개인 키가 비밀번호로 암호화 되었는지 확인하여 저장시 보호되도록 합니다.
     1. [GPG설정](https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages)

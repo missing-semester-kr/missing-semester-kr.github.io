@@ -181,6 +181,8 @@ vim에서는 [`ale`](https://vimawesome.com/plugin/ale) 이나 [`syntastic`](htt
 
 코드가 작동 도중에 CPU나 메모리를 과도하게 잡아먹는다면, 그저 원하는대로 움직인다는 사실만으로 만족하기는 이릅니다. 알고리즘 수업에서 빅-O 표기법에 대해서 배우기는 하지만 여러분의 프로그램에서 주요 지점을 찾아내는 방법은 가르치지 않습니다. [섣부른 최적화(premature optimization)는 만악의 근원](https://wiki.c2.com/?PrematureOptimization)이기 때문에, 여러분은 프로파일러와 모니터링 도구에 대해서 배워야 합니다. 이런 도구들은 여러분이 시간과 자원을 많이 소비하는 부분을 찾아내고 그 부분을 최적화하는 데에 도움을 줄 것입니다.
 
+<span id="timing"></span>
+
 ## 시간
 
 디버깅과 유사하게 두 점 사이에 있는 코드의 실행 시간을 출력해보는 것만으로도 충분한 도움이 됩니다. 아래는 파이썬에서 [`time`](https://docs.python.org/3/library/time.html) 모듈을 사용한 예시입니다.
