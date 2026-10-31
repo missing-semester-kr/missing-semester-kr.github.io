@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Editors (Vim)"
+description: >
+  효율적인 코드 편집을 위해 설계된 강력한 텍스트 에디터 Vim의 사용법을 배웁니다.
 thumbnail: /static/assets/thumbnails/2020/lec3.png
 date: 2020-01-15
 ready: true
@@ -55,7 +57,7 @@ Vim은 기본 설정으로 왼쪽 하단에 현재 모드를 표시합니다. �
 
 어떠한 모드에서 일반 모드로 전환하기 위해선 `<ESC>`(이스케이프 키)를 누르면 됩니다. 반대로 일반 모드에서 입력 모드로 들어가기 위해선 `i`키를 누르면 되고, 변경(Replace) 모드로 들어가기 위해선 `R`키를, 비주얼 모드는 `v`키, 비주얼 라인 모드는 `V`키, 비주얼 블럭 모드는 `<C-v>`(Ctrl-V 또는 `^V`)를, 그리고 명령어(Command-line) 모드는 `:`키를 누르면 해당 모드로 들어가게 됩니다.
 
-여러분은 Vim을 사용하면서 `<ESC>`를 많이 사용하게 될 것입니다. 그렇기에 이스케이프 키를 캡스 락(Caps Lock)으로 변경하는 방안을 고려해보는 것도 좋습니다. ([macOS instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)).
+여러분은 Vim을 사용하면서 `<ESC>`를 많이 사용하게 될 것입니다. 그렇기에 이스케이프 키를 캡스 락(Caps Lock)으로 변경하는 방안을 고려해보는 것도 좋습니다. ([macOS instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)). 또는 [간단한 키 조합을 `<ESC>`에 매핑](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings)할 수도 있습니다.
 
 # 기초
 
@@ -107,9 +109,9 @@ Vim에서 가장 중요한 아이디어는 Vim의 인터페이스 자체가 프�
 
 비주얼 모드들:
 
-- 비주얼
-- 비주얼 라인
-- 비주얼 블럭
+- 비주얼: `v`
+- 비주얼 라인: `V`
+- 비주얼 블럭: `Ctrl-v`
 
 동작 키들을 사용하여 선택 범위를 지정할 수 있습니다.
 
@@ -126,7 +128,7 @@ Vim에서 가장 중요한 아이디어는 Vim의 인터페이스 자체가 프�
     - 예를 들어, `cw`는 단어를 변경
     - `d{motion}` + `i`와 같은 기능
 - `x` 해당 문자 삭제 (`dl`과 동일한 기능)
-- `s` 해당 문자 치환 (`xi`과 동일한 기능)
+- `s` 해당 문자 치환 (`cl`과 동일한 기능)
 - 비주얼 모드 + 조작(manipulation)
     - 텍스트를 선택한 후, `d`로 삭제하거나 `c`로 변경
 - `u` 해당 작업 되돌리기, `<C-r>` 해당 작업 다시 하기
@@ -252,13 +254,13 @@ set editing-mode vi
 
 ## 그 밖의 것들
 
-웹 [브라우저](https://vim.fandom.com/wiki/Vim_key_bindings_for_web_browsers)를 위한 Vim 키바인딩 익스텐션도 있습니다. [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en)은 유명한 크롬 전용 익스텐션이고 [Tridactyl](https://github.com/tridactyl/tridactyl)은 파이어폭스 전용 익스텐션입니다. 여러분은 [Jupyter notebooks](https://github.com/lambdalisue/jupyter-vim-binding)의 Vim 바인딩을 확인할 수도 있습니다.
+웹 [브라우저](https://vim.fandom.com/wiki/Vim_key_bindings_for_web_browsers)를 위한 Vim 키바인딩 익스텐션도 있습니다. [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en)은 유명한 크롬 전용 익스텐션이고 [Tridactyl](https://github.com/tridactyl/tridactyl)은 파이어폭스 전용 익스텐션입니다. 여러분은 [Jupyter notebooks](https://github.com/jupyterlab-contrib/jupyterlab-vim)의 Vim 바인딩을 확인할 수도 있습니다. Vim과 비슷한 키바인딩을 제공하는 소프트웨어는 [이 긴 목록](https://reversed.top/2016-08-13/big-list-of-vim-like-software)에서도 찾아볼 수 있습니다.
 
 # Vim 심화
 
 다음은 Vim 에디터의 강력한 힘을 보여주는 몇 가지 예입니다. 저희가 이런 것들을 모두 알려드릴 수는 없지만, 앞으로 여러분이 꾸준히 학습해나가게 된다면 충분히 배울 수 있는 내용이라고 생각합니다. 이를 위한 한 가지 좋은 휴리스틱이 있습니다. 여러분이 에디터를 사용할 때, "더 나은 방법이 있을 거야"라고 생각할 때마다, 아마도 온라인에는 여러분이 찾고자 하는 방법이 있을 것입니다.
 
-## 검색과 변환
+## 검색과 치환
 
 `:s` (substitute, 대치) 명령어 ([documentation](https://vim.fandom.com/wiki/Search_and_replace)).
 

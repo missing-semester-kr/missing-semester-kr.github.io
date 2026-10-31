@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "기타 흥미로운 주제들"
+description: >
+  키보드 재매핑, 데몬, 백업, API 등 다양한 유용한 주제를 배웁니다.
 thumbnail: /static/assets/thumbnails/2020/lec10.png
 date: 2020-01-29
 ready: true
@@ -167,7 +169,7 @@ VPN이 유행이긴 하지만 그것이 [정당한 이유](https://web.archive.o
 
 - 단축키로 화면을 특정 위치로 이동
 - 특정 레이아웃에서 창을 자동으로 배치하는 메뉴 모음 버튼 생성
-- (WiFi 네트워크를 감지해) 실험실에 도착하면 스피커 음소거
+- (Wi-Fi 네트워크를 감지해) 실험실에 도착하면 스피커 음소거
 - 실수로 친구의 전원 공급 장치를 가져갔을 때 경고창 팝업
 
 해머스푼을 사용하면 메뉴 버튼, 키보드 입력, 이벤트와 연결된 Lua 코드를 실행할 수 있으며 시스템과 상호작용할 수 있는 광범위한 라이브러리를 제공하기 때문에 기본적으로 할 수 있는 작업에 제한이 없습니다.
@@ -199,7 +201,7 @@ VPN이 유행이긴 하지만 그것이 [정당한 이유](https://web.archive.o
 - CPU, 디스크, 램 및 GPU가 장착된 컴퓨터
 - 물리적으로 접속할 수 있는 것보다 더 많은 컴퓨터(비용은 초 단위로 계산되므로 짧은 시간 동안 많은 컴퓨터가 필요하다면 몇 분 동안 1,000대의 컴퓨터를 대여할 수 있습니다.)
 
-[아마존 AWS](https://aws.amazon.com/), [구글 클라우드](https://cloud.google.com/) 그리고 [디지털 오션](https://www.digitalocean.com/) 같은 서비스가 유명합니다.
+[아마존 AWS](https://aws.amazon.com/), [구글 클라우드](https://cloud.google.com/), [Microsoft Azure](https://azure.microsoft.com/) 그리고 [디지털 오션](https://www.digitalocean.com/) 같은 서비스가 유명합니다.
 
 MIT CSAIL의 멤버라면 [CSAIL 오픈스택 인스턴스](https://tig.csail.mit.edu/shared-computing/open-stack/)로 연구 목적을 위한 무료 가상 환경을 이용할 수 있습니다.
 

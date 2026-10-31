@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Command-line Environment"
+description: >
+  작업 제어, 터미널 멀티플렉서, dotfiles와 SSH를 통한 원격 컴퓨터 사용법을 배웁니다.
 thumbnail: /static/assets/thumbnails/2020/lec5.png
 date: 2020-01-21
 ready: true
@@ -138,7 +140,7 @@ $ jobs
 특수신호는 프로세스를 캡처할 수 없고 항상 즉시 종료되기 때문에 `SIGKILL`입니다. 
 하지만 고아가 된 하위 프로세스를 방치하는 등의 부작용을 낳을 수 있습니다.
 
-이것과 다른 신호에 대해 자세히 알아보려면 [`여기`](https://en.wikipedia.org/wiki/Signal_(IPC)) 또는 [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html)을 입력 또는 `kill -t`를 입력하세요.
+이것과 다른 신호에 대해 자세히 알아보려면 [`여기`](https://en.wikipedia.org/wiki/Signal_(IPC)) 또는 [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html)을 입력 또는 `kill -l`을 입력하세요.
 
 
 # 터미널 멀티플렉서
@@ -260,7 +262,7 @@ dotfiles를 어떻게 체계적으로 구성할 수 있을까요? 버전 관리 
 - **변경 내용 추적**: 여러분은 아마 프로그래머로서 일을 할 동안 dotfiles을 유지 관리할 것이고, 버전 기록은 오래 지속되는 프로젝트에 유용할 것입니다.
 
 dotfiles에 무엇을 넣어야할까요?
-온라인상의 자료 또는 [`매뉴얼 페이지`](https://en.wikipedia.org/wiki/Man_page)를 읽으며 여러 가지 도구에 대한 설정울 배울 수 있습니다. 또 다른 좋은 방법은 인터넷에서 특정 프로그램에 대한 블로그 게시물을 검색하는 것입니다. 여기에서 블로거는 그들이 선호하는 customizations(사용자 정의)에 대해 이야기할 것입니다. customizations(사용자 정의)에 대해 배우는 또 다른 방법은 다른 사람들의 dotfile을 살펴 보는 것 입니다. Github에서 수많은 [`dotfiles 저장소`](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)를 찾을 수 있습니다. 가장 인기있는 저장소는 [`여기`](https://github.com/mathiasbynens/dotfiles)입니다.(하지만 configurations을 무턱대고 복사하는 것은 올바른 방법이 아님을 알려드립니다.) [`이것`](https://dotfiles.github.io/)은 이 주제에 대한 또 다른 좋은 자료입니다.
+온라인상의 자료 또는 [`매뉴얼 페이지`](https://en.wikipedia.org/wiki/Man_page)를 읽으며 여러 가지 도구에 대한 설정울 배울 수 있습니다. 또 다른 좋은 방법은 인터넷에서 특정 프로그램에 대한 블로그 게시물을 검색하는 것입니다. 여기에서 블로거는 그들이 선호하는 customizations(사용자 정의)에 대해 이야기할 것입니다. customizations(사용자 정의)에 대해 배우는 또 다른 방법은 다른 사람들의 dotfile을 살펴 보는 것 입니다. GitHub에서 수많은 [`dotfiles 저장소`](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)를 찾을 수 있습니다. 가장 인기있는 저장소는 [`여기`](https://github.com/mathiasbynens/dotfiles)입니다.(하지만 configurations을 무턱대고 복사하는 것은 올바른 방법이 아님을 알려드립니다.) [`이것`](https://dotfiles.github.io/)은 이 주제에 대한 또 다른 좋은 자료입니다.
 
 모든 강사들은 GitHub에서 공적으로 액세스할 수 있는 dotfiles을 가지고 있습니다 : [Anish](https://github.com/anishathalye/dotfiles), [Jon](https://github.com/jonhoo/configs), [Jose](https://github.com/jjgo/dotfiles).
 
@@ -331,7 +333,7 @@ ssh foo@bar.mit.edu
 
 쌍을 생성하려면 [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html)을 실행합니다.
 ```bash
-ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519
+ssh-keygen -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```
 인증된 서버에 액세스할 수 있는 여러분의 개인 키(private key)를 보유한 사람을 피하려면 암호(passphrase)선택해야합니다. [`ssh-agent`](https://www.man7.org/linux/man-pages/man1/ssh-agent.1.html) 또는 [`gpg-agent`](https://linux.die.net/man/1/gpg-agent)를 사용하면 매번 암호를 입력할 필요없습니다.
 
@@ -349,7 +351,7 @@ cat .ssh/id_ed25519.pub | ssh foobar@remote 'cat >> ~/.ssh/authorized_keys'
 `ssh-copy-id`를 사용하여 더 간단하게 사용할 수 있습니다.
 
 ```bash
-ssh-copy-id -i .ssh/id_ed25519.pub foobar@remote
+ssh-copy-id -i .ssh/id_ed25519 foobar@remote
 ```
 
 ## SSH를 통해 파일 복사(Copying files over SSH)
@@ -374,14 +376,14 @@ ssh를 통해 파일을 복사하는 방법에는 여러 가지가 있습니다.
 ![Remote Port Forwarding](/static/media/images/remote-port-forwarding.png "Remote Port Forwarding")
 
 가장 일반적인 시나리오는 로컬 포트 포워딩(local port forwarding)으로, 원격 장치의 서비스가 포트에서 수신 대기하고 로컬 장치의 포트를 원격 포트로 연결하는 경우입니다.
-예를 들어 '8888' 포트를 수신하는 원격 서버에서 주피터 노트북을 실행하면, 이를 로컬 포트 `9999`로 전달하기 위해 `ssh -L 9999:localhost:8888 foobar@remote_server`를 수행한 다음 로컬 장치에서 `locahost : 9999`로 이동합니다.
+예를 들어 '8888' 포트를 수신하는 원격 서버에서 주피터 노트북을 실행하면, 이를 로컬 포트 `9999`로 전달하기 위해 `ssh -L 9999:localhost:8888 foobar@remote_server`를 수행한 다음 로컬 장치에서 `localhost:9999`로 이동합니다.
 
 
 ## SSH 구성(SSH Configuration)
 
 우리는 전달할 수 있는 많은 논쟁을 다루었습니다. 가장 매력적은 대안은 다음과 같이 쉘 별칭을 만드는 것입니다.
 ```bash
-alias my_server="ssh -i ~/.id_ed25519 --port 2222 -L 9999:localhost:8888 foobar@remote_server
+alias my_server="ssh -i ~/.ssh/id_ed25519 --port 2222 -L 9999:localhost:8888 foobar@remote_server"
 ```
 
 그러나 `~/.ssh/config`를 사용하면 더 좋은 대안을 만들 수 있습니다. 
@@ -486,17 +488,18 @@ Host *.mit.edu
 
 이번 실습을 위해서 리눅스 가상 머신을 설치 (혹은 기존의 것을 사용) 하세요. 만약 여러분이 가상머신 사용에 익숙하지 않다면,  [여기](https://hibbard.eu/install-ubuntu-virtual-box/) 튜토리얼을 참고해 설치해 보세요.
 
-1. `~/.ssh/`로 이동한 다음 그곳에 SSH 키페어가 있는지 확인합니다. 만일 키페어가 없다면, `ssh-keygen -o -a 100 -t ed25519`를 통해 생성하세요. 비밀번호와 `ssh-agent`를 사용하는 것이 권장됩니다. 더 많은 정보는 [여기](https://www.ssh.com/ssh/agent)서 확인하세요. 
+1. `~/.ssh/`로 이동한 다음 그곳에 SSH 키페어가 있는지 확인합니다. 만일 키페어가 없다면, `ssh-keygen -a 100 -t ed25519`를 통해 생성하세요. 비밀번호와 `ssh-agent`를 사용하는 것이 권장됩니다. 더 많은 정보는 [여기](https://www.ssh.com/ssh/agent)서 확인하세요. 
 
 2. `.ssh/config`를 수정해 다음과 같은 사항을 추가해 줍니다.
 
-```bash
-Host vm
-    User username_goes_here
-    HostName ip_goes_here
-    IdentityFile ~/.ssh/id_ed25519
-    LocalForward 9999 localhost:8888
-```
+   ```bash
+   Host vm
+       User username_goes_here
+       HostName ip_goes_here
+       IdentityFile ~/.ssh/id_ed25519
+       LocalForward 9999 localhost:8888
+   ```
+
 1. `ssh-copy-id vm`를 통해 ssh 키를 서버에 복사하세요.
 2. `python -m http.server 8888`를 실행해 여러분의 가상 머신에서 웹서버를 시작합니다. 여러분의 머신에서 `http://localhost:9999`를 통해 해당 서버에 접근할 수 있습니다.
 3. `sudo vim /etc/ssh/sshd_config`를 사용해 SSH 서버의 구성을 수정하세요. 그리고 `PasswordAuthentication`의 값을 변경해 비밀번호 인증을 해제합니다. `PermitRootLogin`의 값을 변경해 루트 로그인 기능을 해제합니다. `sudo service sshd restart` 명령어로 `ssh`를 재시작 합니다. ssh 접속을 다시 시도해 보세요. 

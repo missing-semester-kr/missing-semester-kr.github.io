@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Metaprogramming"
+description: >
+  빌드 시스템, 의존성 관리, 테스트와 지속적 통합을 배웁니다.
 details: build systems, dependency management, testing, CI
 thumbnail: /static/assets/thumbnails/2020/lec8.png
 date: 2020-01-27
@@ -72,7 +74,7 @@ make: *** No rule to make target 'plot-data.png', needed by 'paper.pdf'.  Stop.
 ```
 
 흠, 흥미롭네요, `plot-data.png`를 만드는 규칙은 *존재*합니다. 하지만 그 규칙은 패턴 규칙(pattern rule)입니다.(구체적으로 어떻게 타겟 파일을 만들어내야 하는지 명시되어 있지 않음)  
-소스 파일([foo](https://ko.wikipedia.org/wiki/%ED%91%B8%EB%B0%94).dat)이 존재하지 않기 때문에, `make`는 단지 파일을 만들 수 없다고만 이야기하고 있습니다.  
+소스 파일(`data.dat`)이 존재하지 않기 때문에, `make`는 단지 파일을 만들 수 없다고만 이야기하고 있습니다.  
 한 번 모든 파일을 다 만들어 보죠:
 
 ```console
@@ -143,7 +145,7 @@ pdflatex paper.tex
 
 -   우분투 시스템 패키지(Ubuntu system packages)를 위한 [우분투 패키지 레포지토리(the Ubuntu package repository)](https://packages.ubuntu.com) - `apt` [툴(tool)](http://taewan.kim/tip/apt-apt-get/)을 통해 접근할 수 있음
 -   프로그래밍 언어 루비(Ruby) 라이브러리들을 위한 [루비젬(RubyGem)](https://rubygems.org)
--   파이썬(Python) 라이브러리들을 위한 [파이파이(Pypi)](https://pypi.org)
+-   파이썬(Python) 라이브러리들을 위한 [파이파이(PyPI)](https://pypi.org)
 -   [아치 리눅스](https://www.archlinux.org) 사용자-기여 패키지들을(Arch Linux user-contributed packges) 위한 [아치 사용자 레포지토리(Arch User Repository)](https://aur.archlinux.org)
 
 이러한 레포지토리들과 상호작용하는 정확한 방법은 레포지토리마다 다르고 툴마다 다르기 때문에, 우리는 이 강의에서 특정 레포지토리의 너무 세부적인 사항까지는 들어가지 않을 것입니다. 우리가 _다룰_ 것은 레포지토리들이 모두 사용하는 몇몇 공통적인 용어입니다.  

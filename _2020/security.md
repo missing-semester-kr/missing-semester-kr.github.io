@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Security and Cryptography"
+description: >
+  Hash 함수와 키 유도 함수 같은 암호학 기본 요소와 Git, SSH가 이를 활용하는 방법을 배웁니다.
 thumbnail: /static/assets/thumbnails/2020/lec9.png
 date: 2020-01-28
 ready: true
@@ -153,8 +155,8 @@ Keybase에는 [사회적 증명](https://keybase.io/blog/chat-apps-softer-than-t
 
 ## Password managers
 
-이 도구는 모든 사용자가 사용해야하는 필수적인 도구입니다.(예:[KeePassXC](https://keepassxc.org/)).
-암호 관리자를 사용하게 되면 임의로 만든 고유한 high-entropy 암호를 모든 웹 사이트에 사용할 수 있고, KDF를 사용해 생성된 키를 사용한 대칭 암호로 암호화된 모든 패스워드를 한 곳에 저장할 수 있습니다.
+이 도구는 모든 사용자가 사용해야하는 필수적인 도구입니다.(예:[KeePassXC](https://keepassxc.org/), [pass](https://git.zx2c4.com/password-store/about/), [1Password](https://1password.com)).
+암호 관리자를 사용하게 되면 임의로 만든 고유한 high-entropy 암호를 모든 로그인에 편리하게 사용할 수 있고, KDF를 사용해 생성된 키를 사용한 대칭 암호로 암호화된 모든 패스워드를 한 곳에 저장할 수 있습니다.
 
 암호 관리자를 사용하면 암호 재사용을 피할 수 있고(이를 통해 웹사이트에 문제 발생 시 덜 영향을 받을 수 있음), high-entropy 암호를 사용할 수 있으며(손상될 가능성이 낮음), high-entropy 암호 하나만 기억하면 됩니다. 
 
@@ -205,13 +207,13 @@ security concepts, tips
 # 예제
 
 1. **Entropy.**
-    1. 패스워드는 사전 내의 5개의 소문자 단어를 합한 것으로 가정하고, 각 단어는 100,000 크기의 사전에서 무작위로 선택합니다.
+    1. 패스워드는 사전 내의 4개의 소문자 단어를 합한 것으로 가정하고, 각 단어는 100,000 크기의 사전에서 무작위로 선택합니다.
        예를 들면 `correcthorsebatterystaple`입니다. 이 때, 이 패스워드의 엔트로피는 몇 비트인가?
     1. 암호가 8개의 임의 영문자(소문자, 대문자 모두 포함)와 숫자를 선택하는 다른 암호를 고려 합니다. 예를 들면 `rg8Ql34g` 입니다. 엔트로피는 몇 비트인가요?
     1. 어느 쪽이 더 강력한 패스워드인가요?
     1. 공격자가 초당 10,000개의 암호를 추측할 수 있다고 가정합니다. 각 암호들을 해독하는데 평균적으로 얼마나 걸립니까?
 
-1. **Cryptographic hash functions.** [mirror](https://www.debian.org/CD/http-ftp/)에서 Debian이미지를 다운로드합니다. (예- [from this Argentinean mirror](http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/).  Argentinean mirror에서 다운로드 한 경우, `debian.org`로 호스팅 되는 공식 Debian 사이트에서 해쉬 값을 가져 와(예 - [this file](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS) 해쉬 값을 교차 확인(예- `sha256sum`명령어 사용)합니다.)
+1. **Cryptographic hash functions.** [mirror](https://www.debian.org/CD/http-ftp/)에서 Debian이미지를 다운로드합니다. (예- [from this Argentinean mirror](http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/)).  Argentinean mirror에서 다운로드 한 경우, `debian.org`로 호스팅 되는 공식 Debian 사이트에서 해쉬 값을 가져 와(예 - [this file](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS) 해쉬 값을 교차 확인(예- `sha256sum`명령어 사용)합니다.)
  
 1. **대칭키 암호** 
    [OpenSSL](https://www.openssl.org/) : `openssl aes-256-cbc -salt -in {input filename} -out {output filename}`를 사용하여 AES암호화로 파일 암호화를 합니다.
@@ -219,7 +221,6 @@ security concepts, tips
    
 1. **비대칭키 암호**
     1. [SSH keys](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2)를 접근해야 하는 컴퓨터에 설정합니다(Kerberos가 SSH keys와 이상하게 동작하기 때문에, Athena가 아닌 것으로 합니다).
-       연결된 튜토리얼처럼 RSA키를 사용하는 것이 아닌 더 안전한 [ED25519키](https://wiki.archlinux.org/title/SSH_keys#Ed25519)를 사용합니다.
        개인 키가 비밀번호로 암호화 되었는지 확인하여 저장시 보호되도록 합니다.
     1. [GPG설정](https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages)
     1. Anish에게 암호화된 전자 메일([공개키](https://keybase.io/anish))을 보냅니다.

@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "셸 툴과 스크립팅"
+description: >
+  셸 스크립트 작성법과 강력한 커맨드라인 도구 사용법을 배웁니다.
 thumbnail: /static/assets/thumbnails/2020/lec2.png
 date: 2020-01-14
 ready: true
@@ -46,7 +48,7 @@ mcd () {
 - `$?` - 이전 명령 수행결과 코드 (error code). C 프로그래밍 언어와 같이 0은 정상적으로 종료되었음을 의미합니다.
 - `$$` - 현재 스크립트에 대한 프로세스 식별 번호 (PID)
 - `!!` - 인수를 포함하여 마지막 명령 전체를 포함합니다. 일반적으로는 사용 권한이 누락되어 실패할 때 사용합니다. `sudo`를 함께 써서 실패한 명령을 신속하게 다시 실행할 수 있습니다.
-- `$_` - 마지막 명령에서 나온 마지막 인수입니다. 대화형 셸에 있는 경우 `Esc`를 입력한 후 `.`을 입력해 이 값을 신속하게 얻을 수 있습니다.
+- `$_` - 마지막 명령에서 나온 마지막 인수입니다. 대화형 셸에 있는 경우 `Esc`를 입력한 후 `.`을 입력하거나 `Alt+.`을 눌러 이 값을 신속하게 얻을 수 있습니다.
 
 명령어들은 종종 `STDOUT`을 사용해서 출력을 하는데, 오류를 보고할 때는 좀 더 스크립트 친화적인 방식으로 `STDERR`를 사용해서 코드를 반환합니다. 리턴 코드 또는 종료 상태는 스크립트 또는 명령어들이 어떤 방식으로 실행 방법을 전달하는지를 보여주는 것입니다. 값 0은 일반적으로 모든 것이 정상임을 의미합니다. 0이 아닌 다른 값은 오류가 발생했음을 의미합니다.
 
@@ -84,8 +86,8 @@ echo "Starting program at $(date)" # Date will be substituted
 
 echo "Running program $0 with $# arguments with pid $$"
 
-for file in $@; do
-    grep foobar $file > /dev/null 2> /dev/null
+for file in "$@"; do
+    grep foobar "$file" > /dev/null 2> /dev/null
     # When pattern is not found, grep has exit status 1
     # We redirect STDOUT and STDERR to a null register since we do not care about them
     if [[ $? -ne 0 ]]; then
@@ -167,7 +169,7 @@ for arg in reversed(sys.argv[1:]):
 # Find all directories named src
 find . -name src -type d
 # Find all python files that have a folder named test in their path
-find . -path '**/test/**/*.py' -type f
+find . -path '*/test/*.py' -type f
 # Find all files modified in the last day
 find . -mtime -1
 # Find all zip files with size in range 500k to 10M
@@ -179,7 +181,7 @@ find . -size +500k -size -10M -name '*.tar.gz'
 # Delete all files with .tmp extension
 find . -name '*.tmp' -exec rm {} \;
 # Find all PNG files and convert them to JPG
-find . -name '*.png' -exec convert {} {.}.jpg \;
+find . -name '*.png' -exec magick {} {}.jpg \;
 ```
 
 `find`의 편리성에도 불구하고, 그 구문을 기억하기가 까다로울 수 있습니다.예를 들어, 어떤 패턴 `PATTERN`과 일치하는 파일을 찾으려면 `find -name PATTERN` (또는 패턴의 대소문자를 구분하지 않으려면 `-iname`)를 실행해야 합니다. 이러한 상황에 대비해서 별칭을 만들어서 편리하게 쓸 수 있지만, 쉘 철학의 일부는 대안을 탐색하는 것이 좋다는 것입니다. 쉘의 가장 좋은 속성 중 하나는 프로그램을 호출하는 것이므로 일부 대체 방법을 찾거나 직접 작성할 수 있다는 점을 기억하십시오. 예를 들어 [fd](https://github.com/sharkdp/fd)는`find`에 대한 간단하고 빠른 사용자 친화적 대안입니다. `fd`는 색상화된 출력, 기본 정규식 일치 및 유니 코드 지원과 같은 멋진 기본값을 제공합니다. 또한 제 생각에는 보다 직관적인 것 같습니다. 예를 들어 패턴 `PATTERN`을 찾는 구문은 `fd PATTERN`입니다.
@@ -198,7 +200,7 @@ find . -name '*.png' -exec convert {} {.}.jpg \;
 # Find all python files where I used the requests library
 rg -t py 'import requests'
 # Find all files (including hidden files) without a shebang line
-rg -u --files-without-match "^#!"
+rg -u --files-without-match "^#\!"
 # Find all matches of foo and print the following 5 lines
 rg foo -A 5
 # Print statistics of matches (# of matched lines and files )
@@ -217,7 +219,7 @@ rg --stats PATTERN
 
 내가 정말 좋아하는 또 다른 멋진 기록 관련 트릭은 **기록 기반 자동 제안** 입니다. [fish](https://fishshell.com/) 셸에서 처음 도입된 이 기능은 공통 접두사를 공유하는 가장 최근에 입력한 명령으로 현재 셸 명령을 동적으로 자동 완성합니다. [zsh](https://github.com/zsh-users/zsh-autosuggestions)에서 활성화 할 수 있으며 셸을 사용하는데 엄청난 도움이 됩니다. 
 
-마지막으로 명심해야 할 점은 선행 공백으로 명령을 시작하면 쉘 히스토리에 추가되지 않는다는 것입니다. 이것은 암호 또는 기타 민감한 정보로 명령을 입력할 때 유용합니다. 만약 선행 공백을 추가하지 않는 실수를 한 경우, 시작 부분을 수동으로 제거하고 `.bash_history` 또는 `.zhistory`를 편집하면 됩니다. 
+마지막으로 명심해야 할 점은 `.bashrc`에 `HISTCONTROL=ignorespace`를 설정하거나 `.zshrc`에 `setopt HIST_IGNORE_SPACE`를 설정하면, 선행 공백으로 시작하는 명령이 쉘 히스토리에 추가되지 않는다는 것입니다. 이것은 암호 또는 기타 민감한 정보로 명령을 입력할 때 유용합니다. 만약 선행 공백을 추가하지 않는 실수를 한 경우, 시작 부분을 수동으로 제거하고 `.bash_history` 또는 `.zsh_history`를 편집하면 됩니다. 
 
 ## 디렉토리 탐색
 
@@ -308,5 +310,7 @@ cat out.txt
     {% comment %}
     find . -type f -name "*.html" | xargs -d '\n'  tar -cvzf archive.tar.gz
     {% endcomment %}
+
+    macOS에서는 기본 BSD `find`가 [GNU coreutils](https://en.wikipedia.org/wiki/List_of_GNU_Core_Utilities_commands)에 포함된 버전과 다르다는 점에 주의하세요. `find`의 `-print0` 옵션과 `xargs`의 `-0` 옵션을 사용할 수 있습니다. macOS에 포함된 명령줄 도구는 GNU 버전과 다를 수 있으며, 원한다면 [brew를 사용하여](https://formulae.brew.sh/formula/coreutils) GNU 버전을 설치할 수 있습니다.
 
 1. (고급) 명령 또는 스크립트를 작성하여 디렉토리에서 가장 최근에 수정된 파일을 재귀적으로 찾으시오. 그리고 모든 파일을 최신순으로 나열할 수 있습니까?

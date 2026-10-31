@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Q&A"
+description: >
+  운영체제, 셸 스크립팅, 도구 추천 등 학생들의 질문에 답합니다.
 thumbnail: /static/assets/thumbnails/2020/lec11.png
 date: 2020-01-30
 ready: true
@@ -117,9 +119,10 @@ translation_status: complete
 
 - [uBlock Origin](https://github.com/gorhill/uBlock) - 이 플러그인은 그저 광고만 막지 않고, 페이지가 할 수 있는 [모든 종류](https://github.com/gorhill/uBlock/wiki/Blocking-mode)의 통신을 막는 블로커(blocker)입니다. 심지어 페이지 내 스크립트나 부가적인 리소스 로딩도 다룰 수 있습니다. 이런 차단을 하고 싶다면 [미디엄 모드](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-medium-mode)나 [하드 모드](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-hard-mode)를 사용하면 됩니다. 이 경우 설정을 충분히 변경하기 전에는 일부 사이트가 작동하지 않을 수 있지만, 온라인 보안을 크게 향상할 수 있습니다. 굳이 그럴 필요가 없다면, [이지 모드](https://github.com/gorhill/uBlock/wiki/Blocking-mode:-easy-mode)는 충분히 일반적인 광고나 추적을 막을 수 있습니다. 또한, 추가 설정으로 어떤 거를 막을지 설정할 수 있습니다.
 - [Stylus](https://github.com/openstyles/stylus/) - Stylish의 수정 버전으로 ([사용자의 브라우저 기록을 탈취한 적](https://www.theregister.co.uk/2018/07/05/browsers_pull_stylish_but_invasive_browser_extension/)이 있는 Stylish는 사용하지 마세요!), 웹사이트 별 사용자 정의 CSS을 적용할 수 있게 해줍니다. Stylus를 사용하면 웹 사이트의 모양을 쉽게 수정할 수 있는데, 예를 들어 사이드바를 제거하거나 배경색을 변경하거나 텍스트 크기나 글꼴을 선택할 수 있습니다. 이를 통해 여러분이 자주 방문하는 웹사이트를 더 읽기 쉽게 만들 수 있습니다. 게다가 Stylus를 통해 [userstyles.org](https://userstyles.org/)에 공유된 스타일을 사용하거나 직접 자신의 스타일을 공유할 수 있습니다. 대부분의 웹사이트의 다크 모드 스타일은 거의 userstyle 사이트에 있습니다.
-- Full Page Screen Capture - Firefox와 [Chrome extension](https://chrome.google.com/webstore/detail/full-page-screen-capture/fdpohaocaechififmbbbbbknoalclacl?hl=en) 둘 다 지원됩니다. 참고용으로 페이지를 인쇄하는 거보다 더 좋게 사이트를 전체 스크린샷으로 찍을 수 있습니다.
+- Full Page Screen Capture - [Firefox](https://screenshots.firefox.com/)와 [Chrome extension](https://chrome.google.com/webstore/detail/full-page-screen-capture/fdpohaocaechififmbbbbbknoalclacl?hl=en) 둘 다 지원됩니다. 참고용으로 페이지를 인쇄하는 거보다 더 좋게 사이트를 전체 스크린샷으로 찍을 수 있습니다.
 - [Multi Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/) - 쿠키들을 "containers" 단위로 분리하면서, 웹에서 서로 다른 정보를 통해 웹서핑할 수 있게 도와주거나 웹사이트 간 사용자 정보를 공유하지 못하도록 막을 수 있습니다.
 - 통합 암호 매니저(Password Manager Integration) - 대부분의 암호 매니저는 웹 사이트에 자격 증명을 입력하는 것이 더 편리할 뿐만 아니라 더 안전하게 만드는 브라우저 확장 기능이 있습니다. 단순히 사용자 및 암호를 복사하는 것에 비해 이러한 도구는 먼저 웹 사이트 도메인이 항목에 나열된 도메인과 일치하는지 확인하여 인기 웹 사이트를 가장하여 자격 증명을 도용하는 피싱 공격을 방지할 수 있습니다.
+- [Vimium](https://github.com/philc/vimium) - Vim 에디터 방식으로 키보드를 사용해 웹을 탐색하고 조작할 수 있는 브라우저 확장 기능입니다.
 
 ## 데이터를 다룰 수 있는 다른 유용한 툴은 무엇이 있나요?
 

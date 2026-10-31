@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Data Wrangling"
+description: >
+  sed, awk, 정규 표현식 같은 명령줄 도구로 데이터를 조작하고 변환하는 방법을 배웁니다.
 thumbnail: /static/assets/thumbnails/2020/lec4.png
 date: 2020-01-16
 ready: true
@@ -52,6 +54,8 @@ ssh myserver journalctl
 ```
 
 우리는 방금, 텍스트를 패턴에 따라 일치시킬 수 있는 강력한 단어인 _정규 표현식(regular expression)_을 작성했습니다. `s` 명령어는 다음의 형식을 가집니다: `s/REGEX/SUBSTITUTION/`. 여기서 `REGEX`는 여러분이 찾고자 하는 정규 표현식이며, `SUBSTITUTION`은 정규표현식에 일치하는 텍스트를 치환할 텍스트입니다.
+
+(Vim [강의 노트](/2020/editors/#검색과-치환)의 "검색과 치환" 부분에서 본 문법일 것입니다! Vim은 검색과 치환에 `sed`의 치환 명령과 비슷한 문법을 사용합니다. 한 도구를 배우면 다른 도구를 더 능숙하게 사용하는 데도 도움이 됩니다.)
 
 ## 정규 표현식(Regular expressions)
 
@@ -128,7 +132,7 @@ ssh myserver journalctl
  | sort | uniq -c
 ```
 
-`sort`는, 음... 주어진 입력을 정렬할 것입니다. `uniq -c`는 모든 단일한 행을 대상으로, 중복되는 수를 앞에 붙여 출력하고, 중복되는 행들은 하나의 행으로 축약됩니다. 우리는 여전히 이 출력을 정렬하여, 로그인이 가장 빈번한 경우만을 가지길 원할 수도 있습니다:
+`sort`는, 음... 주어진 입력을 정렬할 것입니다. `uniq -c`는 모든 단일한 행을 대상으로, 중복되는 수를 앞에 붙여 출력하고, 중복되는 행들은 하나의 행으로 축약됩니다. 우리는 여전히 이 출력을 정렬하여, 가장 빈번한 유저 이름만을 가지길 원할 수도 있습니다:
 
 ```bash
 ssh myserver journalctl
@@ -143,7 +147,7 @@ ssh myserver journalctl
 
 만약 우리가 _가장 흔하지 않은_ 결과를 찾고자 한다면, 우리는 `tail` 대신 `head`를 사용할 수 있지만, 역순으로 정렬을 가능하게 하는 `sort -r`을 사용할 수도 있습니다.
 
-좋습니다, 이쯤 되어도 꽤 훌륭한 것 같네요. 하지만 한 줄에 하나씩 모두 출력하지 않고, 오직 유저 이름만 출력하는 방법은 어떨까요?
+좋습니다, 이쯤 되어도 꽤 훌륭한 것 같네요. 하지만 설정 파일 등에 사용하기 위해 유저 이름만 추출하여, 한 줄에 하나씩 출력하는 대신 쉼표로 구분된 목록으로 만드는 방법은 어떨까요?
 
 ```bash
 ssh myserver journalctl
@@ -155,7 +159,9 @@ ssh myserver journalctl
  | awk '{print $2}' | paste -sd,
 ```
 
-`paste`에 대해 알아보는 것부터 시작하죠. 이는 여러분으로 하여금 주어진 단일 문자 구분 기호(`-d`)로 행을 결합(`-s`)할 수 있게 합니다. 그런데 여기서 `awk`는 어떤 일을 하는 것일까요?
+macOS를 사용한다면 위 명령이 macOS에 포함된 BSD `paste`에서는 작동하지 않는다는 점에 주의하세요. BSD와 GNU coreutils의 차이 및 macOS에 GNU coreutils를 설치하는 방법은 [셸 도구 강의의 연습 문제 4번](/2020/shell-tools/#연습문제)을 참고하세요.
+
+`paste`에 대해 알아보는 것부터 시작하죠. 이는 여러분으로 하여금 주어진 단일 문자 구분 기호(`-d`, 여기서는 `,`)로 행을 결합(`-s`)할 수 있게 합니다. 그런데 여기서 `awk`는 어떤 일을 하는 것일까요?
 
 ## awk -- 또 다른 에디터
 
@@ -183,7 +189,7 @@ END { print rows }
 
 ## 데이터 분석하기
 
-여러분은 수학을 다룰 수도 있습니다! 예를 들어, 각 행의 숫자를 모두 더하는 식은 다음과 같습니다:
+표준 입력(STDIN)을 읽을 수 있는 계산기 `bc`를 사용하면 셸에서 직접 계산할 수 있습니다! 예를 들어, 각 행의 숫자를 `+`로 이어 붙여 모두 더하는 식은 다음과 같습니다:
 
 ```bash
  | paste -sd+ | bc -l
@@ -195,7 +201,7 @@ END { print rows }
 echo "2*($(data | paste -sd+))" | bc -l
 ```
 
-여러분은 다양한 방법으로 통계를 적용할 수 있습니다. [`st`](https://github.com/nferraz/st)는 꽤 멋진 도구인데, 만약 여러분이 이미 R을 가지고 있다면 다음과 같이 적용할 수 있습니다:
+여러분은 다양한 방법으로 통계를 적용할 수 있습니다. [`st`](https://github.com/nferraz/st)는 꽤 멋진 도구인데, 만약 여러분이 이미 [R](https://www.r-project.org/)을 가지고 있다면 다음과 같이 적용할 수 있습니다:
 
 ```bash
 ssh myserver journalctl
@@ -203,10 +209,10 @@ ssh myserver journalctl
  | grep "Disconnected from"
  | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
  | sort | uniq -c
- | awk '{print $1}' | R --slave -e 'x <- scan(file="stdin", quiet=TRUE); summary(x)'
+ | awk '{print $1}' | R --no-echo -e 'x <- scan(file="stdin", quiet=TRUE); summary(x)'
 ```
 
-R은 데이터 분석과 [그래프 표현(plotting)](https://ggplot2.tidyverse.org/)에 특화된 또 다른 (기묘한) 프로그래밍 언어입니다. 여기서는 자세한 내용을 다루지 않겠지만, 우리는 입력으로 숫자 스트림을 받아 행렬을 계산하였고, `summary`는 행렬에 대해 요약된 통계를 출력하여, 결과적으로 R은 우리가 원하는 통계를 제공하였다는 점을 다루고 넘어가면 충분할 것 같습니다.
+R은 데이터 분석과 [그래프 표현(plotting)](https://ggplot2.tidyverse.org/)에 특화된 또 다른 (기묘한) 프로그래밍 언어입니다. 여기서는 자세한 내용을 다루지 않겠지만, 우리는 입력으로 받은 숫자 스트림을 담은 벡터를 만들었고, `summary`는 벡터에 대해 요약된 통계를 출력하여, 결과적으로 R은 우리가 원하는 통계를 제공하였다는 점을 다루고 넘어가면 충분할 것 같습니다.
 
 만약 여러분이 간단한 그래프 표현을 원한다면, `gnuplot`은 여러분의 친구가 될 것입니다:
 
@@ -222,7 +228,9 @@ ssh myserver journalctl
 
 ## 인자를 만들기 위한 데이터 조작 (Data wrangling to make arguments)
 
-때떄로 여러분은 긴 목록을 바탕으로 하여 제거하거나 설치할 항목을 찾기 위해 데이터 조작을 수행하기를 원하는 경우가 있을 것입니다. 앞서 이야기하였던 내용들과 `xargs`의 조합은 굉장히 강력한 콤보가 될 수 있습니다:
+때떄로 여러분은 긴 목록을 바탕으로 하여 제거하거나 설치할 항목을 찾기 위해 데이터 조작을 수행하기를 원하는 경우가 있을 것입니다. 앞서 이야기하였던 내용들과 `xargs`의 조합은 굉장히 강력한 콤보가 될 수 있습니다.
+
+예를 들어, 강의에서 본 것처럼 다음 명령으로 시스템에서 오래된 Rust nightly 빌드를 제거할 수 있습니다. 데이터 조작 도구로 오래된 빌드 이름을 추출한 뒤, `xargs`로 제거 명령에 전달합니다:
 
 ```bash
 rustup toolchain list | grep nightly | grep -vE "nightly-x86" | sed 's/-x86.*//' | xargs rustup toolchain uninstall
@@ -261,4 +269,4 @@ and
 Previous shutdown cause: 5
 ```
 5. 이전 세 번의 재부팅 간에 공유되지 _않은_ 부팅 메세지를 찾아보세요(`journalctl`의 `-b` 플래그를 참조하세요). 이 작업을 여러 단계로 나눕니다. 먼저, 지난 세 번의 부팅에₩서 나온 로그만 얻을 수 있는 방법을 찾아보세요. 여러분이 부팅 로그를 추출하는데 사용하는 도구에 적용 가능한 플래그를 적용하거나, `sed '0,/STRING/d'`를 사용하여 `STRING`과 일치하는 모든 행을 지우는 방법을 적용할 수 있을 것입니다. 다음으로, (타임스탬프와 같이) _항상_ 달라지는 행의 모든 부분을 제거하세요. 그런 다음, 각 입력 행의 중복의 정도를 세면서, 행의 중복을 제거합니다(`uniq`는 여러분의 친구라는 점을 잊지 마세요). 마지막으로, 중복의 수가 3 이상인 모든 행을 제거합니다(왜냐하면 이는 모든 부팅에서 _공유되었음을_ 의미하기 떄문입니다).
-6. [이것이나](https://commons.wikimedia.org/wiki/Data:Wikipedia_statistics/data.tab) [요것](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1), 아니면 [여기에 있는 데이터](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/)와 같은 온라인 데이터 셋을 찾아보세요. `curl`을 사용하여 데이터를 가져와(fetch) 두 개의 숫자 데이터 열만 추출합니다. 만약 여러분이 HTML 데이터를 가져오는 경우, [`pup`](https://github.com/EricChiang/pup)이 아마 도움이 될 것입니다. JSON 데이터인 경우, [`jq`](https://stedolan.github.io/jq/)를 사용해보세요. 단일 명령으로 하나의 열의 최소값과 최대값을 찾고, 다른 명령으로 두 열 사이의 차이의 합을 구해보세요.
+6. [이것이나](https://commons.wikimedia.org/wiki/Data:Wikipedia_statistics/data.tab) [요것](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1), 아니면 [여기에 있는 데이터](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/)와 같은 온라인 데이터 셋을 찾아보세요. `curl`을 사용하여 데이터를 가져와(fetch) 두 개의 숫자 데이터 열만 추출합니다. 만약 여러분이 HTML 데이터를 가져오는 경우, [`pup`](https://github.com/EricChiang/pup)이 아마 도움이 될 것입니다. JSON 데이터인 경우, [`jq`](https://stedolan.github.io/jq/)를 사용해보세요. 단일 명령으로 하나의 열의 최소값과 최대값을 찾고, 다른 명령으로 각 열의 합 사이의 차이를 구해보세요.

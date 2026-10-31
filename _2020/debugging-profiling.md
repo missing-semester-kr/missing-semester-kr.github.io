@@ -1,6 +1,8 @@
 ---
 layout: lecture
 title: "Debugging and Profiling"
+description: >
+  로깅, 디버거, 정적 분석으로 프로그램을 디버깅하고 성능을 프로파일링하는 방법을 배웁니다.
 thumbnail: /static/assets/thumbnails/2020/lec7.png
 date: 2020-01-23
 ready: true
@@ -39,7 +41,9 @@ $ python logger.py color
 # 색칠된 형식으로 출력하기
 ```
 
-읽기 쉬운 로그를 위한 한 가지 팁은 색칠된 로그를 뽑는 것입니다. 방금 여러분은 색깔 덕분에 훨씬 더 읽기 쉬웠을 것입니다. 어떻게 할 수 있을까요? `ls` 나 `grep` 과 같은 프로그램은 색칠된 출력으로 바꾸어주는 특수문자 시퀀스인 [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code)를 사용합니다. 예를 들어, `echo -e "\e[38;2;255;0;0mThis is red\e[0m"` 를 실행하면 `This is red` 라는 메시지가 빨간색으로 출력됩니다. 아래는 터미널에 많은 RGB 색을 출력하는 방법에 대한 스크립트입니다.
+읽기 쉬운 로그를 위한 한 가지 팁은 색칠된 로그를 뽑는 것입니다. 방금 여러분은 색깔 덕분에 훨씬 더 읽기 쉬웠을 것입니다. 어떻게 할 수 있을까요? `ls` 나 `grep` 과 같은 프로그램은 색칠된 출력으로 바꾸어주는 특수문자 시퀀스인 [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code)를 사용합니다. 예를 들어, `echo -e "\e[38;2;255;0;0mThis is red\e[0m"` 를 실행하면 `This is red` 라는 메시지가 빨간색으로 출력됩니다. 이 예제는 터미널이 [트루 컬러(true color)](https://github.com/termstandard/colors#truecolor-support-in-output-devices)를 지원해야 합니다. macOS의 Terminal.app처럼 이를 지원하지 않는 터미널에서는 더 널리 지원되는 16색 ANSI escape codes를 사용할 수 있습니다. 예를 들어 `echo -e "\e[31;1mThis is red\e[0m"`를 실행해보세요.
+
+아래는 트루 컬러를 지원하는 터미널에 많은 RGB 색을 출력하는 방법에 대한 스크립트입니다.
 
 ```bash
 #!/usr/bin/env bash
@@ -116,12 +120,11 @@ print(bubble_sort([4, 2, 1, 8, 7, 6]))
 
 디버깅하려는 대상이 블랙박스 바이너리(black box binary)라도 이를 돕는 도구들이 있습니다. 프로그램은 커널으로만 할 수 있는 작업을 수행해야 할 때마다 [시스템 호출(System Calls)](https://en.wikipedia.org/wiki/System_call)을 사용합니다. 프로그램이 만들어 내는 시스템 호출을 추적할 수 있는 명령어가 있습니다. 리눅스에서는 [`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html)를 사용하고 맥OS와 BSD에서는 [`dtrace`](https://dtrace.org/about/)를 사용합니다. `dtrace` 는 `D`언어로 작성되어 있기 때문에 사용하기 까다롭습니다. 하지만 `strace`와 유사한 인터페이스를 갖는 [`dtruss`](https://www.manpagez.com/man/1/dtruss/)라는 래퍼가 있습니다. (자세한 사항은 [이곳](https://8thlight.com/blog/colin-jones/2015/11/06/dtrace-even-better-than-strace-for-osx.html)을 참고해주세요)
 
-아래는 `strace` 나 `dtruss` 를 사용하여 `ls`의 실행에 대한 [`stat`](https://www.man7.org/linux/man-pages/man2/stat.2.html) 시스템 호출을 추적하는 예시입니다. `strace`에 대하여 더욱 자세히 알고 싶다면 [이곳](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2)을 참고해주세요. 
+아래는 `strace` 나 `dtruss` 를 사용하여 `ls`의 실행에 대한 [`stat`](https://www.man7.org/linux/man-pages/man2/stat.2.html) 시스템 호출을 추적하는 예시입니다. `strace`에 대하여 더욱 자세히 알고 싶다면 [이 글](https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2)과 [이 소책자](https://jvns.ca/strace-zine-unfolded.pdf)를 참고해주세요. 
 
 ```bash
 # 리눅스에서
 sudo strace -e lstat ls -l > /dev/null
-4
 # 맥OS에서
 sudo dtruss -t lstat64_extended ls -l > /dev/null
 ```
@@ -158,8 +161,6 @@ print(baz)
 
 정적 분석 도구는 이런 이슈를 잡아냅니다. 코드에서 [`pyflakes`](https://pypi.org/project/pyflakes)를 실행해준다면 두 버그에 관련된 에러를 얻을 수 있습니다. [`mypy`](https://mypy-lang.org/)는 변수 타입 오류를 탐지할 수 있는 또 다른 도구입니다. 아래 스크립트에서, `mypy`가 `bar`변수는 `int`로 정의되었지만 `float`로 변했다고 경고하고 있습니다. 코드를 실행하지 않고도 이런 이슈를 탐지할 수 있다는 것에 다시 한 번 주목해주세요.
 
-쉘 도구 강의에서 다루었던 [`shellcheck`](https://www.shellcheck.net/)과 유사한 도구입니다. 
-
 ```bash
 $ pyflakes foobar.py
 foobar.py:6: redefinition of unused 'foo' from line 3
@@ -171,6 +172,8 @@ foobar.py:9: error: Incompatible types in assignment (expression has type "float
 foobar.py:11: error: Name 'baz' is not defined
 Found 3 errors in 1 file (checked 1 source file)
 ```
+
+쉘 도구 강의에서 다루었던 [`shellcheck`](https://www.shellcheck.net/)과 유사한 도구입니다. 
 
 대부분의 코드 에디터나 IDE는 경고나 에러의 위치를 강조하여 보여주는 도구를 자체적으로 가지고 있습니다. 이 도구는 **코드 린팅(linting)** 이라고 불리며 코드 스타일 위반이나 안전하지 않은 코드 구축 등의 여러 타입에 대한 이슈를 보여줍니다.
 
@@ -217,7 +220,7 @@ print(time.time() - start)
 예를 들어, HTTP 요청을 명령한 후에 [`time`](https://www.man7.org/linux/man-pages/man1/time.1.html)을 사용하여 시간을 재보세요. 연결이 느리다면 아래와 같은 결과물을 얻게 될 것입니다. 아래에서 요청이 완료되는 데에 2초가 넘게 걸렸지만 CPU 사용자 시간과 커널 CPU 시간은 각각 15ms, 12ms만 걸린 것을 볼 수 있습니다.
 
 ```bash
-$ time curl https://missing.csail.mit.edu &> /dev/null`
+$ time curl https://missing.csail.mit.edu &> /dev/null
 real    0m2.561s
 user    0m0.015s
 sys     0m0.012s
@@ -378,7 +381,7 @@ Call graphs나 control flow graphs는 각 함수를 노드로, 호출되는 과�
 
 리소스가 얼마나 소비되는 지 이해하는 것은 프로그램의 성능을 분석하기 위한 첫 번째 단계로 고려되기도 합니다. 네트워크 연결이 느리거나 충분하지 않은 메모리 등으로 리소스가 제한되면 프로그램이 느려집니다. 이를 위해 CPU 사용량, 메모리 사용량, 디스크 사용량 등의 시스템 리소스를 보여주는 커맨드라인 도구들이 있습니다.
 
-- **범용 모니터링** - 가장 유명한 것은 [`top`](https://www.man7.org/linux/man-pages/man1/top.1.html)을 개선한 버전인 [`htop`](https://htop.dev/)일 것입니다. `htop`은 현재 실행되고 있는 작업에 대한 다양한 통계량을 보여줍니다. `htop`에는 많은 옵션과 키바인드가 있습니다. 예를 들어, `<F6>`은 프로세스를 정렬해주고 `t`는 계층적 트리를 부여주며 `h`는 스레드를 전환합니다. [`glances`](https://nicolargo.github.io/glances/)도 뛰어난 UI로 `htop`과 비슷하게 구현되어 있는 도구입니다. 모든 프로세스에 대해 집계한 측정값을 얻기 위해서는  [`dstat`](http://dag.wiee.rs/home-made/dstat/) 라는 도구를 사용합니다. 이 도구는 I/O, 네트워킹, CPU 사용률, 컨텍스트 스위치 등에 대한 리소스 수치를 실시간으로 보여줍니다.
+- **범용 모니터링** - 가장 유명한 것은 [`top`](https://www.man7.org/linux/man-pages/man1/top.1.html)을 개선한 버전인 [`htop`](https://htop.dev/)일 것입니다. `htop`은 현재 실행되고 있는 작업에 대한 다양한 통계량을 보여줍니다. `htop`에는 많은 옵션과 키바인드가 있습니다. 예를 들어, `<F6>`은 프로세스를 정렬해주고 `t`는 계층적 트리를 부여주며 `h`는 스레드를 전환합니다. [`glances`](https://nicolargo.github.io/glances/)도 뛰어난 UI로 `htop`과 비슷하게 구현되어 있는 도구입니다. 모든 프로세스에 대해 집계한 측정값을 얻기 위해서는  [`dool`](https://github.com/scottchiefbaker/dool) 라는 도구를 사용합니다. 이 도구는 I/O, 네트워킹, CPU 사용률, 컨텍스트 스위치 등에 대한 리소스 수치를 실시간으로 보여줍니다.
 - **I/O 작업** - [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html)은 실시간 I/O 사용량에 대한 정보를 보여주어 무거운 I/O 디스크 작업을 사용하는 프로세스를 체크하기 편리합니다.
 - **디스크 사용량** - [`df`](https://www.man7.org/linux/man-pages/man1/df.1.html)는 각 파티션의 수치를 보여주고 [`du`](https://man7.org/linux/man-pages/man1/du.1.html)(**d**isk **u**sage)는 현재 폴더에 있는 각 파일의 디스크 사용량을 보여줍니다. 이런 도구에서 `-h` 플래그는 프로그램에게 사람이 읽을 수 있는 형식으로 출력하도록 지시합니다. [`ncdu`](https://dev.yorhel.nl/ncdu)는 `du`의 더욱 인터랙티브한 버전으로 폴더를 탐색하면서 파일이나 폴더를 지울 수 있도록 합니다.
 - **메모리 사용량** - [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html)는 시스템에 있는 사용하고 있는 메모리와 남아있는 메모리의 양이 얼마나 되는지 보여줍니다. 메모리 사용량은 `htop`과 같은 도구를 사용해서도 볼 수 있습니다.
@@ -453,7 +456,7 @@ Summary
        print(eval("fib9()"))
    ```
 
-   코드를 파일에 넣고 실행 가능하게 만드세요. [`pycallgraph`](http://pycallgraph.slowchop.com/en/master/)를 설치하고 `pycallgraph graphviz -- ./fib.py`라는 명령어와 함께 위 코드를 실행한 뒤 `pycallgraph.png`를 체크해보세요. `fib0`은 몇 번이나 호출되었을까요? 메모이제이션(memoization)하면 위 함수를 개선할 수 있습니다. 주석처리된 부분의 주석을 제거하고 이미지를 다시 생성해보세요. 이번에는 `fibN` 함수가 몇 번이나 호출되었나요?
+   코드를 파일에 넣고 실행 가능하게 만드세요. 필요한 도구인 [`pycallgraph`](https://lewiscowles1986.github.io/py-call-graph/)와 [`graphviz`](https://graphviz.org/)를 설치하세요. (`dot`을 실행할 수 있다면 GraphViz가 이미 설치되어 있습니다.) `pycallgraph graphviz -- ./fib.py`라는 명령어와 함께 위 코드를 실행한 뒤 `pycallgraph.png`를 체크해보세요. `fib0`은 몇 번이나 호출되었을까요? 메모이제이션(memoization)하면 위 함수를 개선할 수 있습니다. 주석처리된 부분의 주석을 제거하고 이미지를 다시 생성해보세요. 이번에는 `fibN` 함수가 몇 번이나 호출되었나요?
 
 1. 수신하려는 포트가 이미 다른 프로세스에 사용되고 있는 것은 일반적인 문제입니다. 이를 위해 프로세스의 pid를 알아내는 방법을 배워봅시다. `4444` 포트에서 수신 대기하는 최소한의 웹 서버를 만들기 위해서 `python -m http.server 4444` 명령을 실행합니다. 다른 터미널에서 `lsof | grep LISTEN`을 사용하여 모든 수신 프로세스와 포트를 출력합니다. 해당 프로세스의 pid를 찾고 `kill <PID>` 명령을 실행하여 프로세스를 종료합니다.
 
