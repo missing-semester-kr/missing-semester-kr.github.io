@@ -54,6 +54,8 @@ jobs:
             ^https:\/\/medium\.com\/
             ^https:\/\/www\.gnu\.org\/
             ^https:\/\/openai\.com\/
+            ^https:\/\/vim\.fandom\.com\/
+            ^https:\/\/namu\.wiki\/
           swap_urls: |
             {"^https:\\/\\/missing-semester-kr\\.github\\.io/": "/",
              "^(https:\\/\\/github\\.com/.*)#.*$": "\\1"}
