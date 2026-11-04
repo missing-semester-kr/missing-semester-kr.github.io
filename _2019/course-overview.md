@@ -1,39 +1,39 @@
 ---
 layout: lecture
-title: "Course Overview"
+title: "수업 개요"
 presenter: Anish
 date: 2019-01-15
 order: 1
 video:
   aspect: 56.25
   id: qw2c6ffSVOM
-translation_status: source
+translation_status: draft
 ---
 
-# Motivation
+# 수업의 동기
 
-This class is about [hacker](https://en.wikipedia.org/wiki/Hacker_culture)
-tools, not [hacker](https://en.wikipedia.org/wiki/Security_hacker) tools.
+이 수업은 [해커](https://en.wikipedia.org/wiki/Hacker_culture)의
+도구에 관한 수업이지, [해커](https://en.wikipedia.org/wiki/Security_hacker)의 도구에 관한 수업이 아닙니다.
 
-MIT classes do not cover any of this content in detail. It's hugely beneficial
-to be proficient with your tools: it'll save you a lot of time (and the payoff
-time is very short).
+MIT의 수업에서는 이런 내용을 자세히 다루지 않습니다. 도구를 능숙하게
+다루면 엄청난 이점이 있습니다. 시간을 많이 절약할 수 있습니다(그리고 효과를
+보기까지 걸리는 시간도 매우 짧습니다).
 
-We want to teach you about new tools, how to make the most of your tools, how
-to customize your tools, and how to extend your tools.
+우리는 여러분에게 새로운 도구, 도구를 최대한 활용하는 방법,
+도구를 자신에게 맞게 설정하는 방법, 도구를 확장하는 방법을 가르치고자 합니다.
 
-# Class structure
+# 수업 구성
 
-We have 6 lectures covering a [variety of topics](/2019/). We have lecture
-notes online, but there will be a lot of content covered in class (e.g. in the
-form of demos) that may not be in the notes. We will be recording lectures.
+[다양한 주제](/2019/)를 다루는 6개의 강의가 있습니다. 강의 노트는
+온라인에 있지만, 수업에서 다루는 많은 내용(예를 들어 시연)은
+노트에 없을 수도 있습니다. 강의는 녹화할 예정입니다.
 
-Each class is split into two 50-minute lectures with a 10-minute break in
-between. Lectures are mostly live demonstrations followed by hands-on
-exercises. We might have a short amount of time at the end of each class to get
-started on the exercises in an office-hours-style setting.
+매 수업은 50분 강의 두 개로 나뉘며, 그 사이에 10분간 쉽니다.
+강의는 대부분 실시간 시연으로 진행하고, 이어서 직접 해 보는
+실습을 합니다. 매 수업이 끝날 무렵에는 오피스 아워와 같은 방식으로
+실습을 시작할 짧은 시간이 있을 수도 있습니다.
 
-To make the most of the class, you should go through all the exercises on your
-own. We'll inspire you to learn more about your tools, and we'll show you
-what's possible and cover some of the basics in detail, but we can't teach you
-everything in the time we have.
+수업을 최대한 활용하려면 모든 실습을 스스로 해 보아야 합니다.
+우리는 여러분이 도구에 관해 더 배우고 싶도록 동기를 부여하고,
+어떤 일이 가능한지 보여 주며 몇 가지 기초를 자세히 다룰 것입니다. 하지만 주어진
+시간 안에 모든 것을 가르칠 수는 없습니다.

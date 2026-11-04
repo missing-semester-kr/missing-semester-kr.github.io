@@ -1,285 +1,285 @@
 ---
 layout: lecture
-title: "Shell and Scripting"
+title: "셸과 스크립팅"
 presenter: Jon
 date: 2019-01-15
 order: 3
 video:
   aspect: 56.25
   id: dbDRfmH5uSI
-translation_status: source
+translation_status: draft
 ---
 
-The shell is an efficient, textual interface to your computer.
+셸은 컴퓨터를 효율적으로 다룰 수 있는 텍스트 인터페이스입니다.
 
-The shell prompt: what greets you when you open a terminal.
-Lets you run programs and commands; common ones are:
+셸 프롬프트는 터미널을 열었을 때 여러분을 맞이하는 것입니다.
+프로그램과 명령어를 실행할 수 있으며, 흔히 쓰는 명령어는 다음과 같습니다.
 
- - `cd` to change directory
- - `ls` to list files and directories
- - `mv` and `cp` to move and copy files
+ - 디렉토리를 바꾸는 `cd`
+ - 파일과 디렉토리 목록을 보여 주는 `ls`
+ - 파일을 이동하고 복사하는 `mv`와 `cp`
 
-But the shell lets you do _so_ much more; you can invoke any program on
-your computer, and command-line tools exist for doing pretty much
-anything you may want to do. And they're often more efficient than their
-graphical counterparts. We'll go through a bunch of those in this class.
+하지만 셸로는 *훨씬* 더 많은 일을 할 수 있습니다. 컴퓨터에 있는 어떤 프로그램이든 실행할 수 있고,
+여러분이 하고 싶은 거의 모든 일을 할 수 있는 명령줄 도구가 있습니다.
+그리고 이런 도구는 같은 기능의 그래픽 도구보다 효율적인 경우가 많습니다.
+이 수업에서는 그런 도구를 여럿 살펴보겠습니다.
 
-The shell provides an interactive programming language ("scripting").
-There are many shells:
+셸은 대화형 프로그래밍 언어("스크립팅")를 제공합니다.
+셸에는 여러 종류가 있습니다.
 
- - You've probably used `sh` or `bash`.
- - Also shells that match languages: `csh`.
- - Or "better" shells: `fish`, `zsh`, `ksh`.
+ - 아마 `sh`나 `bash`를 사용해 보았을 것입니다.
+ - 특정 언어에 맞춘 셸도 있습니다. `csh`가 그렇습니다.
+ - "더 나은" 셸도 있습니다. `fish`, `zsh`, `ksh`가 그렇습니다.
 
-In this class we'll focus on the ubiquitous `sh` and `bash`, but feel
-free to play around with others. I like `fish`.
+이 수업에서는 널리 쓰이는 `sh`와 `bash`에 집중하겠지만,
+다른 셸도 자유롭게 써 보세요. 저는 `fish`를 좋아합니다.
 
-Shell programming is a *very* useful tool in your toolbox.
-Can either write programs directly at the prompt, or into a file.
-`#!/bin/sh` + `chmod +x` to make shell executable.
+셸 프로그래밍은 여러분의 도구 상자에 넣어 둘 *아주* 유용한 도구입니다.
+프롬프트에서 직접 프로그램을 작성할 수도 있고, 파일에 작성할 수도 있습니다.
+`#!/bin/sh` + `chmod +x`로 셸에서 실행할 수 있게 만듭니다.
 
-## Working with the shell
+## 셸로 작업하기
 
-Run a command a bunch of times:
+명령어를 여러 번 실행해 봅시다.
 
 ```bash
 for i in $(seq 1 5); do echo hello; done
 ```
 
-There's a lot to unpack:
+여기에는 짚어 볼 내용이 많습니다.
 
  - `for x in list; do BODY; done`
-   - `;` terminates a command -- equivalent to newline
-   - split `list`, assign each to `x`, and run body
-   - splitting is "whitespace splitting", which we'll get back to
-   - no curly braces in shell, so `do` + `done`
+   - `;`는 명령어를 끝냅니다. 줄바꿈과 같습니다.
+   - `list`를 나누고, 각 항목을 `x`에 대입한 다음 본문을 실행합니다.
+   - 이때 "공백 문자로 나누기"를 하는데, 나중에 다시 살펴보겠습니다.
+   - 셸에는 중괄호가 없으므로 `do` + `done`을 씁니다.
  - `$(seq 1 5)`
-   - run the program `seq` with arguments `1` and `5`
-   - substitute entire `$()` with the output of that program
-   - equivalent to
+   - `seq` 프로그램에 `1`과 `5`를 인자로 주어 실행합니다.
+   - `$()` 전체를 그 프로그램의 출력으로 치환합니다.
+   - 다음과 같습니다.
      ```bash
      for i in 1 2 3 4 5
      ```
  - `echo hello`
-   - everything in a shell script is a command
-   - in this case, run the `echo` command, which prints its arguments
-     with the argument `hello`.
-   - all commands are searched for in `$PATH` (colon-separated)
+   - 셸 스크립트에서는 모든 것이 명령어입니다.
+   - 이 경우에는 인자를 출력하는 `echo` 명령어를 `hello`라는
+     인자와 함께 실행합니다.
+   - 모든 명령어는 `$PATH`(콜론으로 구분됨)에서 검색합니다.
 
-We have variables:
+변수도 있습니다.
 ```bash
 for f in $(ls); do echo $f; done
 ```
 
-Will print each file name in the current directory.
-Can also set variables using `=` (no space!):
+현재 디렉토리의 파일 이름을 하나씩 출력합니다.
+`=`를 사용해 변수를 설정할 수도 있습니다(공백 없이!).
 
 ```bash
 foo=bar
 echo $foo
 ```
 
-There are a bunch of "special" variables too:
+"특수한" 변수도 여럿 있습니다.
 
- - `$1` to `$9`: arguments to the script
- - `$0` name of the script itself
- - `$#` number of arguments
- - `$$` process ID of current shell
+ - `$1`부터 `$9`: 스크립트의 인자
+ - `$0`: 스크립트 자체의 이름
+ - `$#`: 인자의 개수
+ - `$$`: 현재 셸의 프로세스 ID
 
-To only print directories
+디렉토리만 출력하려면 다음과 같이 합니다.
 
 ```bash
 for f in $(ls); do if test -d $f; then echo dir $f; fi; done
 ```
 
-More to unpack here:
+여기에도 짚어 볼 내용이 더 있습니다.
 
  - `if CONDITION; then BODY; fi`
-   - `CONDITION` is a command; if it returns with exit status 0
-     (success), then `BODY` is run.
-   - can also hook in an `else` or `elif`
-   - again, no curly braces, so `then` + `fi`
- - `test` is another program that provides various checks and
-   comparisons, and exits with 0 if they're true (`$?`)
-   - `man COMMAND` is your friend: `man test`
-   - can also be invoked with `[` + `]`: `[ -d $f ]`
-     - take a look at `man test` and `which "["`
+   - `CONDITION`은 명령어입니다. 종료 상태 0(성공)을 반환하면
+     `BODY`가 실행됩니다.
+   - `else`나 `elif`를 덧붙일 수도 있습니다.
+   - 여기에도 중괄호가 없으므로 `then` + `fi`를 씁니다.
+ - `test`는 다양한 검사와 비교를 제공하는 또 다른 프로그램으로,
+   결과가 참이면 0으로 종료합니다(`$?`).
+   - `man COMMAND`가 도움이 됩니다. `man test`를 보세요.
+   - `[` + `]`로 실행할 수도 있습니다. `[ -d $f ]`
+     - `man test`와 `which "["`를 살펴보세요.
 
-But wait! This is wrong! What if a file is called "My Documents"?
+그런데 잠깐! 이 코드는 잘못되었습니다! 파일 이름이 "My Documents"라면 어떨까요?
 
- - `for f in $(ls)` expands to `for f in My Documents`
- - first do the test on `My`, then on `Documents`
- - not what we wanted!
- - biggest source of bugs in shell scripts
+ - `for f in $(ls)`는 `for f in My Documents`로 확장됩니다.
+ - 먼저 `My`를 검사하고, 그다음 `Documents`를 검사합니다.
+ - 우리가 원한 동작이 아닙니다!
+ - 셸 스크립트에서 버그를 가장 많이 일으키는 원인입니다.
 
-## Argument splitting
+## 인자 나누기
 
-Bash splits arguments by whitespace; not always what you want!
+Bash는 공백 문자를 기준으로 인자를 나눕니다. 항상 원하는 동작은 아닙니다!
 
- - need to use quoting to handle spaces in arguments
-   `for f in "My Documents"` would work correctly
- - same problem somewhere else -- do you see where?
-   `test -d $f`: if `$f` contains whitespace, `test` will error!
- - `echo` happens to be okay, because split + join by space
-   but what if a filename contains a newline?! turns into space!
- - quote all use of variables that you don't want split
- - but how do we fix our script above?
-   what do you think `for f in "$(ls)"` does?
+ - 인자 안의 공백을 처리하려면 따옴표를 사용해야 합니다.
+   `for f in "My Documents"`는 올바르게 동작합니다.
+ - 다른 곳에도 같은 문제가 있습니다. 어디인지 보이나요?
+   `test -d $f`: `$f`에 공백 문자가 있으면 `test`에서 오류가 납니다!
+ - `echo`는 나눈 뒤 공백으로 다시 합치므로 우연히 문제가 없습니다.
+   하지만 파일 이름에 줄바꿈이 있으면 어떨까요?! 공백으로 바뀝니다!
+ - 나누고 싶지 않은 변수를 사용할 때는 모두 따옴표로 감싸세요.
+ - 그러면 위의 스크립트는 어떻게 고칠까요?
+   `for f in "$(ls)"`는 어떤 동작을 할 것 같나요?
 
-Globbing is the answer!
+글로빙이 답입니다!
 
- - bash knows how to look for files using patterns:
-   - `*` any string of characters
-   - `?` any single character
-   - `{a,b,c}` any of these characters
- - `for f in *`: all files in this directory
- - when globbing, each matching file becomes its own argument
-   - still need to make sure to quote when _using_: `test -d "$f"`
- - can make advanced patterns:
-   - `for f in a*`: all files starting with `a` in the current directory
-   - `for f in foo/*.txt`: all `.txt` files in `foo`
+ - bash는 패턴으로 파일을 찾는 방법을 알고 있습니다.
+   - `*`: 임의의 문자열
+   - `?`: 임의의 한 문자
+   - `{a,b,c}`: 이 문자들 중 하나
+ - `for f in *`: 이 디렉토리의 모든 파일
+ - 글로빙에서는 일치하는 각 파일이 별도의 인자가 됩니다.
+   - 그래도 *사용할* 때는 반드시 따옴표로 감싸야 합니다. `test -d "$f"`
+ - 복잡한 패턴도 만들 수 있습니다.
+   - `for f in a*`: 현재 디렉토리에서 `a`로 시작하는 모든 파일
+   - `for f in foo/*.txt`: `foo`의 모든 `.txt` 파일
    - `for f in foo/*/p??.txt`
-     all three-letter text files starting with p in subdirs of `foo`
+     `foo`의 하위 디렉토리에서 이름이 p로 시작하고 세 글자인 모든 텍스트 파일
 
-Whitespace issues don't stop there:
+공백 문자 문제는 여기서 끝나지 않습니다.
 
- - `if [ $foo = "bar" ]; then` -- see the issue?
- - what if `$foo` is empty? arguments to `[` are `=` and `bar`...
- - _can_ work around this with `[ x$foo = "xbar" ]`, but bleh
- - instead, use `[[`: bash built-in comparator that has special parsing
-   - also allows `&&` instead of `-a`, `||` over `-o`, etc.
+ - `if [ $foo = "bar" ]; then` -- 문제가 보이나요?
+ - `$foo`가 비어 있다면 어떨까요? `[`에 전달되는 인자는 `=`와 `bar`입니다...
+ - `[ x$foo = "xbar" ]`로 우회할 *수는* 있지만, 영 별로입니다.
+ - 대신 `[[`를 사용하세요. 특별한 구문 분석 방식을 사용하는 bash 내장 비교 연산자입니다.
+   - `-a` 대신 `&&`, `-o` 대신 `||` 등도 사용할 수 있습니다.
 
-<!-- TODO: arrays? $@. ${array[@]} vs "${array[@]}". -->
+<!-- TODO: 배열? $@. ${array[@]}와 "${array[@]}". -->
 
-## Composability
+## 조합 가능성
 
-Shell is powerful in part because of composability. Can chain multiple
-programs together rather than have one program that does everything.
+셸이 강력한 이유 중 하나는 조합 가능성입니다. 모든 일을 하는 프로그램 하나 대신,
+여러 프로그램을 서로 연결할 수 있습니다.
 
-The key character is `|` (pipe).
+핵심 문자는 `|`(파이프)입니다.
 
- - `a | b` means run both `a` and `b`
-   send all output of `a` as input to `b`
-   print the output of `b`
+ - `a | b`는 `a`와 `b`를 모두 실행하고,
+   `a`의 모든 출력을 `b`의 입력으로 전달하고,
+   `b`의 출력을 출력한다는 뜻입니다.
 
-All programs you launch ("processes") have three "streams":
+실행하는 모든 프로그램("프로세스")에는 세 개의 "스트림"이 있습니다.
 
- - `STDIN`: when the program reads input, it comes from here
- - `STDOUT`: when the program prints something, it goes here
- - `STDERR`: a 2nd output the program can choose to use
- - by default, `STDIN` is your keyboard, `STDOUT` and `STDERR` are both
-   your terminal. but you can change that!
-   - `a | b` makes `STDOUT` of `a` `STDIN` of `b`.
-   - also have:
-     - `a > foo` (`STDOUT` of `a` goes to the file `foo`)
-     - `a 2> foo` (`STDERR` of `a` goes to the file `foo`)
-     - `a < foo` (`STDIN` of `a` is read from the file `foo`)
-     - hint: `tail -f` will print a file as it's being written
- - why is this useful? lets you manipulate output of a program!
-   - `ls | grep foo`: all files that contain the word `foo`
-   - `ps | grep foo`: all processes that contain the word `foo`
+ - `STDIN`: 프로그램이 입력을 읽을 때 여기서 읽습니다.
+ - `STDOUT`: 프로그램이 무언가를 출력하면 여기로 갑니다.
+ - `STDERR`: 프로그램이 선택해서 사용할 수 있는 두 번째 출력입니다.
+ - 기본적으로 `STDIN`은 키보드이고, `STDOUT`과 `STDERR`는 모두
+   터미널입니다. 하지만 바꿀 수 있습니다!
+   - `a | b`는 `a`의 `STDOUT`을 `b`의 `STDIN`으로 만듭니다.
+   - 다음과 같은 방법도 있습니다.
+     - `a > foo` (`a`의 `STDOUT`이 `foo` 파일로 갑니다.)
+     - `a 2> foo` (`a`의 `STDERR`가 `foo` 파일로 갑니다.)
+     - `a < foo` (`a`의 `STDIN`을 `foo` 파일에서 읽습니다.)
+     - 힌트: `tail -f`는 파일에 내용이 쓰이는 대로 출력합니다.
+ - 이것이 왜 유용할까요? 프로그램의 출력을 가공할 수 있기 때문입니다!
+   - `ls | grep foo`: `foo`라는 단어를 포함하는 모든 파일
+   - `ps | grep foo`: `foo`라는 단어를 포함하는 모든 프로세스
    - `journalctl | grep -i intel | tail -n5`:
-     last 5 system log messages with the word intel (case insensitive)
+     intel이라는 단어를 포함하는 마지막 시스템 로그 메시지 5개(대소문자 구분 없음)
    - `who | sendmail -t me@example.com`
-     send the list of logged-in users to `me@example.com`
-   - forms the basis for much data-wrangling, as we'll cover later
+     로그인한 사용자 목록을 `me@example.com`으로 보냅니다.
+   - 나중에 다루겠지만, 많은 데이터 랭글링 작업의 기초가 됩니다.
 
-Bash also provides a number of other ways to compose programs.
+Bash는 프로그램을 조합하는 다른 방법도 여럿 제공합니다.
 
-You can group commands with `(a; b) | tac`: run `a`, then `b`, and send
-all their output to `tac`, which prints its input in reverse order.
+`(a; b) | tac`처럼 명령어를 묶을 수 있습니다. `a`를 실행한 다음 `b`를 실행하고,
+두 명령어의 모든 출력을 입력을 역순으로 출력하는 `tac`에 보냅니다.
 
-A lesser-known, but super useful one is _process substitution_.
-`b <(a)` will run `a`, generate a temporary file-name for its output
-stream, and pass that file-name to `b`. For example:
+덜 알려져 있지만 대단히 유용한 방법은 *프로세스 치환*입니다.
+`b <(a)`는 `a`를 실행하고, 그 출력 스트림을 위한 임시 파일 이름을 만든 다음,
+그 파일 이름을 `b`에 전달합니다. 예를 들어,
 
 ```bash
 diff <(journalctl -b -1 | head -n20) <(journalctl -b -2 | head -n20)
 ```
-will show you the difference between the first 20 lines of the last boot
-log and the one before that.
+이 명령어는 가장 최근 부팅 로그의 첫 20줄과 그 이전 부팅 로그의 첫 20줄 사이의
+차이를 보여 줍니다.
 
-<!-- TODO: exit codes? -->
+<!-- TODO: 종료 코드? -->
 
-## Job and process control
+## 작업 및 프로세스 제어
 
-What if you want to run longer-term things in the background?
+오래 걸리는 작업을 백그라운드에서 실행하고 싶다면 어떨까요?
 
- - the `&` suffix runs a program "in the background"
-   - it will give you back your prompt immediately
-   - handy if you want to run two programs at the same time
-     like a server and client: `server & client`
-   - note that the running program still has your terminal as `STDOUT`!
-     try: `server > server.log & client`
- - see all such processes with `jobs`
-   - notice that it shows "Running"
- - bring it to the foreground with `fg %JOB` (no argument is latest)
- - if you want to background the current program: `^Z` + `bg` (Here `^Z` means pressing `Ctrl+Z`)
-   - `^Z` stops the current process and makes it a "job"
-   - `bg` runs the last job in the background (as if you did `&`)
- - background jobs are still tied to your current session, and exit if
-   you log out. `disown` lets you sever that connection. or use `nohup`.
- - `$!` is pid of last background process
+ - 접미사 `&`는 프로그램을 "백그라운드에서" 실행합니다.
+   - 즉시 프롬프트로 돌아옵니다.
+   - 서버와 클라이언트처럼 프로그램 두 개를 동시에 실행하고 싶을 때 유용합니다.
+     `server & client`
+   - 실행 중인 프로그램의 `STDOUT`은 여전히 터미널이라는 점에 주의하세요!
+     이렇게 해 보세요. `server > server.log & client`
+ - `jobs`로 그런 프로세스를 모두 볼 수 있습니다.
+   - "Running"이 표시되는 것을 확인하세요.
+ - `fg %JOB`으로 포어그라운드로 가져옵니다(인자가 없으면 가장 최근 작업).
+ - 현재 프로그램을 백그라운드로 보내려면 `^Z` + `bg`를 사용하세요(여기서 `^Z`는 `Ctrl+Z`를 누른다는 뜻입니다).
+   - `^Z`는 현재 프로세스를 중지하고 "작업"으로 만듭니다.
+   - `bg`는 마지막 작업을 백그라운드에서 실행합니다(`&`를 사용한 것처럼).
+ - 백그라운드 작업은 여전히 현재 세션에 연결되어 있고, 로그아웃하면 종료됩니다.
+   `disown`으로 그 연결을 끊을 수 있습니다. 또는 `nohup`을 사용하세요.
+ - `$!`는 마지막 백그라운드 프로세스의 pid입니다.
 
-<!-- TODO: process output control (^S and ^Q)? -->
+<!-- TODO: 프로세스 출력 제어(^S와 ^Q)? -->
 
-What about other stuff running on your computer?
+컴퓨터에서 실행 중인 다른 것들은 어떨까요?
 
- - `ps` is your friend: lists running processes
-   - `ps -A`: print processes from all users (also `ps ax`)
-   - `ps` has *many* arguments: see `man ps`
- - `pgrep`: find processes by searching (like `ps -A | grep`)
-   - `pgrep -af`: search and display with arguments
- - `kill`: send a _signal_ to a process by ID (`pkill` by search + `-f`)
-   - signals tell a process to "do something"
-   - most common: `SIGKILL` (`-9` or `-KILL`): tell it to exit *now*
-     equivalent to `^\`
-   - also `SIGTERM` (`-15` or `-TERM`): tell it to exit gracefully
-     equivalent to `^C`
+ - `ps`가 도움이 됩니다. 실행 중인 프로세스 목록을 보여 줍니다.
+   - `ps -A`: 모든 사용자의 프로세스를 출력합니다(`ps ax`도 가능).
+   - `ps`에는 *많은* 인자가 있습니다. `man ps`를 보세요.
+ - `pgrep`: 검색으로 프로세스를 찾습니다(`ps -A | grep`과 비슷).
+   - `pgrep -af`: 인자도 함께 검색하고 표시합니다.
+ - `kill`: ID로 프로세스에 *신호*를 보냅니다(`pkill`은 검색 + `-f`).
+   - 신호는 프로세스에 "무언가를 하라"고 알립니다.
+   - 가장 흔한 것: `SIGKILL`(`-9` 또는 `-KILL`): *지금 바로* 종료하라고 알립니다.
+     `^\`와 같습니다.
+   - `SIGTERM`(`-15` 또는 `-TERM`)도 있습니다. 정상적인 종료 절차를 거쳐 종료하라고 알립니다.
+     `^C`와 같습니다.
 
 
-## Flags
+## 플래그
 
-Most command line utilities take parameters using **flags**. Flags usually come in short form (`-h`) and long form (`--help`). Usually running `CMD -h` or `man CMD` will give you a list of the flags the program takes.
-Short flags can usually be combined, running `rm -r -f` is equivalent to running `rm -rf` or `rm -fr`.
-Some common flags are a de facto standard and you will seem them in many applications:
+대부분의 명령줄 유틸리티는 **플래그**로 매개변수를 받습니다. 플래그는 보통 짧은 형식(`-h`)과 긴 형식(`--help`)이 있습니다. 대개 `CMD -h`나 `man CMD`를 실행하면 프로그램이 받는 플래그 목록을 볼 수 있습니다.
+짧은 플래그는 보통 합칠 수 있습니다. `rm -r -f`를 실행하는 것은 `rm -rf`나 `rm -fr`를 실행하는 것과 같습니다.
+흔히 쓰는 플래그 중 일부는 사실상의 표준이며, 여러 애플리케이션에서 볼 수 있습니다.
 
-* `-a` commonly refers to all files (i.e. also including those that start with a period)
-* `-f` usually refers to forcing something, like `rm -f`
-* `-h` displays the help for most commands
-* `-v` usually enables a verbose output
-* `-V` usually prints the version of the command
+* `-a`는 보통 모든 파일(즉, 마침표로 시작하는 파일도 포함)을 가리킵니다.
+* `-f`는 `rm -f`처럼 보통 무언가를 강제로 수행한다는 뜻입니다.
+* `-h`는 대부분의 명령어에서 도움말을 보여 줍니다.
+* `-v`는 보통 자세한 출력을 켭니다.
+* `-V`는 보통 명령어의 버전을 출력합니다.
 
-Also, a double dash `--` is used in built-in commands and many other commands to signify the end of command options, after which only positional parameters are accepted. So if you have a file called `-v` (which you can) and want to grep it `grep pattern -- -v` will work whereas `grep pattern -v` won't. In fact, one way to create such file is to do `touch -- -v`.
+또한 내장 명령어와 다른 여러 명령어에서는 이중 대시 `--`로 명령어 옵션의 끝을 나타내며, 그 뒤에는 위치 매개변수만 받습니다. 따라서 `-v`라는 파일이 있고(그런 이름도 가능합니다) 이 파일에 grep을 사용하려면 `grep pattern -- -v`는 동작하지만 `grep pattern -v`는 동작하지 않습니다. 실제로 이런 파일을 만드는 한 가지 방법은 `touch -- -v`를 실행하는 것입니다.
 
-## Exercises
+## 연습 문제
 
-1. If you are completely new to the shell you may want to read a more comprehensive guide about it such as [BashGuide](https://mywiki.wooledge.org/BashGuide). If you want a more in-depth introduction [The Linux Command Line](https://linuxcommand.org/tlcl.php) is a good resource.
+1. 셸이 완전히 처음이라면 [BashGuide](https://mywiki.wooledge.org/BashGuide)처럼 더 포괄적인 안내서를 읽어 보는 것이 좋습니다. 더 깊이 있는 입문서를 원한다면 [The Linux Command Line](https://linuxcommand.org/tlcl.php)이 좋은 자료입니다.
 
 1. **PATH, which, type**
 
-    We briefly discussed that the `PATH` environment variable is used to locate the programs that you run through the command line. Let's explore that a little further
-    - Run `echo $PATH` (or `echo $PATH | tr -s ':' '\n'` for pretty printing) and examine its contents, what locations are listed?
-    - The command `which` locates a program in the user PATH. Try running `which` for common commands like `echo`, `ls` or `mv`. Note that `which` is a bit limited since it does not understand shell aliases. Try running `type` and `command -v` for those same commands. How is the output different?
-    - Run `PATH=` and try running the previous commands again, some work and some don't, can you figure out why?
+    `PATH` 환경 변수가 명령줄에서 실행하는 프로그램을 찾는 데 사용된다는 것을 간단히 이야기했습니다. 조금 더 살펴봅시다.
+    - `echo $PATH`(보기 좋게 출력하려면 `echo $PATH | tr -s ':' '\n'`)를 실행하고 내용을 살펴보세요. 어떤 위치가 나열되어 있나요?
+    - `which` 명령어는 사용자의 PATH에서 프로그램을 찾습니다. `echo`, `ls`, `mv`처럼 흔히 쓰는 명령어에 `which`를 실행해 보세요. `which`는 셸 별칭을 이해하지 못하므로 다소 한계가 있다는 점에 주의하세요. 같은 명령어에 `type`과 `command -v`를 실행해 보세요. 출력은 어떻게 다른가요?
+    - `PATH=`를 실행한 다음 앞의 명령어를 다시 실행해 보세요. 어떤 것은 동작하고 어떤 것은 동작하지 않습니다. 이유를 알아낼 수 있나요?
 
-1. **Special Variables**
-    - What does the variable `~` expands as? What about `.`? And `..`?
-    - What does the variable `$?` do?
-    - What does the variable `$_` do?
-    - What does the variable `!!` expand to? What about `!!*`? And `!l`?
-    - Look for documentation for these options and familiarize yourself with them
+1. **특수 변수**
+    - 변수 `~`는 무엇으로 확장되나요? `.`은 어떤가요? `..`은요?
+    - 변수 `$?`는 무슨 일을 하나요?
+    - 변수 `$_`는 무슨 일을 하나요?
+    - 변수 `!!`는 무엇으로 확장되나요? `!!*`는 어떤가요? `!l`은요?
+    - 이 옵션들의 문서를 찾아보고 익숙해지세요.
 
 1. **xargs**
 
-    Sometimes piping doesn't quite work because the command being piped into does not expect the newline separated format. For example `file` command tells you properties of the file.
+    파이프의 출력을 받는 명령어가 줄바꿈으로 구분된 형식을 기대하지 않아서 파이프가 제대로 동작하지 않는 경우가 있습니다. 예를 들어 `file` 명령어는 파일의 속성을 알려 줍니다.
 
-    Try running `ls | file` and `ls | xargs file`. What is `xargs` doing?
+    `ls | file`과 `ls | xargs file`을 실행해 보세요. `xargs`는 무슨 일을 하고 있나요?
 
 
-1. **Shebang**
+1. **셔뱅**
 
-    When you write a script you can specify to your shell what interpreter should be used to interpret the script by using a [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line. Write a script called `hello` with the following contentsmake  it executable with `chmod +x hello`. Then execute it with `./hello`. Then remove the first line and execute it again? How is the shell using that first line?
+    스크립트를 작성할 때 [셔뱅](https://en.wikipedia.org/wiki/Shebang_(Unix)) 줄을 사용해 스크립트를 해석할 인터프리터를 셸에 지정할 수 있습니다. 다음 내용으로 `hello`라는 스크립트를 작성하고 `chmod +x hello`로 실행 가능하게 만드세요. 그런 다음 `./hello`로 실행하세요. 그다음 첫 번째 줄을 지우고 다시 실행해 보세요. 셸은 첫 번째 줄을 어떻게 사용하나요?
 
 
     ```bash
@@ -288,12 +288,12 @@ Also, a double dash `--` is used in built-in commands and many other commands to
       print("Hello World!")
     ```
 
-    You will often see programs that have a shebang that looks like `#! usr/bin/env bash`. This is a more portable solution with it own set of [advantages and disadvantages](https://unix.stackexchange.com/questions/29608/why-is-it-better-to-use-usr-bin-env-name-instead-of-path-to-name-as-my). How is `env` different from `which`? What environment variable does `env` use to decide what program to run?
+    셔뱅이 `#! usr/bin/env bash`처럼 생긴 프로그램을 자주 보게 됩니다. 이 방법은 이식성이 더 높으며, 나름의 [장단점](https://unix.stackexchange.com/questions/29608/why-is-it-better-to-use-usr-bin-env-name-instead-of-path-to-name-as-my)이 있습니다. `env`는 `which`와 어떻게 다른가요? `env`는 어떤 프로그램을 실행할지 정할 때 어떤 환경 변수를 사용하나요?
 
 
-1. **Pipes, process substitution, subshell**
+1. **파이프, 프로세스 치환, 서브셸**
 
-    Create a script called `slow_seq.sh` with the following contents and do `chmod +x slow_seq.sh` to make it executable.
+    다음 내용으로 `slow_seq.sh`라는 스크립트를 만들고 `chmod +x slow_seq.sh`를 실행해 실행 가능하게 만드세요.
 
     ```bash
       #! /usr/bin/env bash
@@ -304,20 +304,20 @@ Also, a double dash `--` is used in built-in commands and many other commands to
       done
     ```
 
-    There is a way in which pipes (and process substitution) differ from using subshell execution, i.e. `$()`. Run the following commands and observe the differences:
+    파이프(와 프로세스 치환)는 서브셸 실행, 즉 `$()`를 사용하는 것과 다른 점이 있습니다. 다음 명령어를 실행하고 차이를 관찰하세요.
 
     - `./slow_seq.sh | grep -P "[3-6]"`
     - `grep -P "[3-6]" <(./slow_seq.sh)`
     - `echo $(./slow_seq.sh) | grep -P "[3-6]"`
 
 
-1. **Misc**
-    - Try running `touch {a,b}{a,b}` then `ls` what did appear?
-    - Sometimes you want to keep STDIN and still pipe it to a file. Try running `echo HELLO | tee hello.txt`
-    - Try running `cat hello.txt > hello.txt ` what do you expect to happen? What does happen?
-    - Run `echo HELLO > hello.txt` and then run `echo WORLD >> hello.txt`. What are the contents of `hello.txt`? How is `>` different from `>>`?
-    - Run `printf "\e[38;5;81mfoo\e[0m\n"`. How was the output different? If you want to know more, search for ANSI color escape sequences.
-    - Run `touch a.txt` then run `^txt^log` what did bash do for you? In the same vein, run `fc`. What does it do?
+1. **기타**
+    - `touch {a,b}{a,b}`를 실행한 다음 `ls`를 실행해 보세요. 무엇이 생겼나요?
+    - STDIN을 유지하면서도 파일로 파이프하고 싶을 때가 있습니다. `echo HELLO | tee hello.txt`를 실행해 보세요.
+    - `cat hello.txt > hello.txt `를 실행해 보세요. 어떤 일이 일어날 것으로 예상하나요? 실제로는 어떤 일이 일어나나요?
+    - `echo HELLO > hello.txt`를 실행한 다음 `echo WORLD >> hello.txt`를 실행하세요. `hello.txt`에는 어떤 내용이 있나요? `>`는 `>>`와 어떻게 다른가요?
+    - `printf "\e[38;5;81mfoo\e[0m\n"`를 실행하세요. 출력은 어떻게 달랐나요? 더 알고 싶다면 ANSI 색상 이스케이프 시퀀스를 검색해 보세요.
+    - `touch a.txt`를 실행한 다음 `^txt^log`를 실행하세요. bash는 여러분을 위해 무슨 일을 했나요? 같은 맥락에서 `fc`를 실행해 보세요. 무슨 일을 하나요?
 
 {% comment %}
 
@@ -329,12 +329,12 @@ TODO
 
 {% endcomment %}
 
-1. **Keyboard shortcuts**
+1. **키보드 단축키**
 
-    As with any application you use frequently is worth familiarising yourself with its keyboard shortcuts. Type the following ones and try figuring out what they do and in what scenarios it might be convenient knowing about them. For some of them it might be easier searching online about what they do. (remember that `^X` means pressing `Ctrl+X`)
+    자주 사용하는 애플리케이션이라면 무엇이든 키보드 단축키에 익숙해질 가치가 있습니다. 다음 단축키를 입력하고 무슨 일을 하는지, 어떤 상황에서 알아 두면 편리할지 파악해 보세요. 일부 단축키는 온라인에서 동작을 검색해 보는 편이 더 쉬울 수도 있습니다. (`^X`는 `Ctrl+X`를 누른다는 뜻임을 기억하세요.)
 
     - `^A`, `^E`
     - `^R`
     - `^L`
-    - `^C`, `^\` and  `^D`
-    - `^U` and `^Y`
+    - `^C`, `^\`와  `^D`
+    - `^U`와 `^Y`

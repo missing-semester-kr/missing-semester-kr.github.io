@@ -1,293 +1,256 @@
 ---
 layout: lecture
-title: "Editors"
+title: "편집기"
 presenter: Anish
 date: 2019-01-22
 order: 1
 video:
   aspect: 62.5
   id: 1vLcusYSrI4
-translation_status: source
+translation_status: draft
 ---
 
-# Importance of Editors
+# 편집기의 중요성
 
-As programmers, we spend most of our time editing plain-text files. It's worth
-investing time learning an editor that fits your needs.
+프로그래머인 우리는 대부분의 시간을 일반 텍스트 파일을 편집하며 보냅니다. 자신의 필요에 맞는 편집기를 배우는 데 시간을 투자할 만합니다.
 
-How do you learn a new editor? You force yourself to use that editor for a
-while, even if it temporarily hampers your productivity. It'll pay off soon
-enough (two weeks is enough to learn the basics).
+새 편집기는 어떻게 배울까요? 일시적으로 생산성이 떨어지더라도 한동안 그 편집기를 반드시 사용하도록 스스로 강제하면 됩니다. 머지않아 보상을 받을 것입니다(기본을 배우기에는 2주면 충분합니다).
 
-We are going to teach you Vim, but we encourage you to experiment with other
-editors. It's a very personal choice, and people have [strong
-opinions](https://en.wikipedia.org/wiki/Editor_war).
+우리는 Vim을 가르칠 예정이지만, 다른 편집기도 시험해 보기를 권합니다. 편집기는 매우 개인적인 선택이며, 사람들은 [강한 의견](https://en.wikipedia.org/wiki/Editor_war)을 가지고 있습니다.
 
-We can't teach you how to use a powerful editor in 50 minutes, so we're going
-to focus on teaching you the basics, showing you some of the more advanced
-functionality, and giving you the resources to master the tool. We'll teach you
-lessons in the context of Vim, but most ideas will translate to any other
-powerful editor you use (and if they don't, then you probably shouldn't use
-that editor!).
+50분 안에 강력한 편집기의 사용법을 가르칠 수는 없으므로, 기본을 가르치고 고급 기능 일부를 보여 주며 도구를 숙달할 수 있는 자료를 제공하는 데 집중하겠습니다. Vim을 바탕으로 가르치지만, 대부분의 아이디어는 여러분이 사용하는 다른 강력한 편집기에도 적용됩니다(적용되지 않는다면 그 편집기는 사용하지 않는 편이 좋을 것입니다!).
 
-![Editor Learning Curves](/2019/files/editor-learning-curves.jpg)
+![편집기 학습 곡선](/2019/files/editor-learning-curves.jpg)
 
 <!-- source: https://blogs.msdn.microsoft.com/steverowe/2004/11/17/code-editor-learning-curves/ -->
 
-The editor learning curves graph is a myth. Learning the basics of a powerful
-editor is quite easy (even though it might take years to master).
+편집기 학습 곡선 그래프는 사실과 다릅니다. 강력한 편집기의 기본을 배우기는 꽤 쉽습니다(숙달하려면 몇 년이 걸릴 수 있지만요).
 
-Which editors are popular today? See this [Stack Overflow
-survey](https://insights.stackoverflow.com/survey/2018/#development-environments-and-tools)
-(there may be some bias because Stack Overflow users may not be representative
-of programmers as a whole).
+요즘 어떤 편집기가 인기 있을까요? 이 [Stack Overflow 설문 조사](https://insights.stackoverflow.com/survey/2018/#development-environments-and-tools)를 보세요(Stack Overflow 사용자가 프로그래머 전체를 대표하지 않을 수 있으므로 어느 정도 편향이 있을 수 있습니다).
 
-## Command-line Editors
+## 명령줄 편집기
 
-Even if you eventually settle on using a GUI editor, it's worth learning a
-command-line editor for easily editing files on remote machines.
+결국 GUI 편집기를 쓰기로 결정하더라도, 원격 컴퓨터에서 파일을 쉽게 편집할 수 있도록 명령줄 편집기를 배워 둘 만합니다.
 
 # Nano
 
-Nano is a simple command-line editor.
+Nano는 단순한 명령줄 편집기입니다.
 
-- Move with arrow keys
-- All other shortcuts (save, exit) shown at the bottom
+- 방향키로 이동합니다.
+- 다른 모든 단축키(저장, 종료)는 아래쪽에 표시됩니다.
 
 # Vim
 
-Vi/Vim is a powerful text editor. It's a command-line program that's usually
-installed everywhere, which makes it convenient for editing files on a remote
-machine.
+Vi/Vim은 강력한 텍스트 편집기입니다. 보통 어디에나 설치되어 있는 명령줄 프로그램이므로, 원격 컴퓨터에서 파일을 편집할 때 편리합니다.
 
-Vim also has graphical versions, such as GVim and
-[MacVim](https://macvim-dev.github.io/macvim/). These provide additional
-features such as 24-bit color, menus, and popups.
+Vim에는 GVim이나 [MacVim](https://macvim-dev.github.io/macvim/) 같은 그래픽 버전도 있습니다. 이들은 24비트 색상, 메뉴, 팝업과 같은 추가 기능을 제공합니다.
 
-## Philosophy of Vim
+## Vim의 철학
 
-- When programming, you spend most of your time reading/editing, not writing
-    - Vim is a **modal** editor: different modes for inserting text vs manipulating text
-- Vim is programmable (with Vimscript and also other languages like Python)
-- Vim's interface itself is like a programming language
-    - Keystrokes (with mnemonic names) are commands
-    - Commands are composable
-- Don't use the mouse: too slow
-- Editor should work at the speed you think
+- 프로그래밍할 때는 작성보다 읽기/편집에 대부분의 시간을 씁니다.
+    - Vim은 **모드 기반** 편집기입니다. 텍스트 삽입과 텍스트 조작에 서로 다른 모드를 사용합니다.
+- Vim은 프로그래밍할 수 있습니다(Vimscript뿐 아니라 Python 같은 다른 언어로도 가능합니다).
+- Vim의 인터페이스 자체가 프로그래밍 언어와 같습니다.
+    - (기억하기 쉬운 이름을 가진) 키 입력이 명령어입니다.
+    - 명령어를 조합할 수 있습니다.
+- 마우스를 사용하지 마세요. 너무 느립니다.
+- 편집기는 여러분이 생각하는 속도로 동작해야 합니다.
 
-## Introductory Vim
+## Vim 입문
 
-### Modes
+### 모드
 
-Vim shows the current mode in the bottom left.
+Vim은 왼쪽 아래에 현재 모드를 표시합니다.
 
-- Normal mode: for moving around a file and making edits
-    - Spend most of your time here
-- Insert mode: for inserting text
-- Visual (visual, line, or block) mode: for selecting blocks of text
+- Normal 모드: 파일 안에서 이동하고 편집할 때 사용합니다.
+    - 대부분의 시간을 여기서 보내세요.
+- Insert 모드: 텍스트를 삽입할 때 사용합니다.
+- Visual (visual, line, block) 모드: 텍스트 블록을 선택할 때 사용합니다.
 
-You change modes by pressing `<ESC>` to switch from any mode back to normal
-mode. From normal mode, enter insert mode with `i`, visual mode with `v`,
-visual line mode with `V`, and visual block mode with `<C-v>`.
+어느 모드에서든 `<ESC>`를 누르면 Normal 모드로 돌아갈 수 있습니다. Normal 모드에서는 `i`로 Insert 모드에, `v`로 Visual 모드에, `V`로 Visual Line 모드에, `<C-v>`로 Visual Block 모드에 들어갑니다.
 
-You use the `<ESC>` key a lot when using Vim: consider remapping Caps Lock to
-Escape.
+Vim을 사용할 때는 `<ESC>` 키를 자주 누르게 됩니다. Caps Lock을 Escape로 다시 매핑하는 것을 고려해 보세요.
 
-### Basics
+### 기본
 
-Vim ex commands are issued through `:{command}` in normal mode.
+Vim의 ex 명령어는 Normal 모드에서 `:{command}`로 실행합니다.
 
-- `:q` quit (close window)
-- `:w` save
-- `:wq` save and quit
-- `:e {name of file}` open file for editing
-- `:ls` show open buffers
-- `:help {topic}` open help
-    - `:help :w` opens help for the `:w` ex command
-    - `:help w` opens help for the `w` movement
+- `:q` 종료(창 닫기)
+- `:w` 저장
+- `:wq` 저장하고 종료
+- `:e {name of file}` 파일을 열어 편집
+- `:ls` 열려 있는 버퍼 표시
+- `:help {topic}` 도움말 열기
+    - `:help :w`는 `:w` ex 명령어의 도움말을 엽니다.
+    - `:help w`는 `w` 이동의 도움말을 엽니다.
 
-### Movement
+### 이동
 
-Vim is all about efficient movement. Navigate the file in Normal mode.
+Vim은 효율적인 이동이 핵심입니다. Normal 모드에서 파일 안을 이동하세요.
 
-- Disable arrow keys to avoid bad habits
+- 나쁜 습관이 들지 않도록 방향키를 비활성화하세요.
 ```vim
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 ```
-- Basic movement: `hjkl` (left, down, up, right)
-- Words: `w` (next word), `b` (beginning of word), `e` (end of word)
-- Lines: `0` (beginning of line), `^` (first non-blank character), `$` (end of line)
-- Screen: `H` (top of screen), `M` (middle of screen), `L` (bottom of screen)
-- File: `gg` (beginning of file), `G` (end of file)
-- Line numbers: `:{number}<CR>` or `{number}G` (line {number})
-- Misc: `%` (corresponding item)
-- Find: `f{character}`, `t{character}`, `F{character}`, `T{character}`
-    - find/to forward/backward {character} on the current line
-- Repeating N times: `{number}{movement}`, e.g. `10j` moves down 10 lines
-- Search: `/{regex}`, `n` / `N` for navigating matches
+- 기본 이동: `hjkl`(왼쪽, 아래, 위, 오른쪽)
+- 단어: `w`(다음 단어), `b`(단어의 시작), `e`(단어의 끝)
+- 줄: `0`(줄의 시작), `^`(공백이 아닌 첫 문자), `$`(줄의 끝)
+- 화면: `H`(화면 위쪽), `M`(화면 가운데), `L`(화면 아래쪽)
+- 파일: `gg`(파일의 시작), `G`(파일의 끝)
+- 줄 번호: `:{number}<CR>` 또는 `{number}G`({number}번째 줄)
+- 기타: `%`(대응하는 항목)
+- 찾기: `f{character}`, `t{character}`, `F{character}`, `T{character}`
+    - 현재 줄에서 앞/뒤 방향으로 {character}를 찾거나 그 직전까지 이동합니다.
+- N번 반복: `{number}{movement}`. 예를 들어 `10j`는 10줄 아래로 이동합니다.
+- 검색: `/{regex}`, `n` / `N`으로 일치하는 항목 사이를 이동합니다.
 
-### Selection
+### 선택
 
-Visual modes:
+Visual 모드:
 
 - Visual
 - Visual Line
 - Visual Block
 
-Can use movement keys to make selection.
+이동 키를 사용해 선택할 수 있습니다.
 
-### Manipulating text
+### 텍스트 조작
 
-Everything that you used to do with the mouse, you now do with keyboards (and
-powerful, composable commands).
+마우스로 하던 모든 일을 이제 키보드로 (그리고 조합할 수 있는 강력한 명령어로) 합니다.
 
-- `i` enter insert mode
-    - but for manipulating/deleting text, want to use something more than
-    backspace
-- `o` / `O` insert line below / above
-- `d{motion}` delete {motion}
-    - e.g. `dw` is delete word, `d$` is delete to end of line, `d0` is delete
-    to beginning of line
-- `c{motion}` change {motion}
-    - e.g. `cw` is change word
-    - like `d{motion}` followed by `i`
-- `x` delete character (equal do `dl`)
-- `s` substitute character (equal to `xi`)
-- visual mode + manipulation
-    - select text, `d` to delete it or `c` to change it
-- `u` to undo, `<C-r>` to redo
-- Lots more to learn: e.g. `~` flips the case of a character
+- `i` Insert 모드로 들어갑니다.
+    - 하지만 텍스트를 조작/삭제할 때는 백스페이스 이상의 기능을 사용하고 싶을 것입니다.
+- `o` / `O` 아래 / 위에 줄을 삽입합니다.
+- `d{motion}` {motion}을 삭제합니다.
+    - 예를 들어 `dw`는 단어를 삭제하고, `d$`는 줄 끝까지 삭제하며, `d0`은 줄 시작까지 삭제합니다.
+- `c{motion}` {motion}을 변경합니다.
+    - 예를 들어 `cw`는 단어를 변경합니다.
+    - `d{motion}` 다음에 `i`를 누르는 것과 비슷합니다.
+- `x` 문자를 삭제합니다(`dl`과 같습니다).
+- `s` 문자를 치환합니다(`xi`와 같습니다).
+- Visual 모드 + 조작
+    - 텍스트를 선택한 뒤 `d`로 삭제하거나 `c`로 변경합니다.
+- `u`로 실행 취소, `<C-r>`로 다시 실행합니다.
+- 배울 것은 훨씬 더 많습니다. 예를 들어 `~`는 문자의 대소문자를 뒤집습니다.
 
-### Resources
+### 참고 자료
 
-- `vimtutor` command-line program to teach you vim
-- [Vim Adventures](https://vim-adventures.com/) game to learn Vim
+- Vim을 가르쳐 주는 명령줄 프로그램 `vimtutor`
+- Vim을 배울 수 있는 게임 [Vim Adventures](https://vim-adventures.com/)
 
-## Customizing Vim
+## Vim 커스터마이징
 
-Vim is customized through a plain-text configuration file in `~/.vimrc`
-(containing Vimscript commands). There are probably lots of basic settings that
-you want to turn on.
+Vim은 `~/.vimrc`에 있는 일반 텍스트 설정 파일(Vimscript 명령어가 들어 있습니다)을 통해 커스터마이징합니다. 켜 두고 싶은 기본 설정이 많이 있을 것입니다.
 
-Look at people's dotfiles on GitHub for inspiration, but try not to
-copy-and-paste people's full configuration. Read it, understand it, and take
-what you need.
+GitHub에서 다른 사람의 닷파일을 살펴보며 아이디어를 얻되, 설정 전체를 복사해 붙여 넣는 일은 가급적 피하세요. 읽고 이해한 뒤 필요한 것만 가져오세요.
 
-Some customizations to consider:
+고려할 만한 커스터마이징 항목:
 
-- Syntax highlighting: `syntax on`
-- Color schemes
-- Line numbers: `set nu` / `set rnu`
-- Backspacing through everything: `set backspace=indent,eol,start`
+- 구문 강조: `syntax on`
+- 색 구성표
+- 줄 번호: `set nu` / `set rnu`
+- 모든 곳에서 백스페이스 사용: `set backspace=indent,eol,start`
 
-## Advanced Vim
+## 고급 Vim
 
-Here are a few examples to show you the power of the editor. We can't teach you
-all of these kinds of things, but you'll learn them as you go. A good
-heuristic: whenever you're using your editor and you think "there must be a
-better way of doing this", there probably is: look it up online.
+편집기의 강력함을 보여 주는 몇 가지 예를 소개합니다. 이런 종류의 기능을 전부 가르칠 수는 없지만, 사용하면서 배우게 됩니다. 좋은 경험 법칙이 있습니다. 편집기를 사용하다가 "더 나은 방법이 있을 텐데"라는 생각이 든다면, 아마 있을 것입니다. 온라인에서 찾아보세요.
 
-### Search and replace
+### 검색과 치환
 
-`:s` (substitute) command ([documentation](https://vim.fandom.com/wiki/Search_and_replace)).
+`:s`(치환) 명령어([문서](https://vim.fandom.com/wiki/Search_and_replace)).
 
 - `%s/foo/bar/g`
-    - replace foo with bar globally in file
+    - 파일 전체에서 foo를 bar로 치환합니다.
 - `%s/\[.*\](\(.*\))/\1/g`
-    - replace named Markdown links with plain URLs
+    - 이름이 있는 Markdown 링크를 일반 URL로 치환합니다.
 
-### Multiple windows
+### 여러 창
 
-- `sp` / `vsp` to split windows
-- Can have multiple views of the same buffer.
+- `sp` / `vsp`로 창을 분할합니다.
+- 같은 버퍼를 여러 뷰로 볼 수 있습니다.
 
-### Mouse support
+### 마우스 지원
 
 - `set mouse+=a`
-    - can click, scroll select
+    - 클릭, 스크롤, 선택을 할 수 있습니다.
 
-### Macros
+### 매크로
 
-- `q{character}` to start recording a macro in register `{character}`
-- `q` to stop recording
-- `@{character}` replays the macro
-- Macro execution stops on error
-- `{number}@{character}` executes a macro {number} times
-- Macros can be recursive
-    - first clear the macro with `q{character}q`
-    - record the macro, with `@{character}` to invoke the macro recursively
-    (will be a no-op until recording is complete)
-- Example: convert xml to json ([file](/2019/files/example-data.xml))
-    - Array of objects with keys "name" / "email"
-    - Use a Python program?
-    - Use sed / regexes
+- `q{character}`로 `{character}` 레지스터에 매크로 기록을 시작합니다.
+- `q`로 기록을 중단합니다.
+- `@{character}`로 매크로를 재생합니다.
+- 오류가 나면 매크로 실행이 중단됩니다.
+- `{number}@{character}`는 매크로를 {number}번 실행합니다.
+- 매크로는 재귀적으로 실행할 수 있습니다.
+    - 먼저 `q{character}q`로 매크로를 비웁니다.
+    - `@{character}`로 매크로를 재귀적으로 호출하면서 매크로를 기록합니다(기록이 끝날 때까지는 아무 동작도 하지 않습니다).
+- 예: xml을 json으로 변환하기([파일](/2019/files/example-data.xml))
+    - "name" / "email" 키를 가진 객체의 배열
+    - Python 프로그램을 사용할까요?
+    - sed / 정규 표현식을 사용합니다.
         - `g/people/d`
         - `%s/<person>/{/g`
         - `%s/<name>\(.*\)<\/name>/"name": "\1",/g`
         - ...
-    - Vim commands / macros
-        - `Gdd`, `ggdd` delete first and last lines
-        - Macro to format a single element (register `e`)
-            - Go to line with `<name>`
+    - Vim 명령어 / 매크로
+        - `Gdd`, `ggdd`로 첫 줄과 마지막 줄을 삭제합니다.
+        - 요소 하나의 형식을 지정하는 매크로(`e` 레지스터)
+            - `<name>`이 있는 줄로 이동합니다.
             - `qe^r"f>s": "<ESC>f<C"<ESC>q`
-        - Macro to format a person
-            - Go to line with `<person>`
+        - 한 사람의 형식을 지정하는 매크로
+            - `<person>`이 있는 줄로 이동합니다.
             - `qpS{<ESC>j@eA,<ESC>j@ejS},<ESC>q`
-        - Macro to format a person and go to the next person
-            - Go to line with `<person>`
+        - 한 사람의 형식을 지정하고 다음 사람으로 이동하는 매크로
+            - `<person>`이 있는 줄로 이동합니다.
             - `qq@pjq`
-        - Execute macro until end of file
+        - 파일 끝까지 매크로를 실행합니다.
             - `999@q`
-        - Manually remove last `,` and add `[` and `]` delimiters
+        - 마지막 `,`를 수동으로 지우고 구분자 `[`와 `]`를 추가합니다.
 
-## Extending Vim
+## Vim 확장
 
-There are tons of plugins for extending vim.
+Vim을 확장하는 플러그인은 아주 많습니다.
 
-First, get set up with a plugin manager like
-[vim-plug](https://github.com/junegunn/vim-plug),
-[Vundle](https://github.com/VundleVim/Vundle.vim), or
-[pathogen.vim](https://github.com/tpope/vim-pathogen).
+먼저 [vim-plug](https://github.com/junegunn/vim-plug), [Vundle](https://github.com/VundleVim/Vundle.vim), [pathogen.vim](https://github.com/tpope/vim-pathogen) 같은 플러그인 관리자를 설정하세요.
 
-Some plugins to consider:
+고려할 만한 플러그인:
 
-- [ctrlp.vim](https://github.com/kien/ctrlp.vim): fuzzy file finder
-- [vim-fugitive](https://github.com/tpope/vim-fugitive): git integration
-- [vim-surround](https://github.com/tpope/vim-surround): manipulating "surroundings"
-- [gundo.vim](https://github.com/sjl/gundo.vim): navigate undo tree
-- [nerdtree](https://github.com/scrooloose/nerdtree): file explorer
-- [syntastic](https://github.com/vim-syntastic/syntastic): syntax checking
-- [vim-easymotion](https://github.com/easymotion/vim-easymotion): magic motions
-- [vim-over](https://github.com/osyo-manga/vim-over): substitute preview
+- [ctrlp.vim](https://github.com/kien/ctrlp.vim): 퍼지 파일 검색기
+- [vim-fugitive](https://github.com/tpope/vim-fugitive): Git 연동
+- [vim-surround](https://github.com/tpope/vim-surround): "둘러싼 문자" 조작
+- [gundo.vim](https://github.com/sjl/gundo.vim): 실행 취소 트리 탐색
+- [nerdtree](https://github.com/scrooloose/nerdtree): 파일 탐색기
+- [syntastic](https://github.com/vim-syntastic/syntastic): 구문 검사
+- [vim-easymotion](https://github.com/easymotion/vim-easymotion): 마법 같은 이동
+- [vim-over](https://github.com/osyo-manga/vim-over): 치환 미리 보기
 
-Lists of plugins:
+플러그인 목록:
 
 - [Vim Awesome](https://vimawesome.com/)
 
-## Vim-mode in Other Programs
+## 다른 프로그램에서의 Vim 모드
 
-For many popular editors (e.g. vim and emacs), many other tools support editor
-emulation.
+많이 쓰이는 여러 편집기(예: vim, emacs)의 동작을 모방하는 기능을 다른 많은 도구가 지원합니다.
 
-- Shell
+- 셸
     - bash: `set -o vi`
     - zsh: `bindkey -v`
-    - `export EDITOR=vim` (environment variable used by programs like `git`)
+    - `export EDITOR=vim`(`git` 같은 프로그램이 사용하는 환경 변수)
 - `~/.inputrc`
     - `set editing-mode vi`
 
-There are even vim keybinding extensions for web [browsers](https://vim.fandom.com/wiki/Vim_key_bindings_for_web_browsers), some popular ones are [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en) for Google Chrome and [Tridactyl](https://github.com/tridactyl/tridactyl) for Firefox.
+웹 [브라우저](https://vim.fandom.com/wiki/Vim_key_bindings_for_web_browsers)에도 Vim 키 바인딩 확장 프로그램이 있습니다. Google Chrome용 [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en)과 Firefox용 [Tridactyl](https://github.com/tridactyl/tridactyl)이 널리 쓰입니다.
 
 
-## Resources
+## 참고 자료
 
-- [Vim Tips Wiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
-- [Vim Advent Calendar](https://vimways.org/2018/): various Vim tips
-- [Neovim](https://neovim.io/) is a modern vim reimplementation with more active development.
-- [Vim Golf](https://www.vimgolf.com/): Various Vim challenges
+- [Vim 팁 위키](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
+- [Vim Advent Calendar](https://vimways.org/2018/): 다양한 Vim 팁
+- [Neovim](https://neovim.io/)은 더 활발하게 개발되는 현대적인 Vim 재구현입니다.
+- [Vim Golf](https://www.vimgolf.com/): 다양한 Vim 도전 과제
 
 {% comment %}
 # Resources
@@ -295,21 +258,14 @@ There are even vim keybinding extensions for web [browsers](https://vim.fandom.c
 TODO resources for other editors?
 {% endcomment %}
 
-# Exercises
+# 연습 문제
 
-1. Experiment with some editors. Try at least one command-line editor (e.g.
-   Vim) and at least one GUI editor (e.g. Atom). Learn through tutorials like
-   `vimtutor` (or the equivalents for other editors). To get a real feel for a
-   new editor, commit to using it exclusively for a couple days while going
-   about your work.
+1. 몇 가지 편집기를 시험해 보세요. 최소한 명령줄 편집기 하나(예: Vim)와 GUI 편집기 하나(예: Atom)를 사용해 보세요. `vimtutor` 같은 튜토리얼(또는 다른 편집기의 동등한 튜토리얼)로 배우세요. 새 편집기를 제대로 경험하려면 며칠 동안 일상적인 작업을 하면서 그 편집기만 사용하기로 결심하세요.
 
-1. Customize your editor. Look through tips and tricks online, and look through
-   other people's configurations (often, they are well-documented).
+1. 편집기를 커스터마이징하세요. 온라인에서 팁과 요령을 찾아보고, 다른 사람의 설정도 살펴보세요(대개 설명이 잘 되어 있습니다).
 
-1. Experiment with plugins for your editor.
+1. 편집기용 플러그인을 시험해 보세요.
 
-1. Commit to using a powerful editor for at least a couple weeks: you should
-   start seeing the benefits by then. At some point, you should be able to get
-   your editor to work as fast as you think.
+1. 적어도 2주 정도는 강력한 편집기를 사용하기로 결심하세요. 그때쯤이면 이점을 느끼기 시작할 것입니다. 어느 시점에는 생각하는 속도만큼 빠르게 편집기를 다룰 수 있을 것입니다.
 
-1. Install a linter (e.g. pyflakes for python) link it to your editor and test it is working.
+1. 린터(예: python의 pyflakes)를 설치하고 편집기에 연결한 뒤 제대로 동작하는지 시험하세요.

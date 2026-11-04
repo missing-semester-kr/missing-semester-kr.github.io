@@ -1,39 +1,28 @@
 ---
 layout: lecture
-title: "Package Management and Dependency Management"
+title: "패키지 관리와 의존성 관리"
 presenter: Anish
 date: 2019-01-29
 order: 2
 video:
   aspect: 56.25
   id: tgvt473T8xA
-translation_status: source
+translation_status: draft
 ---
 
-Software usually builds on (a collection of) other software, which necessitates
-dependency management.
+소프트웨어는 보통 다른 소프트웨어(의 모음)를 바탕으로 만들어지므로 의존성 관리가 필요합니다.
 
-Package/dependency management programs are language-specific, but many share
-common ideas.
+패키지/의존성 관리 프로그램은 언어마다 다르지만, 공통된 개념을 공유하는 경우가 많습니다.
 
-# Package repositories
+# 패키지 저장소
 
-Packages are hosted in _package repositories_. There are different repositories
-for different languages (and sometimes multiple for a particular language),
-such as [PyPI](https://pypi.org/) for Python, [RubyGems](https://rubygems.org/)
-for Ruby, and [crates.io](https://crates.io/) for Rust. They generally store
-software (source code and sometimes pre-compiled binaries for specific
-platforms) for all versions of a package.
+패키지는 *패키지 저장소*에 보관됩니다. Python의 [PyPI](https://pypi.org/), Ruby의 [RubyGems](https://rubygems.org/), Rust의 [crates.io](https://crates.io/)처럼 언어마다 서로 다른 저장소가 있습니다(때로는 한 언어에 여러 저장소가 있기도 합니다). 일반적으로 패키지의 모든 버전에 해당하는 소프트웨어(소스 코드와, 경우에 따라 특정 플랫폼용으로 미리 컴파일된 바이너리)를 저장합니다.
 
-# Semantic versioning
+# 시맨틱 버저닝
 
-Software evolves over time, and we need a way to refer to software versions.
-Some simple ways could be to refer to software by a sequence number or a commit
-hash, but we can do better in terms of communicating more information: using
-version numbers.
+소프트웨어는 시간이 지나면서 발전하므로, 소프트웨어 버전을 가리킬 방법이 필요합니다. 단순하게는 일련번호나 커밋 해시로 소프트웨어를 가리킬 수 있지만, 버전 번호를 사용하면 더 많은 정보를 전달할 수 있습니다.
 
-There are many approaches; one popular one is [Semantic
-Versioning](https://semver.org/):
+여러 접근법이 있으며, 그중 널리 쓰이는 하나가 [시맨틱 버저닝](https://semver.org/)입니다.
 
 ```
 x.y.z
@@ -43,69 +32,38 @@ x.y.z
 +----- major
 ```
 
-Increment **major** version when you make incompatible API changes.
+호환되지 않는 API 변경을 하면 **메이저** 버전을 올립니다.
 
-Increment **minor** version when you add functionality in a backward-compatible manner.
+하위 호환성을 유지하면서 기능을 추가하면 **마이너** 버전을 올립니다.
 
-Increment **patch** when you make backward-compatible bug fixes.
+하위 호환성을 유지하면서 버그를 수정하면 **패치**를 올립니다.
 
-For example, if you depend on a feature introduced in `v1.2.0` of some
-software, then you can install `v1.x.y` for any minor version `x >= 2` and any
-patch version `y`. You need to install major version `1` (because `2` can
-introduce backward-incompatible changes), and you need to install a minor
-version `>= 2` (because you depend on a feature introduced in that minor
-version). You can use any newer minor version or patch version because
-they should not introduce any backward-incompatible changes.
+예를 들어 어떤 소프트웨어의 `v1.2.0`에 도입된 기능에 의존한다면, `v1.x.y`를 설치할 수 있으며 이때 마이너 버전은 `x >= 2`, 패치 버전은 임의의 `y`이면 됩니다. 메이저 버전은 `1`을 설치해야 하며(`2`에는 하위 호환성을 깨뜨리는 변경이 도입될 수 있기 때문입니다), 마이너 버전은 `>= 2`를 설치해야 합니다(그 마이너 버전에서 도입된 기능에 의존하기 때문입니다). 더 새로운 마이너 버전이나 패치 버전은 하위 호환성을 깨뜨리는 변경을 도입하지 않아야 하므로 어느 것이든 사용할 수 있습니다.
 
-# Lock files
+# 잠금 파일
 
-In addition to specifying versions, it can be nice to enforce that the
-_contents_ of the dependency have not changed to prevent tampering. Some tools
-use _lock files_ to specify cryptographic hashes of dependencies (along with
-versions) that are checked on package install.
+버전을 지정하는 것에 더해, 변조를 방지하기 위해 의존성의 *내용*이 바뀌지 않았음을 강제하는 것도 좋을 수 있습니다. 일부 도구는 *잠금 파일*을 사용해 의존성의 암호학적 해시를 (버전과 함께) 지정하고, 패키지를 설치할 때 이를 확인합니다.
 
-# Specifying versions
+# 버전 지정하기
 
-Tools often let you specify versions in multiple ways, such as:
+도구에서는 다음과 같이 여러 방식으로 버전을 지정할 수 있는 경우가 많습니다.
 
-- exact version, e.g. `2.3.12`
-- minimum major version, e.g. `>= 2`
-- specific major version and minimum patch version, e.g. `>= 2.3, <3.0`
+- 정확한 버전. 예: `2.3.12`
+- 최소 메이저 버전. 예: `>= 2`
+- 특정 메이저 버전과 최소 패치 버전. 예: `>= 2.3, <3.0`
 
-Specifying an exact version can be advantageous to avoid different behaviors
-based on installed dependencies (this shouldn't happen if all dependencies
-faithfully follow semver, but sometimes people make mistakes). Specifying a
-minimum requirement has the advantage of allowing bug fixes to be installed
-(e.g. patch upgrades).
+정확한 버전을 지정하면 설치된 의존성에 따라 동작이 달라지는 일을 피할 수 있다는 이점이 있습니다(모든 의존성이 시맨틱 버저닝을 충실히 따른다면 이런 일이 없어야 하지만, 때때로 사람은 실수합니다). 최소 요구 사항을 지정하면 버그 수정을 설치할 수 있다는 이점이 있습니다(예: 패치 업그레이드).
 
-# Dependency resolution
+# 의존성 해결
 
-Package managers use various dependency resolution algorithms to satisfy
-dependency requirements. This often gets challenging with complex dependencies
-(e.g. a package can be indirectly depended on by multiple top-level
-dependencies, and different versions could be required). Different package
-managers have different levels of sophistication in their dependency
-resolution, but it's something to be aware of: you may need to understand this
-if you are debugging dependencies.
+패키지 관리자는 의존성 요구 사항을 충족하기 위해 여러 의존성 해결 알고리즘을 사용합니다. 의존성이 복잡하면 이 작업이 어려워지는 경우가 많습니다(예: 여러 최상위 의존성이 간접적으로 같은 패키지에 의존하면서, 서로 다른 버전을 요구할 수 있습니다). 패키지 관리자마다 의존성 해결의 정교함은 다르지만, 알아 두어야 할 사항입니다. 의존성을 디버깅할 때 이를 이해해야 할 수도 있습니다.
 
-# Virtual environments
+# 가상 환경
 
-If you're developing multiple software projects, they may depend on different
-versions of a particular piece of software. Sometimes, your build tool will
-handle this naturally (e.g. by building a static binary).
+여러 소프트웨어 프로젝트를 개발하고 있다면, 각 프로젝트는 특정 소프트웨어의 서로 다른 버전에 의존할 수 있습니다. 때로는 빌드 도구가 이를 자연스럽게 처리합니다(예: 정적 바이너리를 빌드하는 방식).
 
-For other build tools and programming languages, one approach is handling this
-with virtual environments (e.g. with the
-[virtualenv](https://docs.python-guide.org/dev/virtualenvs/) tool for Python).
-Instead of installing dependencies system-wide, you can install dependencies
-per-project in a virtual environment, and _activate_ the virtual environment
-that you want to use when you're working on a specific project.
+다른 빌드 도구와 프로그래밍 언어에서는 가상 환경으로 이를 처리하는 방법이 있습니다(예: Python의 [virtualenv](https://docs.python-guide.org/dev/virtualenvs/) 도구). 시스템 전체에 의존성을 설치하는 대신 프로젝트별로 가상 환경에 의존성을 설치하고, 특정 프로젝트에서 작업할 때 사용하려는 가상 환경을 *활성화*할 수 있습니다.
 
-# Vendoring
+# 벤더링
 
-Another very different approach to dependency management is _vendoring_.
-Instead of using a dependency manager or build tool to fetch software, you copy
-the entire source code for a dependency into your software's repository. This
-has the advantage that you're always building against the same version of the
-dependency and you don't need to rely on a package repository, but it is more
-effort to upgrade dependencies.
+의존성을 관리하는 또 하나의 아주 다른 접근법은 *벤더링*입니다. 의존성 관리자나 빌드 도구로 소프트웨어를 가져오는 대신, 의존성의 전체 소스 코드를 여러분의 소프트웨어 저장소에 복사합니다. 항상 동일한 버전의 의존성을 바탕으로 빌드하며 패키지 저장소에 의존할 필요가 없다는 이점이 있지만, 의존성을 업그레이드하려면 더 많은 노력이 듭니다.
