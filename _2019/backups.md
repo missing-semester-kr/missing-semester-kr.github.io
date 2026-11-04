@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Backups"
+title: "백업"
 presenter: Jose
 date: 2019-01-24
 order: 2
@@ -8,97 +8,97 @@ video:
   aspect: 56.25
   id: lrpqYF8tcYQ
 special: true
-translation_status: source
+translation_status: draft
 ---
 
-There are two types of people:
+세상에는 두 종류의 사람이 있습니다.
 
-- Those who do backups
-- Those who will do backups
+- 백업을 하는 사람
+- 백업을 하게 될 사람
 
-Any data you own that you haven't backed up is data that could be gone at any moment, forever. Here we will cover some good backup basics and the pitfalls of some approaches.
+여러분이 가진 데이터 중 백업하지 않은 데이터는 언제든 영원히 사라질 수 있습니다. 여기서는 백업에 관한 좋은 기본 지식과 일부 접근법의 함정을 살펴보겠습니다.
 
-## 3-2-1 Rule
+## 3-2-1 규칙
 
-The [3-2-1 rule](https://www.us-cert.gov/sites/default/files/publications/data_backup_options.pdf) is a general recommended strategy for backing up your data. It state that you should have:
+[3-2-1 규칙](https://www.us-cert.gov/sites/default/files/publications/data_backup_options.pdf)은 데이터를 백업할 때 일반적으로 권장되는 전략입니다. 이 규칙에 따르면 다음을 갖춰야 합니다.
 
-- at least **3 copies** of your data
-- **2** copies in **different mediums**
-- **1** of the copies being **offsite**
+- 데이터 사본을 적어도 **3개** 보관하기
+- 사본 **2개**를 **서로 다른 매체**에 보관하기
+- 사본 중 **1개**를 **외부 장소**에 보관하기
 
-The main idea behind this recommendation is not to put all your eggs in one basket. Having 2 different devices/disks ensures that a single hardware failure doesn't take away all your data. Similarly, if you store your only backup at home and the house burns down or gets robbed you'll lose everything! That's what the offsite copy is there for. Onsite backups give you availability and speed, offsite give you the resiliency should a disaster happen.
+이 권고의 핵심은 모든 달걀을 한 바구니에 담지 말라는 것입니다. 서로 다른 장치나 디스크 2개를 사용하면 하드웨어 하나의 고장으로 모든 데이터를 잃는 일을 막을 수 있습니다. 마찬가지로 유일한 백업을 집에 보관하는데 집에 불이 나거나 도둑이 들면 모든 것을 잃게 됩니다! 외부 장소의 사본은 이럴 때를 위해 존재합니다. 같은 장소에 있는 백업은 가용성과 속도를 제공하고, 외부 장소의 백업은 재해가 발생했을 때 복원력을 제공합니다.
 
-## Testing your backups
+## 백업 테스트하기
 
-A common pitfall when performing backups is blindly trusting whatever the system says it's doing and not verifying that the data can be properly recovered. Toy Story 2 was almost lost and their backups were not working, [luck](https://www.youtube.com/watch?v=8dhp_20j0Ys) ended up saving them.
+백업할 때 흔히 빠지는 함정은 시스템이 한다고 말하는 일을 맹목적으로 믿고, 데이터를 제대로 복구할 수 있는지 검증하지 않는 것입니다. 토이 스토리 2는 하마터면 사라질 뻔했고 백업도 작동하지 않았지만, 결국 [행운](https://www.youtube.com/watch?v=8dhp_20j0Ys)이 이들을 구했습니다.
 
-## Versioning
+## 버전 관리
 
-You should understand that [RAID](https://en.wikipedia.org/wiki/RAID) is not a backup, and in general **mirroring is not a backup solution**. Simply syncing your files somewhere will not help in several scenarios, such as:
+[RAID](https://en.wikipedia.org/wiki/RAID)는 백업이 아니며, 일반적으로 **미러링은 백업 수단이 아니라는 것**을 이해해야 합니다. 파일을 어딘가에 동기화하기만 해서는 다음과 같은 여러 상황에서 도움이 되지 않습니다.
 
-- Data corruption
-- Malicious software
-- Deleting files by mistake
+- 데이터 손상
+- 악성 소프트웨어
+- 실수로 파일 삭제
 
-If the changes on your data propagate to the backup then you won't be able to recover in these scenarios. Note that this is the case for a lot of cloud storage solutions like Dropbox, Google Drive, One Drive, &c. Some of them do keep deleted data around for short amounts of time but usually the interface to recover is not something you want to be using to recover large amounts of files.
+데이터의 변경 사항이 백업에도 전파되면 이런 상황에서 복구할 수 없게 됩니다. Dropbox, Google Drive, One Drive 같은 많은 클라우드 스토리지 서비스도 여기에 해당한다는 점에 유의하세요. 그중 일부는 삭제된 데이터를 잠시 보관하지만, 대체로 복구 인터페이스가 많은 파일을 복구하는 데 쓰고 싶은 형태는 아닙니다.
 
-A proper backup system should be versioned in order to prevent this failure mode. By providing different snapshots in time one can easily navigate them to restore whatever was lost. The most widely known software of this kind is macOS Time Machine.
+제대로 된 백업 시스템은 이런 실패를 방지하도록 버전을 관리해야 합니다. 여러 시점의 스냅샷을 제공하면 쉽게 살펴보면서 잃어버린 것을 복원할 수 있습니다. 이런 종류의 소프트웨어로 가장 널리 알려진 것은 macOS의 Time Machine입니다.
 
-## Deduplication
+## 중복 제거
 
-However, making several copies of your data might be extremely costly in terms of disk space. Nevertheless, from one version to the next, most data will be identical and needs not be transferred again. This is where [data deduplication](https://en.wikipedia.org/wiki/Data_deduplication) comes into play, by keeping track of what has already been stored one can do **incremental backups** where only the changes from one version to the next need to be stored. This significantly reduces the amount of space needed for backups beyond the first copy.
+하지만 데이터 사본을 여러 개 만들면 디스크 공간 비용이 매우 커질 수 있습니다. 그래도 한 버전에서 다음 버전으로 넘어갈 때 대부분의 데이터는 같으므로 다시 전송할 필요가 없습니다. 바로 여기서 [데이터 중복 제거](https://en.wikipedia.org/wiki/Data_deduplication)가 쓰입니다. 이미 저장된 내용을 추적하면 한 버전에서 다음 버전으로 바뀐 부분만 저장하는 **증분 백업**을 할 수 있습니다. 이렇게 하면 첫 번째 사본 이후의 백업에 필요한 공간을 크게 줄일 수 있습니다.
 
-## Encryption
+## 암호화
 
-Since we might be backing up to untrusted third parties like cloud providers it is worth considering that if you backup your data is copied *as is* then it could potentially be looked by unwanted agents. Documents like your taxes are sensitive information that should not be backed up in plain format. To prevent this, many backup solutions offer **client side encryption** where data is encrypted before being sent to the server. That way the server cannot read the data it is storing but you can decrypt it with your secret key.
+클라우드 제공업체처럼 신뢰할 수 없는 제삼자에게 백업할 수도 있으므로, 백업할 때 데이터가 *있는 그대로* 복사되면 원치 않는 사람이 들여다볼 수 있다는 점을 고려할 필요가 있습니다. 세금 관련 문서 같은 것은 민감한 정보이므로 평문 형태로 백업하면 안 됩니다. 이를 방지하기 위해 많은 백업 도구와 서비스가 서버로 보내기 전에 데이터를 암호화하는 **클라이언트 측 암호화**를 제공합니다. 이렇게 하면 서버는 저장하고 있는 데이터를 읽을 수 없지만, 여러분은 비밀 키로 복호화할 수 있습니다.
 
-As a side note, if your disk (or home partition) is not encrypted, then anyone that get hold of your computer can manage to override the user access controls and read your data. Modern hardware supports fast and efficient read and writes of encrypted data so you might want to consider enabling **full disk encryption**.
-
-
-## Append only
-
-The properties reviewed so far focus on hardware failure or user mistakes but fail to address what happens if a malicious agent wanted to delete your data. Namely, say someone hacks into your system, are they able to wipe all your copies of the data you care about? If you worry about that scenario then you need some sort of append only backup solution. In general, this means having a server that will allow you to send new data but will refuse to delete existing data. Usually users have two keys, an append only key that supports  creating new backups and a full access key that also allows for deleting old backups that are no longer needed. The latter one is stored offline.
-
-Note that this is a quite challenging scenario since you need the ability to make changes whilst still preventing a malicious user from deleting your data. Existing commercial solutions include [Tarsnap](https://www.tarsnap.com/) and [Borgbase](https://www.borgbase.com/).
+덧붙여, 디스크(또는 홈 파티션)가 암호화되어 있지 않으면 컴퓨터를 손에 넣은 누구나 사용자 접근 제어를 우회하여 데이터를 읽을 수 있습니다. 최신 하드웨어는 암호화된 데이터의 빠르고 효율적인 읽기와 쓰기를 지원하므로 **전체 디스크 암호화**를 활성화하는 것도 고려해 볼 만합니다.
 
 
-## Additional considerations
+## 추가 전용
 
-Some other things you may want to look into are:
+지금까지 살펴본 특성은 하드웨어 고장이나 사용자의 실수에 초점을 맞추지만, 악의적인 누군가가 데이터를 삭제하려 할 때의 상황은 다루지 못합니다. 즉, 누군가 여러분의 시스템을 해킹했다고 합시다. 그 사람이 여러분이 중요하게 여기는 데이터의 모든 사본을 지울 수 있을까요? 이런 상황이 걱정된다면 일종의 추가 전용 백업 수단이 필요합니다. 일반적으로 새 데이터는 보낼 수 있지만 기존 데이터의 삭제는 거부하는 서버를 두는 것을 뜻합니다. 보통 사용자는 두 개의 키를 갖습니다. 새 백업을 만들 수 있는 추가 전용 키와, 더 이상 필요하지 않은 오래된 백업을 삭제할 수도 있는 전체 접근 키입니다. 후자는 오프라인으로 보관합니다.
 
-- **Periodic backups**: outdated backups can become pretty useless. Making backups regularly should be a consideration for your system
-- **Bootable backups**: some programs allow you to clone your entire disk. That way you have an image that contains an entire copy of your system you can boot directly from.
-- **Differential backup strategies**, you may not necessarily care the same about all your data. You can define different backup policies for different types of data.
-- **Append only backups** an additional consideration is to enforce append only operations to your backup repositories in order to prevent malicious agents to delete them if they get hold of your machine.
+악의적인 사용자가 데이터를 삭제하지 못하게 하면서도 변경할 수는 있어야 하므로, 이 상황은 해결하기 꽤 어렵다는 점에 유의하세요. 기존 상용 서비스로는 [Tarsnap](https://www.tarsnap.com/)과 [Borgbase](https://www.borgbase.com/)가 있습니다.
 
 
-## Webservices
+## 추가 고려 사항
 
-Not all the data that you use lives on your hard disk. If you use **webservices**, then it might be the case that some data you care about, such as Google Docs presentations or Spotify playlists, is stored online. Another easy example that is easy to forget is email accounts with web access, such as Gmail. Figuring out a backup solution in these cases is somewhat trickier. However, there are many services that allow you to download your data, either directly or via an API. Tools such as [gmvault](https://github.com/gaubert/gmvault) for Gmail are available to download the email files to your computer.
+그 밖에 살펴볼 만한 사항은 다음과 같습니다.
+
+- **주기적인 백업**: 오래된 백업은 거의 쓸모없어질 수 있습니다. 시스템을 구성할 때 정기적인 백업을 고려해야 합니다.
+- **부팅 가능한 백업**: 일부 프로그램은 디스크 전체를 복제할 수 있습니다. 이렇게 하면 시스템 전체의 사본이 들어 있어 바로 부팅할 수 있는 이미지를 갖게 됩니다.
+- **차등화된 백업 전략**: 모든 데이터를 똑같이 중요하게 여기지는 않을 수 있습니다. 데이터 유형마다 다른 백업 정책을 정할 수 있습니다.
+- **추가 전용 백업**: 또 하나의 고려 사항은, 악의적인 누군가가 여러분의 컴퓨터를 손에 넣더라도 백업을 삭제하지 못하도록 백업 저장소에서 추가 전용 작업만 허용하는 것입니다.
 
 
-## Webpages
+## 웹 서비스
 
-Similarly, some high quality content can be found online in the form of webpages. If said content is static one can easily back it up by just saving the website and all of its attachments. Another alternative is the [Wayback Machine](https://archive.org/web/), a massive digital archive of the World Wide Web managed by the [Internet Archive](https://archive.org/), a non profit organization focused on the preservation of all sorts of media. The Wayback Machine allows you to capture and archive webpages being able to later retrieve all the snapshots that have been archived for that website. If you find it useful, consider [donating](https://archive.org/donate/) to the project.
+여러분이 사용하는 모든 데이터가 하드 디스크에 있는 것은 아닙니다. **웹 서비스**를 사용한다면 Google Docs 프레젠테이션이나 Spotify 재생목록처럼 중요하게 여기는 데이터가 온라인에 저장되어 있을 수도 있습니다. 놓치기 쉬운 또 다른 간단한 예로는 Gmail처럼 웹으로 접근할 수 있는 이메일 계정이 있습니다. 이런 경우에는 백업 방법을 찾기가 조금 더 까다롭습니다. 하지만 데이터를 직접 또는 API를 통해 다운로드할 수 있게 해 주는 서비스가 많습니다. Gmail용 [gmvault](https://github.com/gaubert/gmvault)처럼 이메일 파일을 컴퓨터로 다운로드하는 도구도 있습니다.
 
 
-## Resources
+## 웹페이지
 
-Some good backup programs and services we have used and can honestly recommend:
+마찬가지로 온라인에는 웹페이지 형태의 양질의 콘텐츠가 있습니다. 그 콘텐츠가 정적이라면 웹사이트와 첨부파일을 모두 저장하는 것만으로 쉽게 백업할 수 있습니다. 또 다른 대안은 [Wayback Machine](https://archive.org/web/)으로, 각종 미디어의 보존에 힘쓰는 비영리 단체인 [Internet Archive](https://archive.org/)가 운영하는 거대한 월드 와이드 웹 디지털 보관소입니다. Wayback Machine으로 웹페이지를 캡처하고 보관하면 나중에 해당 웹사이트에 대해 보관된 모든 스냅샷을 다시 가져올 수 있습니다. 유용하다고 느낀다면 이 프로젝트에 [기부](https://archive.org/donate/)하는 것도 고려해 보세요.
 
-- [Tarsnap](https://www.tarsnap.com/) - deduplicated, encrypted online backup service for the truly paranoid.
-- [Borg Backup](https://borgbackup.readthedocs.io) - deduplicated backup program that supports compression and authenticated encryption. If you need a cloud provider [BorgBase](https://www.borgbase.com/) is one popular option.
-- [rsync](https://rsync.samba.org/) is a utility that provides fast incremental file transfer. It is not a full backup solution.
-- [rclone](https://rclone.org/) like rsync but for cloud storage providers such as Amazon S3, Dropbox, Google Drive, rsync.net, &c. Supports client side encryption of remote folders.
 
-## Exercises
+## 참고 자료
 
-1. Consider how you are (not) backing up your data and look into fixing/improving that.
+우리가 사용해 보았고 진심으로 추천할 수 있는 좋은 백업 프로그램과 서비스입니다.
 
-1. Figure out how to backup your email accounts
+- [Tarsnap](https://www.tarsnap.com/) - 정말 의심이 많은 사람을 위한, 중복 제거와 암호화 기능이 있는 온라인 백업 서비스입니다.
+- [Borg Backup](https://borgbackup.readthedocs.io) - 압축과 인증 암호화를 지원하는 중복 제거 백업 프로그램입니다. 클라우드 제공업체가 필요하다면 [BorgBase](https://www.borgbase.com/)가 인기 있는 선택지 중 하나입니다.
+- [rsync](https://rsync.samba.org/)는 빠른 증분 파일 전송을 제공하는 유틸리티입니다. 완전한 백업 수단은 아닙니다.
+- [rclone](https://rclone.org/)은 rsync와 비슷하지만 Amazon S3, Dropbox, Google Drive, rsync.net 같은 클라우드 스토리지 제공업체를 위한 도구입니다. 원격 폴더의 클라이언트 측 암호화를 지원합니다.
 
-1. Choose a webservice you use often (Spotify, Google Music, etc.) and figure out what options for backing up your data are. Often people have already made tools (such as [youtube-dl](https://ytdl-org.github.io/youtube-dl/)) solutions based on available APIs.
+## 연습문제
 
-1. Think of a website you have visited repeatedly over the years and look it up in [archive.org](https://archive.org/web/), how many versions does it have?
+1. 데이터를 어떻게 백업하고 있는지(또는 백업하지 않고 있는지) 생각해 보고, 이를 바로잡거나 개선할 방법을 알아보세요.
 
-1. One way to efficiently implement deduplication is to use hardlinks. Whereas symbolic link (also called a soft link or a symlink) is a file that points to another file or folder, a hardlink is a exact copy of the pointer (it uses the same inode and points to the same place in the disk). Thus if the original file is removed a symlink stops working whereas a hard link doesn't. However, hardlinks only work for files. Try using the command `ln` to create hard links and compare them to symlinks created with `ln -s`. (In macOS you will need to install the gnu coreutils or the hln package).
+1. 이메일 계정을 백업하는 방법을 알아보세요.
+
+1. 자주 사용하는 웹 서비스(Spotify, Google Music 등)를 하나 골라 데이터를 백업할 수 있는 방법을 알아보세요. 사용 가능한 API를 기반으로 한 도구나 방법(예: [youtube-dl](https://ytdl-org.github.io/youtube-dl/))을 다른 사람들이 이미 만들어 둔 경우가 많습니다.
+
+1. 여러 해 동안 반복해서 방문한 웹사이트를 떠올리고 [archive.org](https://archive.org/web/)에서 찾아보세요. 버전이 몇 개나 있나요?
+
+1. 중복 제거를 효율적으로 구현하는 한 가지 방법은 하드 링크를 사용하는 것입니다. 심볼릭 링크(소프트 링크 또는 심링크라고도 합니다)는 다른 파일이나 폴더를 가리키는 파일인 반면, 하드 링크는 포인터의 정확한 사본입니다(같은 inode를 사용하고 디스크의 같은 위치를 가리킵니다). 따라서 원래 파일이 삭제되면 심볼릭 링크는 작동하지 않지만 하드 링크는 계속 작동합니다. 다만 하드 링크는 파일에만 사용할 수 있습니다. `ln` 명령어로 하드 링크를 만들어 보고, `ln -s`로 만든 심볼릭 링크와 비교해 보세요. (macOS에서는 gnu coreutils 또는 hln 패키지를 설치해야 합니다.)
