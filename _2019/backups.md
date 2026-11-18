@@ -9,6 +9,7 @@ video:
   id: lrpqYF8tcYQ
 special: true
 translation_status: draft
+translation_method: ai
 ---
 
 세상에는 두 종류의 사람이 있습니다.

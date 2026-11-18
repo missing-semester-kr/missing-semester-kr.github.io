@@ -8,6 +8,7 @@ video:
   aspect: 56.25
   id: qw2c6ffSVOM
 translation_status: draft
+translation_method: ai
 ---
 
 # 수업의 동기

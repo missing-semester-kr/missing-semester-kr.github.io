@@ -8,6 +8,7 @@ video:
   aspect: 56.25
   id: dbDRfmH5uSI
 translation_status: draft
+translation_method: ai
 ---
 
 셸은 컴퓨터를 효율적으로 다룰 수 있는 텍스트 인터페이스입니다.
@@ -135,7 +136,7 @@ Bash는 공백 문자를 기준으로 인자를 나눕니다. 항상 원하는 �
  - `for f in *`: 이 디렉토리의 모든 파일
  - 글로빙에서는 일치하는 각 파일이 별도의 인자가 됩니다.
    - 그래도 *사용할* 때는 반드시 따옴표로 감싸야 합니다. `test -d "$f"`
- - 복잡한 패턴도 만들 수 있습니다.
+ - 고급 패턴도 만들 수 있습니다.
    - `for f in a*`: 현재 디렉토리에서 `a`로 시작하는 모든 파일
    - `for f in foo/*.txt`: `foo`의 모든 `.txt` 파일
    - `for f in foo/*/p??.txt`
@@ -235,7 +236,7 @@ diff <(journalctl -b -1 | head -n20) <(journalctl -b -2 | head -n20)
    - 가장 흔한 것: `SIGKILL`(`-9` 또는 `-KILL`): *지금 바로* 종료하라고 알립니다.
      `^\`와 같습니다.
    - `SIGTERM`(`-15` 또는 `-TERM`)도 있습니다. 정상적인 종료 절차를 거쳐 종료하라고 알립니다.
-     `^C`와 같습니다.
+     `^C`와 같습니다.<sup><a href="#translation-note-1" id="translation-note-ref-1" aria-label="한국어 각주 1">1</a></sup>
 
 
 ## 플래그
@@ -338,3 +339,8 @@ TODO
     - `^L`
     - `^C`, `^\`와  `^D`
     - `^U`와 `^Y`
+
+## 한국어 각주
+
+1: (한국어 각주) 원문은 `^\`를 `SIGKILL`, `^C`를 `SIGTERM`에 대응시키지만, 일반적인 터미널 설정에서는 `Ctrl+\`가 `SIGQUIT`, `Ctrl+C`가 `SIGINT`를 보냅니다. [GNU C 라이브러리 설명서](https://sourceware.org/glibc/manual/2.42/html_node/Signal-Characters.html)를 참고하세요. [본문으로 돌아가기](#translation-note-ref-1).
+{: #translation-note-1 }

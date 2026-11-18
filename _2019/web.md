@@ -9,13 +9,14 @@ video:
   id: XpZO3S8odec
 special: true
 translation_status: draft
+translation_method: ai
 ---
 
 터미널 외에도 웹 브라우저는 여러분이 상당한 시간을 쓰게 될 도구입니다. 따라서 이를 효율적이고 생산적으로 사용하는 방법을 배워 둘 가치가 있습니다.
 
 ## 단축키
 
-브라우저에서 여기저기 클릭하는 것이 가장 빠른 방법은 아닌 경우가 많습니다. 자주 쓰는 단축키에 익숙해지면 장기적으로 큰 도움이 됩니다.
+브라우저에서 여기저기 클릭하는 것이 가장 빠른 방법은 아닌 경우가 많습니다. 자주 쓰는 단축키에 익숙해지면 장기적으로 큰 도움이 될 수 있습니다.
 
 - 링크에서 `Middle Button Click`을 하면 새 탭에서 열립니다.
 - `Ctrl+T`는 새 탭을 엽니다.
@@ -39,7 +40,7 @@ Google이나 DuckDuckGo 같은 웹 검색 엔진은 더 정교하게 웹을 검�
 
 ## 검색창
 
-검색창도 강력한 도구입니다. 대부분의 브라우저는 웹사이트에서 검색 엔진을 알아내 저장할 수 있습니다. 키워드 인자를 수정하면
+검색창도 강력한 도구입니다. 대부분의 브라우저는 웹사이트에서 검색 엔진을 알아낼 수 있으며, 이를 저장합니다. 키워드 인자를 수정하면
 
 - Google Chrome에서는 [chrome://settings/searchEngines](chrome://settings/searchEngines)에 있습니다.
 - Firefox에서는 [about:preferences#search](about:preferences#search)에 있습니다.
@@ -130,7 +131,7 @@ a:link {
 웹 서비스가 애플리케이션 인터페이스, 즉 웹 API를 제공하여 웹 요청으로 서비스와 상호작용할 수 있게 하는 일이 점점 더 흔해지고 있습니다.
 이 주제를 더 깊이 소개하는 자료는 [여기](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction)에서 볼 수 있습니다. [공개 API도 많습니다](https://github.com/toddmotto/public-apis). 웹 API는 아주 다양한 이유로 유용할 수 있습니다.
 
-- **조회**. 웹 API로 지도, 날씨, 여러분의 공인 IP 주소 같은 정보를 상당히 쉽게 얻을 수 있습니다. 예를 들어 `curl ipinfo.io`는 공인 IP, 지역, 위치 등에 관한 세부 정보가 담긴 JSON 객체를 반환합니다. 적절히 파싱하면 이런 도구를 명령줄 도구와도 통합할 수 있습니다. 다음 bash 함수는 Google의 자동 완성 API와 통신하여 처음 열 개의 일치 결과를 반환합니다.
+- **조회**. 웹 API는 지도, 날씨, 여러분의 공인 IP 주소 같은 정보를 상당히 쉽게 제공할 수 있습니다. 예를 들어 `curl ipinfo.io`는 공인 IP, 지역, 위치 등에 관한 세부 정보가 담긴 JSON 객체를 반환합니다. 적절히 파싱하면 이런 도구를 명령줄 도구와도 통합할 수 있습니다. 다음 bash 함수는 Google의 자동 완성 API와 통신하여 처음 열 개의 일치 결과를 반환합니다.
 
 ```bash
 function c() {

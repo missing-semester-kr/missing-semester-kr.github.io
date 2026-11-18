@@ -9,6 +9,7 @@ video:
   id: OBx_c-i-M8s
 special: true
 translation_status: draft
+translation_method: ai
 ---
 
 세상은 무서운 곳이고, 모두가 여러분을 노리고 있습니다.
@@ -44,7 +45,7 @@ Tech Solidarity에는 합리적인 조언이 많이 담겨 있고 내용도 꽤 
  - [BitWarden](https://bitwarden.com/)
  - [`pass`](https://git.zx2c4.com/password-store/about/)
 
-특히 의심이 많다면 서버에 비밀번호를 평문으로 저장하는 도구 대신 여러분의 컴퓨터에서 로컬로 암호화하는 도구를 사용하세요. 지금 바로 이 도구로 여러분이 중요하게 여기는 모든 웹사이트의 비밀번호를 생성하세요. 그런 다음 이중 인증을 활성화하세요. 가능하면 [FIDO/U2F](https://fidoalliance.org/) 동글(예를 들어 [YubiKey](https://www.yubico.com/quiz/)는 [학생에게 20% 할인](https://www.yubico.com/why-yubico/for-education/)을 제공합니다)을 사용하세요. Google Authenticator나 Duo 같은 TOTP도 급할 때는 쓸 수 있지만, [피싱을 막아 주지는 못합니다](https://twitter.com/taviso/status/1082015009348104192). 위협 모델이 비밀번호가 전송되는 도중 낯선 사람이 우연히 가로채는 상황만 포함하는 것이 아니라면 SMS는 사실상 쓸모가 없습니다.
+특히 의심이 많다면 서버에 비밀번호를 평문으로 저장하는 도구 대신 여러분의 컴퓨터에서 로컬로 암호화하는 도구를 사용하세요. 지금 바로 이 도구로 여러분이 중요하게 여기는 모든 웹사이트의 비밀번호를 생성하세요. 그런 다음 이중 인증을 활성화하세요. 가능하면 [FIDO/U2F](https://fidoalliance.org/) 동글(예를 들어 [YubiKey](https://www.yubico.com/quiz/)는 [학생에게 20% 할인](https://www.yubico.com/why-yubico/for-education/)을 제공합니다)을 사용하세요. Google Authenticator나 Duo 같은 TOTP도 급할 때는 쓸 수 있지만, [피싱을 막아 주지는 못합니다](https://twitter.com/taviso/status/1082015009348104192). 위협 모델이 비밀번호가 전송되는 도중 불특정한 낯선 사람이 가로채는 상황만 포함하는 것이 아니라면 SMS는 사실상 쓸모가 없습니다.
 
 종이 키에 대해서도 한마디 하겠습니다. 서비스에서는 실제 두 번째 인증 수단을 잃었을 때 두 번째 인증 수단으로 쓸 수 있는 "백업 키"를 제공하는 경우가 많습니다(참고로, 예비 동글은 항상 안전한 곳에 보관하세요!). 이 키를 비밀번호 관리자에 넣어 둘 _수는_ 있지만, 누군가 비밀번호 관리자에 접근하면 완전히 당하게 된다는 뜻입니다(하지만 그런 위협 모델을 받아들일 수도 있겠죠). 정말 의심이 많다면 이 종이 키를 인쇄하고, 디지털 형태로는 절대 저장하지 말고, 현실 세계의 금고에 넣어 두세요.
 
@@ -63,7 +64,7 @@ Tech Solidarity에는 합리적인 조언이 많이 담겨 있고 내용도 꽤 
  - 오프라인 공격(누군가 꺼져 있는 노트북을 훔치는 경우): 전체 디스크 암호화를 활성화하세요. (Linux에서는 [cryptsetup + LUKS](https://wiki.archlinux.org/title/Dm-crypt/Encrypting_a_non-root_file_system), Windows에서는 [BitLocker](https://fossbytes.com/enable-full-disk-encryption-windows-10/), macOS에서는 [FileVault](https://support.apple.com/en-us/HT204837)를 사용하세요. 공격자가 여러분까지 _함께_ 붙잡고 있고 여러분의 비밀을 정말 원한다면 이것도 도움이 되지 않는다는 점에 유의하세요.
  - 온라인 공격(누군가 켜져 있는 여러분의 노트북을 가지고 있는 경우): 파일 암호화를 사용하세요. 크게 두 가지 방법이 있습니다.
     - 암호화된 파일시스템: 계층형 파일시스템 암호화 소프트웨어는 암호화된 블록 장치를 사용하는 대신 파일을 개별적으로 암호화합니다. 복호화 키를 제공하여 이런 파일시스템을 "마운트"하면 그 안의 파일을 자유롭게 둘러볼 수 있습니다. 마운트를 해제하면 그 파일들에 모두 접근할 수 없게 됩니다. 최신 도구로는 [gocryptfs](https://github.com/rfjakob/gocryptfs)와 [eCryptFS](https://www.ecryptfs.org/)가 있습니다. 더 자세한 비교는 [여기](https://nuetzlich.net/gocryptfs/comparison/)와 [여기](https://wiki.archlinux.org/title/Data-at-rest_encryption#Comparison_table)에서 확인할 수 있습니다.
-    - 암호화된 파일: 대칭 암호화(`gpg -c` 참고)와 비밀 키로 개별 파일을 암호화하세요. 또는 `pass`처럼 그 키도 공개 키로 암호화하여, 나중에 개인 키를 가진 여러분만 다시 읽을 수 있게 하세요. 세부적인 암호화 설정이 매우 중요합니다!
+    - 암호화된 파일: 대칭 암호화(`gpg -c` 참고)와 비밀 키로 개별 파일을 암호화하세요. 또는 `pass`처럼 그 키도 공개 키로 암호화하여, 나중에 여러분만 자신의 개인 키로 다시 읽을 수 있게 하세요. 세부적인 암호화 설정이 매우 중요합니다!
  - [그럴듯한 부인 가능성](https://en.wikipedia.org/wiki/Plausible_deniability)(무슨 문제라도 있나요, 경찰관님?): 보통 성능이 낮고, 데이터를 잃기도 더 쉽습니다. 실제로 [부인 가능한 암호화](https://en.wikipedia.org/wiki/Deniable_encryption)를 제공하는지 증명하기가 어렵습니다! [여기의 토론](https://security.stackexchange.com/questions/135846/is-plausible-deniability-actually-feasible-for-encrypted-volumes-disks)을 살펴본 뒤, [VeraCrypt](https://www.veracrypt.fr/en/Home.html)(친숙한 옛 TrueCrypt에서 갈라져 나와 유지 관리되고 있는 포크)를 사용해 볼지 생각해 보세요.
  - 암호화된 백업: [Tarsnap](https://www.tarsnap.com/)이나 [Borgbase](https://www.borgbase.com/)를 사용하세요.
     - 공격자가 여러분의 노트북을 손에 넣으면 백업도 삭제할 수 있을지 생각해 보세요!

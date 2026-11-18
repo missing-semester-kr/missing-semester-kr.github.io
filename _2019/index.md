@@ -6,12 +6,15 @@ description: >
 permalink: /2019/
 phony: true
 translation_status: draft
+translation_method: ai
 ---
 
 {% assign lecture_date = site['2019'] | group_by: 'date' | sort: 'name' %}
+{% assign weekdays = '일요일,월요일,화요일,수요일,목요일,금요일,토요일' | split: ',' %}
 {% for date in lecture_date %}
   {% if date.name == "" %}{% continue %}{% endif %}
-  <h2>{{ date.name | date: '%A, %-m/%-d' }}</h2>
+  {% assign weekday = date.name | date: '%w' | plus: 0 %}
+  <h2>{{ weekdays[weekday] }}, {{ date.name | date: '%-m/%-d' }}</h2>
   {% assign lectures = date.items | sort: 'order' %}
   <ul>
   {% for lecture in lectures %}

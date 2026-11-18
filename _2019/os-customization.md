@@ -9,6 +9,7 @@ video:
   id: epSRVqQzeDo
 special: true
 translation_status: draft
+translation_method: ai
 ---
 
 설정 메뉴에서 제공하는 것 외에도 운영체제를 원하는 대로 바꾸기 위해
