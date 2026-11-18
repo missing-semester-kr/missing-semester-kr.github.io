@@ -8,7 +8,6 @@ video:
   aspect: 56.25
   id: tgvt473T8xA
 translation_status: draft
-translation_method: ai
 ---
 
 소프트웨어는 보통 다른 소프트웨어(의 모음)를 바탕으로 만들어지므로 의존성 관리가 필요합니다.

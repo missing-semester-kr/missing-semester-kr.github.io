@@ -8,7 +8,6 @@ video:
   aspect: 56.25
   id: dbDRfmH5uSI
 translation_status: draft
-translation_method: ai
 ---
 
 셸은 컴퓨터를 효율적으로 다룰 수 있는 텍스트 인터페이스입니다.
@@ -315,7 +314,7 @@ diff <(journalctl -b -1 | head -n20) <(journalctl -b -2 | head -n20)
 1. **기타**
     - `touch {a,b}{a,b}`를 실행한 다음 `ls`를 실행해 보세요. 무엇이 생겼나요?
     - STDIN을 유지하면서도 파일로 파이프하고 싶을 때가 있습니다. `echo HELLO | tee hello.txt`를 실행해 보세요.
-    - `cat hello.txt > hello.txt `를 실행해 보세요. 어떤 일이 일어날 것으로 예상하나요? 실제로는 어떤 일이 일어나나요?
+    - `cat hello.txt > hello.txt`를 실행해 보세요. 어떤 일이 일어날 것으로 예상하나요? 실제로는 어떤 일이 일어나나요?
     - `echo HELLO > hello.txt`를 실행한 다음 `echo WORLD >> hello.txt`를 실행하세요. `hello.txt`에는 어떤 내용이 있나요? `>`는 `>>`와 어떻게 다른가요?
     - `printf "\e[38;5;81mfoo\e[0m\n"`를 실행하세요. 출력은 어떻게 달랐나요? 더 알고 싶다면 ANSI 색상 이스케이프 시퀀스를 검색해 보세요.
     - `touch a.txt`를 실행한 다음 `^txt^log`를 실행하세요. bash는 여러분을 위해 무슨 일을 했나요? 같은 맥락에서 `fc`를 실행해 보세요. 무슨 일을 하나요?

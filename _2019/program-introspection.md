@@ -8,7 +8,6 @@ video:
   aspect: 62.5
   id: 74MhV-7hYzg
 translation_status: draft
-translation_method: ai
 ---
 
 # 디버깅

@@ -9,7 +9,6 @@ video:
   id: OBx_c-i-M8s
 special: true
 translation_status: draft
-translation_method: ai
 ---
 
 세상은 무서운 곳이고, 모두가 여러분을 노리고 있습니다.
@@ -51,7 +50,7 @@ Tech Solidarity에는 합리적인 조언이 많이 담겨 있고 내용도 꽤 
 
 ## 비공개 통신
 
-[Signal](https://www.signal.org/)을 사용하세요([설정 방법](https://medium.com/@mshelton/signal-for-beginners-c6b44f76a1f0). [Wire](https://wire.com/en/)도 [괜찮습니다](https://www.securemessagingapps.com/). WhatsApp도 괜찮습니다. [Telegram은 사용하지 마세요](https://twitter.com/bascule/status/897187286554628096)). 데스크톱 메신저는 상당히 문제가 많습니다(부분적으로는 신뢰해야 할 소프트웨어 계층이 매우 방대한 Electron에 대개 의존하기 때문입니다).
+[Signal](https://www.signal.org/)을 사용하세요([설정 방법](https://medium.com/@mshelton/signal-for-beginners-c6b44f76a1f0)). [Wire](https://wire.com/en/)도 [괜찮습니다](https://www.securemessagingapps.com/). WhatsApp도 괜찮습니다. [Telegram은 사용하지 마세요](https://twitter.com/bascule/status/897187286554628096). 데스크톱 메신저는 상당히 문제가 많습니다(부분적으로는 신뢰해야 할 소프트웨어 계층이 매우 방대한 Electron에 대개 의존하기 때문입니다).
 
 이메일은 PGP 서명을 하더라도 특히 문제가 많습니다. 일반적으로 전방향 안전성을 제공하지 않으며, 키 배포 문제도 상당히 심각합니다. [keybase.io](https://keybase.io/)가 도움이 되며, 그 밖에도 여러 이유로 유용합니다. 또한 PGP 키는 보통 데스크톱 컴퓨터에서 다루는데, 이는 보안이 가장 취약한 컴퓨팅 환경 중 하나입니다. 이와 관련해서 Chromebook을 구매하거나, 그냥 키보드를 연결한 태블릿에서 작업하는 것을 고려해 보세요.
 
@@ -61,7 +60,7 @@ Tech Solidarity에는 합리적인 조언이 많이 담겨 있고 내용도 꽤 
 
 [![5달러짜리 렌치](https://imgs.xkcd.com/comics/security.png)](https://xkcd.com/538/)
 
- - 오프라인 공격(누군가 꺼져 있는 노트북을 훔치는 경우): 전체 디스크 암호화를 활성화하세요. (Linux에서는 [cryptsetup + LUKS](https://wiki.archlinux.org/title/Dm-crypt/Encrypting_a_non-root_file_system), Windows에서는 [BitLocker](https://fossbytes.com/enable-full-disk-encryption-windows-10/), macOS에서는 [FileVault](https://support.apple.com/en-us/HT204837)를 사용하세요. 공격자가 여러분까지 _함께_ 붙잡고 있고 여러분의 비밀을 정말 원한다면 이것도 도움이 되지 않는다는 점에 유의하세요.
+ - 오프라인 공격(누군가 꺼져 있는 노트북을 훔치는 경우): 전체 디스크 암호화를 활성화하세요. (Linux에서는 [cryptsetup + LUKS](https://wiki.archlinux.org/title/Dm-crypt/Encrypting_a_non-root_file_system), Windows에서는 [BitLocker](https://fossbytes.com/enable-full-disk-encryption-windows-10/), macOS에서는 [FileVault](https://support.apple.com/en-us/HT204837)를 사용하세요.) 공격자가 여러분까지 _함께_ 붙잡고 있고 여러분의 비밀을 정말 원한다면 이것도 도움이 되지 않는다는 점에 유의하세요.
  - 온라인 공격(누군가 켜져 있는 여러분의 노트북을 가지고 있는 경우): 파일 암호화를 사용하세요. 크게 두 가지 방법이 있습니다.
     - 암호화된 파일시스템: 계층형 파일시스템 암호화 소프트웨어는 암호화된 블록 장치를 사용하는 대신 파일을 개별적으로 암호화합니다. 복호화 키를 제공하여 이런 파일시스템을 "마운트"하면 그 안의 파일을 자유롭게 둘러볼 수 있습니다. 마운트를 해제하면 그 파일들에 모두 접근할 수 없게 됩니다. 최신 도구로는 [gocryptfs](https://github.com/rfjakob/gocryptfs)와 [eCryptFS](https://www.ecryptfs.org/)가 있습니다. 더 자세한 비교는 [여기](https://nuetzlich.net/gocryptfs/comparison/)와 [여기](https://wiki.archlinux.org/title/Data-at-rest_encryption#Comparison_table)에서 확인할 수 있습니다.
     - 암호화된 파일: 대칭 암호화(`gpg -c` 참고)와 비밀 키로 개별 파일을 암호화하세요. 또는 `pass`처럼 그 키도 공개 키로 암호화하여, 나중에 여러분만 자신의 개인 키로 다시 읽을 수 있게 하세요. 세부적인 암호화 설정이 매우 중요합니다!
@@ -90,7 +89,7 @@ Tech Solidarity에는 합리적인 조언이 많이 담겨 있고 내용도 꽤 
 
 Firefox를 사용한다면 [Multi-Account Containers](https://support.mozilla.org/en-US/kb/containers)를 활성화하세요. 소셜 네트워크, 은행, 쇼핑 등을 위한 컨테이너를 각각 만드세요. Firefox는 컨테이너마다 쿠키와 그 밖의 상태를 완전히 분리해서 보관하므로, 한 컨테이너에서 방문한 사이트가 다른 컨테이너의 민감한 데이터를 엿볼 수 없습니다. Google Chrome에서는 [Chrome 프로필](https://support.google.com/chrome/answer/2364824)을 사용하여 비슷한 결과를 얻을 수 있습니다.
 
-## 연습문제
+## 연습 문제
 
 1. PGP로 파일을 암호화하세요.
 1. veracrypt로 간단한 암호화 볼륨을 만드세요.

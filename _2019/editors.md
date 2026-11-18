@@ -8,7 +8,6 @@ video:
   aspect: 62.5
   id: 1vLcusYSrI4
 translation_status: draft
-translation_method: ai
 ---
 
 # 편집기의 중요성

@@ -8,7 +8,6 @@ video:
   aspect: 56.25
   id: VW2jn9Okjhw
 translation_status: draft
-translation_method: ai
 ---
 
 텍스트를 잔뜩 놓고 무언가 해 보고 싶었던 적이 있나요?

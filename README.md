@@ -30,9 +30,6 @@ website. Jekyll will rebuild the website as you make changes to files.
 Set `translation_status` in each lecture and year index:
 `source` (English source), `draft` (translation draft), or `complete` (completed translation).
 
-For AI-generated translations, also set `translation_method: ai` to disclose how
-the draft was written. Keep this field when the translation becomes `complete`.
-
 ## License
 
 All content in this course, including the website source code, lecture notes, exercises, and lecture videos, is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). See [here](https://missing.csail.mit.edu/license) for more information on contributions or translations.

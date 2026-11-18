@@ -9,7 +9,6 @@ video:
   id: BaLlAaHz-1k
 special: true
 translation_status: draft
-translation_method: ai
 ---
 
 어떤 일을 하는 스크립트를 작성한 뒤 주기적으로 실행하고 싶을 때가 있습니다. 백업 작업이 그 예입니다. 백그라운드에서 실행되다가 주기적으로 동작하는 *임시방편*을 직접 작성할 수도 있습니다. 하지만 대부분의 UNIX 시스템에는 간단한 규칙에 따라 최대 1분에 한 번의 빈도로 작업을 실행할 수 있는 cron 데몬이 포함되어 있습니다.

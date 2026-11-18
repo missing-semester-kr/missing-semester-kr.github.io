@@ -8,7 +8,6 @@ video:
   aspect: 62.5
   id: i0rf1gpKL1E
 translation_status: draft
-translation_method: ai
 ---
 
 ## 별칭과 함수
@@ -129,7 +128,7 @@ mcd () {
 
 ### `fd`와 `find`
 
-[fd](https://github.com/sharkdp/fd)는 `find`를 대체하는 간단하고 빠르며 사용자 친화적인 도구입니다. `--name` 플래그를 사용해야 한다는 것(99%의 경우에 하고 싶은 일이 이것입니다) 같은 `find`의 기본 동작은 일상적으로 사용하기 더 쉽게 해 줍니다. 또한 `git`을 인식하여 기본적으로 `.gitignore`에 있는 파일과 `.git` 폴더를 건너뜁니다. 기본적으로 보기 좋은 색상 구분도 제공합니다.
+[fd](https://github.com/sharkdp/fd)는 `find`를 대체하는 간단하고 빠르며 사용자 친화적인 도구입니다. `--name` 플래그를 사용해야 한다는 것(99%의 경우에 하고 싶은 일이 이것입니다) 같은 `find`의 기본 동작은 일상적으로 사용하기 더 쉽게 해 줍니다.<sup><a href="#translation-note-1" id="translation-note-ref-1" aria-label="한국어 각주 1">1</a></sup> 또한 `git`을 인식하여 기본적으로 `.gitignore`에 있는 파일과 `.git` 폴더를 건너뜁니다. 기본적으로 보기 좋은 색상 구분도 제공합니다.
 
 ### `rg/fzf`와 `grep`
 
@@ -149,7 +148,7 @@ mcd () {
 
 ### `mosh`와 `ssh`
 
-`ssh `는 매우 편리한 도구지만, 연결이 느리면 지연이 거슬릴 수 있고 연결이 끊어지면 다시 연결해야 합니다. [mosh](https://mosh.org/)는 로밍을 허용하고, 간헐적인 연결을 지원하며, 지능적인 로컬 에코를 제공하는 편리한 도구입니다.
+`ssh`는 매우 편리한 도구지만, 연결이 느리면 지연이 거슬릴 수 있고 연결이 끊어지면 다시 연결해야 합니다. [mosh](https://mosh.org/)는 로밍을 허용하고, 간헐적인 연결을 지원하며, 지능적인 로컬 에코를 제공하는 편리한 도구입니다.
 
 ### `tldr`와 `man`
 
@@ -175,3 +174,8 @@ mcd () {
 1. `fasd`나 비슷한 소프트웨어를 설치하고, 전달된 인자에 퍼지 매칭을 수행해 가장 높은 순위의 결과를 여러분이 선택한 편집기에서 여는 `v`라는 bash/zsh 함수를 작성하세요. 그런 다음 일치하는 결과가 여러 개일 때 `fzf`로 선택할 수 있도록 수정하세요.
 1. `fzf`는 퍼지 검색을 수행하기에 꽤 편리하고 셸 기록은 이런 종류의 검색을 자주 하게 되는 대상이므로, `fzf`를 `^R`에 연결하는 방법을 알아보세요. [여기](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings)에서 정보를 찾을 수 있습니다.
 1. `ack`의 `--bar` 옵션은 무슨 일을 하나요?
+
+## 한국어 각주
+
+1: (한국어 각주) 원문은 `fd`와 `find`의 기본 동작에 관한 설명이 불명확합니다. `fd`는 별도의 이름 검색 옵션 없이 파일 이름을 검색하므로 간단한 구문으로 이름을 검색할 수 있습니다. GNU `find`의 이름 검색 옵션은 원문에 적힌 `--name`이 아니라 `-name`입니다. [fd 사용법](https://github.com/sharkdp/fd#how-to-use)과 [GNU find 설명서](https://www.gnu.org/software/findutils/manual/html_node/find_html/Base-Name-Patterns.html)를 참고하세요. [본문으로 돌아가기](#translation-note-ref-1).
+{: #translation-note-1 }

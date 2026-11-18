@@ -1,12 +1,10 @@
-{% if page.translation_method == 'ai' or page.translation_status and page.translation_status != 'complete' %}
+{% if page.translation_status and page.translation_status != 'complete' %}
 <aside aria-label="번역 상태">
 <blockquote>
   {% if page.translation_status == 'source' %}
   <p>아직 한국어 번역이 없어 영어 원문을 제공하고 있습니다. 번역에 참여하려면 <a href="/license/#translation-guidelines">번역 기여 안내</a>를 참고해 주세요.</p>
-  {% elsif page.translation_status == 'draft' %}
-  <p>이 페이지는 {% if page.translation_method == 'ai' %}AI로 작성한 {% endif %}번역 초안입니다. 잘못된 내용이나 어색한 표현을 발견하면 <a href="/license/#translation-guidelines">번역 기여 안내</a>를 참고해 수정에 참여해 주세요.</p>
-  {% elsif page.translation_method == 'ai' %}
-  <p>이 페이지의 번역 초안은 AI로 작성했습니다.</p>
+  {% else %}
+  <p>이 페이지는 번역 초안입니다. 잘못된 내용이나 어색한 표현을 발견하면 <a href="/license/#translation-guidelines">번역 기여 안내</a>를 참고해 수정에 참여해 주세요.</p>
   {% endif %}
   <p>참고: <a href="https://missing.csail.mit.edu{{ page.url }}">영어 원문</a></p>
 </blockquote>

@@ -9,7 +9,6 @@ video:
   id: lrpqYF8tcYQ
 special: true
 translation_status: draft
-translation_method: ai
 ---
 
 세상에는 두 종류의 사람이 있습니다.
@@ -92,7 +91,7 @@ translation_method: ai
 - [rsync](https://rsync.samba.org/)는 빠른 증분 파일 전송을 제공하는 유틸리티입니다. 완전한 백업 수단은 아닙니다.
 - [rclone](https://rclone.org/)은 rsync와 비슷하지만 Amazon S3, Dropbox, Google Drive, rsync.net 같은 클라우드 스토리지 제공업체를 위한 도구입니다. 원격 폴더의 클라이언트 측 암호화를 지원합니다.
 
-## 연습문제
+## 연습 문제
 
 1. 데이터를 어떻게 백업하고 있는지(또는 백업하지 않고 있는지) 생각해 보고, 이를 바로잡거나 개선할 방법을 알아보세요.
 

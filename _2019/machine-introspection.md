@@ -9,7 +9,6 @@ video:
   id: eNYT2Oq3PF8
 special: true
 translation_status: draft
-translation_method: ai
 ---
 
 컴퓨터가 때로는 제대로 동작하지 않습니다. 그리고 그 이유가 알고 싶을 때가 아주 많습니다.

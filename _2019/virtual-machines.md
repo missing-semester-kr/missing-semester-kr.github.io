@@ -8,7 +8,6 @@ video:
   aspect: 56.25
   id: LJ9ki5zq6Ik
 translation_status: draft
-translation_method: ai
 ---
 
 # 가상 머신
@@ -46,7 +45,7 @@ translation_method: ai
 
 인기 있는 하이퍼바이저나 VM에 이미 익숙하다면, 명령줄에서 편하게 다루는 방법을 더 알아보고 싶을 수 있습니다. 한 가지 선택지는 여러 가상화 제공업체와 하이퍼바이저를 관리할 수 있는 [libvirt](https://wiki.libvirt.org/page/UbuntuKVMWalkthrough) 도구 모음입니다.
 
-## 연습문제
+## 연습 문제
 
 1. 하이퍼바이저를 다운로드하고 설치하세요.
 
@@ -94,7 +93,7 @@ VM만큼 안전하거나 격리가 잘되지는 않지만, 꽤 근접하며 나�
 
 [GitHub](https://github.com/) 같은 코드 저장소 웹사이트와 비슷하게, [DockerHub](https://hub.docker.com/) 같은 컨테이너 저장소 웹사이트도 있습니다. 여기에는 여러 소프트웨어 서비스의 미리 빌드된 이미지가 있으며, 쉽게 배포할 수 있습니다.
 
-## 연습문제
+## 연습 문제
 
 1. 컨테이너 소프트웨어(Docker, LXC 등)를 하나 골라 간단한 Linux 이미지를 설치하세요. SSH로 접속해 보세요.
 

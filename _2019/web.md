@@ -9,7 +9,6 @@ video:
   id: XpZO3S8odec
 special: true
 translation_status: draft
-translation_method: ai
 ---
 
 터미널 외에도 웹 브라우저는 여러분이 상당한 시간을 쓰게 될 도구입니다. 따라서 이를 효율적이고 생산적으로 사용하는 방법을 배워 둘 가치가 있습니다.
@@ -31,7 +30,7 @@ Google이나 DuckDuckGo 같은 웹 검색 엔진은 더 정교하게 웹을 검�
 
 - `"bar foo"`는 bar foo와 정확히 일치하는 결과만 찾습니다.
 - `foo site:bar.com`은 bar.com 안에서 foo를 검색합니다.
-- `foo -bar `는 bar가 들어 있는 용어를 검색에서 제외합니다.
+- `foo -bar`는 bar가 들어 있는 용어를 검색에서 제외합니다.
 - `foobar filetype:pdf`는 해당 확장자의 파일을 검색합니다.
 - `(foo|bar)`는 foo 또는 bar가 있는 결과를 검색합니다.
 
@@ -40,12 +39,12 @@ Google이나 DuckDuckGo 같은 웹 검색 엔진은 더 정교하게 웹을 검�
 
 ## 검색창
 
-검색창도 강력한 도구입니다. 대부분의 브라우저는 웹사이트에서 검색 엔진을 알아낼 수 있으며, 이를 저장합니다. 키워드 인자를 수정하면
+검색창도 강력한 도구입니다. 대부분의 브라우저는 웹사이트에서 검색 엔진을 알아낼 수 있으며, 이를 저장합니다.
 
 - Google Chrome에서는 [chrome://settings/searchEngines](chrome://settings/searchEngines)에 있습니다.
 - Firefox에서는 [about:preferences#search](about:preferences#search)에 있습니다.
 
-예를 들어 `y SOME SEARCH TERMS`로 youtube에서 바로 검색하도록 만들 수 있습니다.
+예를 들어 키워드 인자를 수정하면 `y SOME SEARCH TERMS`로 youtube에서 바로 검색하도록 만들 수 있습니다.
 
 게다가 도메인을 소유하고 있다면 도메인 등록 업체를 통해 하위 도메인 포워딩을 설정할 수 있습니다. 예를 들어 저는 `https://ht.josejg.com`을 이 강의 웹사이트에 연결했습니다. 이렇게 하면 `ht.`만 입력해도 검색창이 자동으로 완성해 줍니다. 이 설정의 또 다른 장점은 북마크와 달리 모든 브라우저에서 작동한다는 것입니다.
 
@@ -176,7 +175,7 @@ snapshot_wayback(driver, url)
 ```
 
 
-## 연습문제
+## 연습 문제
 
 1. 웹 브라우저에서 자주 사용하는 키워드 검색 엔진을 편집하세요.
 1. 위에서 언급한 확장 기능을 설치하세요. 특정 웹사이트에서 uBlock Origin이나 Privacy Badger를 비활성화하는 방법을 알아보세요. 어떤 차이가 보이나요? YouTube처럼 광고가 많은 웹사이트에서 해 보세요.

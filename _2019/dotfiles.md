@@ -8,7 +8,6 @@ video:
   aspect: 62.5
   id: YSZBWWJw3mI
 translation_status: draft
-translation_method: ai
 ---
 
 많은 프로그램은 "닷파일"이라는 일반 텍스트 파일을 사용해 설정합니다(파일 이름이 `.`으로 시작하기 때문에 붙은 이름으로, `~/.gitconfig`가 그 예이며, 이 때문에 기본적으로 `ls`의 디렉토리 목록에 나타나지 않습니다).
@@ -96,7 +95,7 @@ if [[ "$(hostname)" == "myServer" ]]; then {do_something}; fi
 
 그러면 각 컴퓨터의 `~/.gitconfig_local`에 컴퓨터별 설정을 넣을 수 있습니다. 이러한 컴퓨터별 설정을 별도 저장소에서 관리할 수도 있습니다.
 
-이 아이디어는 서로 다른 프로그램이 일부 설정을 공유하게 하고 싶을 때도 유용합니다. 예를 들어 `bash`와 `zsh`가 같은 별칭 모음을 공유하게 하려면 `.aliases`에 별칭을 작성하고 양쪽에 다음 블록을 넣으면 됩니다.
+이 아이디어는 서로 다른 프로그램이 일부 설정을 공유하게 하고 싶을 때도 유용합니다. 예를 들어 `bash`와 `zsh`이 같은 별칭 모음을 공유하게 하려면 `.aliases`에 별칭을 작성하고 양쪽에 다음 블록을 넣으면 됩니다.
 
 ```bash
 # Test if ~/.aliases exists and source it

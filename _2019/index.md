@@ -6,7 +6,6 @@ description: >
 permalink: /2019/
 phony: true
 translation_status: draft
-translation_method: ai
 ---
 
 {% assign lecture_date = site['2019'] | group_by: 'date' | sort: 'name' %}

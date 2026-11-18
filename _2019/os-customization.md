@@ -9,7 +9,6 @@ video:
   id: epSRVqQzeDo
 special: true
 translation_status: draft
-translation_method: ai
 ---
 
 설정 메뉴에서 제공하는 것 외에도 운영체제를 원하는 대로 바꾸기 위해
@@ -72,7 +71,7 @@ Linux 기반 운영체제를 사용한다면 타일링 창 관리자를
 그 배치를 수동으로 "실행"하는 대신 스크립트로 작성하여
 아주 쉽게 배치를 만들 수 있습니다.
 
-# 자료
+# 참고 자료
 
 - [Hammerspoon](https://www.hammerspoon.org/) - macOS 데스크톱 자동화
 - [Rectangle](https://rectangleapp.com/) - macOS 창 관리자

@@ -8,7 +8,6 @@ video:
   aspect: 62.5
   id: X5c2Y8BCowM
 translation_status: draft
-translation_method: ai
 ---
 
 프로그래머가 일상적인 업무에 원격 서버를 사용하는 일이 점점 더 흔해지고 있습니다. 백엔드 소프트웨어를 배포하기 위해 원격 서버를 사용해야 하거나 연산 능력이 더 높은 서버가 필요하다면, 결국 보안 셸(SSH)을 사용하게 됩니다. 이 강의에서 다루는 대부분의 도구와 마찬가지로 SSH도 매우 다양하게 설정할 수 있으므로 배워 둘 가치가 있습니다.
@@ -78,9 +77,9 @@ ssh로 파일을 복사하는 방법은 여러 가지가 있습니다.
 
 서버에서 GUI 기반 프로그램을 실행하려는 경우에는 포트 포워딩만으로 부족할 때가 있습니다. 전체 데스크톱 환경을 전송하는 원격 데스크톱 소프트웨어(예: RealVNC, Teamviewer 등)를 언제든 사용할 수 있습니다. 하지만 GUI 도구 하나만 사용하려는 경우에는 SSH가 좋은 대안을 제공합니다. 바로 그래픽 포워딩입니다.
 
-`-X` 플래그를 사용하면 SSH에 포워딩하도록 지시합니다.
+`-X` 플래그를 사용하면 SSH에 포워딩하도록 지시합니다.<sup><a href="#translation-note-1" id="translation-note-ref-1" aria-label="한국어 각주 1">1</a></sup>
 
- 신뢰할 수 있는 X11 포워딩에는 `-Y` 플래그를 사용할 수 있습니다.
+신뢰할 수 있는 X11 포워딩에는 `-Y` 플래그를 사용할 수 있습니다.
 
 마지막으로, 이 기능이 작동하려면 서버의 `sshd_config`에 다음 옵션이 설정되어 있어야 합니다.
 
@@ -132,7 +131,7 @@ Host *.mit.edu
 
 원격 폴더를 마운트하면 편리할 때가 있습니다. [sshfs](https://github.com/libfuse/sshfs)는 원격 서버의 폴더를 로컬에 마운트하여 로컬 편집기로 작업할 수 있게 해 줍니다.
 
-## 연습문제
+## 연습 문제
 
 1. SSH가 작동하려면 호스트에서 SSH 서버가 실행 중이어야 합니다. 나머지 연습문제를 수행할 수 있도록 가상 머신에 SSH 서버(예: OpenSSH)를 설치하세요. 컴퓨터의 IP를 알아내려면 `ip addr` 명령어를 실행하고 inet 필드를 찾으세요(루프백 인터페이스에 해당하는 `127.0.0.1` 항목은 무시하세요).
 
@@ -163,3 +162,8 @@ Host *.mit.edu
 {% comment %}
 Lecture notes will be available by the start of lecture.
 {% endcomment %}
+
+## 한국어 각주
+
+1: (한국어 각주) 원문은 무엇을 포워딩하는지 밝히지 않은 채 끝납니다. `-X`는 X11 포워딩을 활성화하고, `-Y`는 신뢰된 X11 포워딩을 활성화합니다. [OpenSSH 설명서](https://man.openbsd.org/ssh#X)를 참고하세요. [본문으로 돌아가기](#translation-note-ref-1).
+{: #translation-note-1 }
