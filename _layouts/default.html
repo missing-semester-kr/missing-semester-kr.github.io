@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{% if page.translation_status == 'draft' or page.translation_status == 'complete' %}ko{% else %}en{% endif %}">
 
   {% include head.html %}
 

@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Machine Introspection"
+title: "컴퓨터 내부 살펴보기"
 presenter: Jon
 date: 2019-01-24
 order: 4
@@ -8,115 +8,115 @@ video:
   aspect: 56.25
   id: eNYT2Oq3PF8
 special: true
-translation_status: source
+translation_status: draft
 ---
 
-Sometimes, computers misbehave. And very often, you want to know why.
-Let's look at some tools that help you do that!
+컴퓨터가 때로는 제대로 동작하지 않습니다. 그리고 그 이유가 알고 싶을 때가 아주 많습니다.
+이를 알아내는 데 도움이 되는 도구를 살펴봅시다!
 
-But first, let's make sure you're able to do introspection. Often,
-system introspection requires that you have certain privileges, like
-being the member of a group (like `power` for shutdown). The `root` user
-has the ultimate privilege; they can do pretty much anything. You can run
-a command as `root` (but be careful!) using `sudo`.
+하지만 먼저, 내부를 살펴볼 수 있는지 확인해 봅시다. 시스템 내부를
+살펴보려면 특정 권한이 필요한 경우가 많습니다. 예를 들어
+그룹의 구성원이어야 할 수 있습니다(시스템을 종료하기 위한 `power` 그룹처럼 말입니다). `root` 사용자는
+최고의 권한을 가지고 있어, 거의 모든 일을 할 수 있습니다. `sudo`를 사용하면
+`root`로 명령어를 실행할 수 있습니다(하지만 주의하세요!).
 
-## What happened?
+## 무슨 일이 있었나요?
 
-If something goes wrong, the first place to start is to look at what
-happened around the time when things went wrong. For this, we need to
-look at logs.
+무언가 잘못되면, 가장 먼저 문제가 생긴 시점 전후에
+무슨 일이 있었는지 살펴보아야 합니다. 이를 위해서는
+로그를 살펴봐야 합니다.
 
-Traditionally, logs were all stored in `/var/log`, and many still are.
-Usually there's a file or folder per program. Use `grep` or `less` to
-find your way through them.
+전통적으로 로그는 모두 `/var/log`에 저장되었고, 지금도 많은 로그가 그곳에 저장됩니다.
+보통 프로그램마다 파일이나 폴더가 하나씩 있습니다. `grep`이나 `less`를 사용해
+그 안을 살펴보세요.
 
-There's also a kernel log that you can see using the `dmesg` command.
-This used to be available as a plain-text file, but nowadays you often
-have to go through `dmesg` to get at it.
+`dmesg` 명령어로 볼 수 있는 커널 로그도 있습니다.
+이전에는 일반 텍스트 파일로 볼 수 있었지만, 요즘은
+`dmesg`를 거쳐야 볼 수 있는 경우가 많습니다.
 
-Finally, there is the "system log", which is increasingly where all of
-your log messages go. On _most_, though not all, Linux systems, that log
-is managed by `systemd`, the "system daemon", which controls all the
-services that run in the background (and much much more at this point).
-That log is accessible through the somewhat inconvenient `journalctl`
-tool if you are root, or part of the `admin` or `wheel` groups.
+마지막으로, 모든 로그 메시지가 점점 더 많이 모이는 곳인
+"시스템 로그"가 있습니다. 모든 Linux 시스템은 아니지만 *대부분*의 Linux 시스템에서 이 로그는
+"시스템 데몬"인 `systemd`가 관리합니다. 이 데몬은 백그라운드에서 실행되는 모든
+서비스를 제어합니다(지금은 그보다 훨씬 더 많은 일을 합니다).
+root이거나 `admin` 또는 `wheel` 그룹에 속해 있다면, 다소 불편한 `journalctl`
+도구를 통해 이 로그에 접근할 수 있습니다.
 
-For `journalctl`, you should be aware of these flags in particular:
+`journalctl`에서는 특히 다음 플래그를 알아 두어야 합니다.
 
- - `-u UNIT`: show only messages related to the given systemd service
- - `--full`: don't truncate long lines (the stupidest feature)
- - `-b`: only show messages from the latest boot (see also `-b -2`)
- - `-n100`: only show last 100 entries
+ - `-u UNIT`: 주어진 systemd 서비스와 관련된 메시지만 표시합니다.
+ - `--full`: 긴 줄을 잘라내지 않습니다(가장 어리석은 기능입니다).
+ - `-b`: 가장 최근 부팅 이후의 메시지만 표시합니다(`-b -2`도 참고하세요).
+ - `-n100`: 마지막 항목 100개만 표시합니다.
 
-## What is happening?
+## 무슨 일이 일어나고 있나요?
 
-If something _is_ wrong, or you just want to get a feel for what's going
-on in your system, you have a number of tools at your disposal for
-inspecting the currently running system:
+무언가 *잘못되어 있거나*, 단지 시스템에서 무슨 일이
+벌어지고 있는지 감을 잡고 싶다면, 현재 실행 중인 시스템을
+살펴보는 데 사용할 수 있는 도구가 여러 가지 있습니다.
 
-First, there's `top`, and the improved version `htop`, which show you
-various statistics for the currently running processes on the system.
-CPU use, memory use, process trees, etc. There are lots of shortcuts,
-but `t` is particularly useful for enabling the tree view. You can also
-see the process tree with `pstree` (+ `-p` to include PIDs). If you want
-to know what those programs are doing, you'll often want to tail their
-log files. `journalctl -f`, `dmesg -w`, and `tail -f` are you friends
-here.
+먼저 `top`과 그 개선판인 `htop`이 있습니다. 이 도구들은
+시스템에서 현재 실행 중인 프로세스의 여러 통계를 보여 줍니다.
+CPU 사용량, 메모리 사용량, 프로세스 트리 등이 있습니다. 단축키가 많지만,
+특히 `t`는 트리 보기를 켜는 데 유용합니다. `pstree`로도
+프로세스 트리를 볼 수 있습니다(PID도 포함하려면 `-p`를 더하세요). 이 프로그램들이
+무엇을 하는지 알고 싶을 때는 로그 파일의 끝부분을 계속
+살펴보려는 경우가 많을 것입니다. 이때는 `journalctl -f`, `dmesg -w`, `tail -f`가
+도움이 됩니다.
 
-Sometimes, you want to know more about the resources being used overall
-on your system. [`dool`](https://github.com/scottchiefbaker/dool) is
-excellent for that. It gives you real-time resource metrics for lots of
-different subsystems like I/O, networking, CPU utilization, context
-switches, and the like. `man dool` is the place to start.
+때로는 시스템 전반에서 사용 중인 자원에 관해 더 알고 싶을 수
+있습니다. [`dool`](https://github.com/scottchiefbaker/dool)은
+이런 경우에 아주 좋습니다. I/O, 네트워킹, CPU 사용률, 문맥
+전환 등 다양한 하위 시스템의 자원 지표를 실시간으로
+제공합니다. `man dool`부터 시작해 보세요.
 
-If you're running out of disk space, there are two primary utilities
-you'll want to know about: `df` and `du`. The former shows you the
-status of all the partitions on your system (try it with `-h`), whereas
-the latter measures the size of all the folders you give it, including
-their contents (see also `-h` and `-s`).
+디스크 공간이 부족해진다면, 알아 두면 좋을 주요 유틸리티가
+두 가지 있습니다. `df`와 `du`입니다. 전자는
+시스템의 모든 파티션 상태를 보여 줍니다(`-h`와 함께 실행해 보세요). 반면
+후자는 지정한 모든 폴더의 크기를 그 안의 내용까지 포함해
+측정합니다(`-h`와 `-s`도 참고하세요).
 
-To figure out what network connections you have open, `ss` is the way to
-go. `ss -t` will show all open TCP connections. `ss -tl` will show all
-listening (i.e., server) ports on your system. `-p` will also include
-which process is using that connection, and `-n` will give you the raw
-port numbers.
+어떤 네트워크 연결이 열려 있는지 알아보려면 `ss`를 사용하면
+됩니다. `ss -t`는 열려 있는 모든 TCP 연결을 보여 줍니다. `ss -tl`은
+시스템에서 연결을 기다리는 모든 포트(즉, 서버 포트)를 보여 줍니다. `-p`는
+해당 연결을 사용하는 프로세스도 함께 보여 주고, `-n`은
+포트 번호를 숫자 그대로 보여 줍니다.
 
 
-## System configuration
+## 시스템 설정
 
-There are _many_ ways to configure your system, but we'll go through
-two very common ones: networking and services. Most applications on your
-system tell you how to configure them in their manpage, and usually it
-will involve editing files in `/etc`; the system configuration
-directory.
+시스템을 설정하는 방법은 *많지만*, 여기서는 아주 흔한
+두 가지인 네트워킹과 서비스를 살펴보겠습니다. 시스템에 있는
+대부분의 애플리케이션은 매뉴얼 페이지에서 설정 방법을 설명하며, 보통
+시스템 설정 디렉토리인 `/etc`에 있는 파일을
+편집하게 됩니다.
 
-If you want to configure your network, the `ip` command lets you do
-that. Its arguments take on a slightly weird form, but `ip help command`
-will get you pretty far. `ip addr` shows you information about your
-network interfaces and how they're configured (IP addresses and such),
-and `ip route` shows you how network traffic is routed to different
-network hosts. Network problems can often be resolved purely through the
-`ip` tool. There's also `iw` for managing wireless network interfaces.
-`ping` is a handy tool for checking how deeply things are broken. Try
-pinging a hostname (google.com), an external IP address (1.1.1.1), and
-an internal IP address (192.168.1.1 or default gw). You may also want to
-fiddle with `/etc/resolv.conf` to check your DNS settings (how hostnames
-are resolved to IP addresses).
+네트워크를 설정하고 싶다면 `ip` 명령어로 할 수
+있습니다. 인자의 형식이 조금 특이하지만, `ip help command`로
+상당 부분 해결할 수 있습니다. `ip addr`는 네트워크
+인터페이스와 그 설정(IP 주소 등)에 관한 정보를 보여 주고,
+`ip route`는 네트워크 트래픽이 서로 다른 네트워크 호스트로 어떻게 라우팅되는지
+보여 줍니다. 네트워크 문제는 `ip` 도구만으로도
+해결할 수 있는 경우가 많습니다. 무선 네트워크 인터페이스를 관리하는 `iw`도 있습니다.
+`ping`은 문제가 어느 정도까지 발생했는지 확인하는 데 편리한 도구입니다.
+호스트 이름(google.com), 외부 IP 주소(1.1.1.1),
+내부 IP 주소(192.168.1.1 또는 기본 게이트웨이)에 ping을 보내 보세요. DNS 설정(호스트 이름을
+IP 주소로 변환하는 방식)을 확인하려면 `/etc/resolv.conf`를
+이리저리 조정해 볼 수도 있습니다.
 
-To configure services, you pretty much have to interact with `systemd`
-these days, for better or for worse. Most services on your system will
-have a systemd service file that defines a systemd _unit_. These files
-define what command to run when that services is started, how to stop
-it, where to log things, etc. They're usually not too bad to read, and
-you can find most of them in `/usr/lib/systemd/system/`. You can also
-define your own in `/etc/systemd/system` .
+요즘 서비스를 설정하려면, 좋든 싫든 대체로 `systemd`를
+다루어야 합니다. 시스템에 있는 대부분의 서비스에는
+systemd *유닛*을 정의하는 systemd 서비스 파일이 있습니다. 이 파일들은
+서비스를 시작할 때 실행할 명령어, 서비스를 중지하는 방법,
+로그를 기록할 위치 등을 정의합니다. 보통 읽기가 그리 어렵지 않으며,
+대부분 `/usr/lib/systemd/system/`에서 찾을 수 있습니다. `/etc/systemd/system`에
+직접 정의할 수도 있습니다.
 
-Once you have a systemd service in mind, you use the `systemctl` command
-to interact with it. `systemctl enable UNIT` will set the service to
-start on boot (`disable` removes it again), and `start`, `stop`, and
-`restart` will do what you expect. If something goes wrong, systemd will
-let you know, and you can use `journalctl -u UNIT` to see the
-application's log. You can also use `systemctl status` to see how all
-your system services are doing. If your boot feels slow, it's probably
-due to a couple of slow services, and you can use `systemd-analyze` (try
-it with `blame`) to figure out which ones.
+다루려는 systemd 서비스를 정했다면, `systemctl` 명령어를
+사용해 제어합니다. `systemctl enable UNIT`는 서비스를
+부팅할 때 시작하도록 설정합니다(`disable`은 이 설정을 다시 해제합니다). `start`, `stop`,
+`restart`는 예상대로 동작합니다. 무언가 잘못되면 systemd가
+알려 주며, `journalctl -u UNIT`로 애플리케이션의
+로그를 볼 수 있습니다. `systemctl status`를 사용해 모든
+시스템 서비스가 어떤 상태인지 볼 수도 있습니다. 부팅이 느리게 느껴진다면 아마
+몇몇 느린 서비스 때문일 것이며, `systemd-analyze`로(`blame`과 함께
+실행해 보세요) 어떤 서비스인지 알아낼 수 있습니다.
